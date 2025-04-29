@@ -11,6 +11,42 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'principal',
+    loadChildren: () => import('./pages/principal/principal.module').then( m => m.PrincipalPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'plantas',
+    loadChildren: () => import('./pages/plantas/plantas.module').then( m => m.PlantasPageModule)
+  },
+  {
+    path: 'buscador',
+    loadChildren: () => import('./pages/buscador/buscador.module').then( m => m.BuscadorPageModule)
+  },
+  {
+    path: 'articulos',
+    loadChildren: () => import('./pages/extras/articulos/articulos.module').then( m => m.ArticulosPageModule),
+  },
+  {
+    path: 'publicaciones',
+    loadChildren: () => import('./pages/extras/publicaciones/publicaciones.module').then( m => m.PublicacionesPageModule)
+  },
+  {
+    path: 'publi',
+    loadChildren: () => import('./pages/extras/publi/publi.module').then( m => m.PubliPageModule)
+  },
+  {
+    path: 'arti',
+    loadChildren: () => import('./pages/extras/arti/arti.module').then( m => m.ArtiPageModule)
+  }
 ];
 
 @NgModule({
