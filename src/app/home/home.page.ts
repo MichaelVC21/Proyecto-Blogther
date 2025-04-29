@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,53 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    public db: DatabaseService, // Cambiar el tipo de DataBase según su definición
+  ) {
+    // Ejemplo de uso de la función addFirestoreDocument
+    // leer el archivo database.ts para mas informacion
+    // this.db.addFirestoreDocument('users', {
+    //   username: 'test',
+    //   password: 'test',
+    //   suscripcion: 'premium',
+    // }).then((res) => {
+    //   console.log('res', res.id);
+    // }).catch((err) => {
+    //   console.error('err', err);
+    // })
 
+
+
+    // Ejemplo de uso de la función fetchFirestoreCollection
+    // this.db.fetchFirestoreCollection('users').subscribe((res: any[]) => {
+    //   console.log('Usuario recuperado', res);
+    // }), (err: any) => {
+    //   console.error('Usuario no recuperado', err);
+    // }
+  }
+
+
+  //TAREA!!!!!
+  //CREAR UNA COLEECION DE PLANTAS
+
+
+
+  loadCities(){
+    let cities = [
+      { name: 'Barcelona', country: 'Spain' },
+      { name: 'Madrid', country: 'Spain' },
+      { name: 'Paris', country: 'France' },
+      { name: 'Berlin', country: 'Germany' },
+      { name: 'London', country: 'UK' },
+      { name: 'Rome', country: 'Italy' },
+    ];
+    cities.forEach((city: any) => {
+      console.log('city cargada', city);
+      // this.db.addFirestoreDocument('cities', city).then((res) => {
+      //   console.log('ciudad guardada', res.id);
+      // }).catch((err) => {
+      //   console.error('err', err);
+      // })
+    });
+  }
 }

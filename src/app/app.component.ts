@@ -11,7 +11,7 @@ export class AppComponent {
   constructor(
     public db: DatabaseService
   ) {
-    this.db.fetchFirestoreCollection('Articulos')
-    .subscribe((res: any[]) => console.log(res));
+    // this.db.fetchFirestoreCollection('Articulos')
+    // .subscribe((res: any[]) => console.log(res));
   }
 }
