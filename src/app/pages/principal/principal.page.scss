@@ -1,0 +1,38 @@
+/* Variables de color */
+$background-color: #f3f3e8; /* Color de fondo */
+$header-bg-color: #f7f7ef;
+$card-bg-color: #e8e8d1;
+$primary-color: #6b8e23; /* Verde oliva */
+$text-color: #4a4a4a;
+$icon-color: #4a4a4a;
+
+ion-header {
+  background-color: $header-bg-color;
+  padding: 10px 16px;
+
+  
+  ion-item {
+    --background: transparent;
+    display: flex;
+    align-items: center;
+    
+
+    ion-input {
+      --placeholder-color: $text-color;
+      color: $text-color;
+      font-size: 16px;
+    }
+
+    ion-button {
+      --background: transparent;
+      color: $icon-color;
+      margin-left: auto;
+
+      ion-icon {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,56 @@
+/* Variables de color */
+$background-color: #f3f3e8;
+$card-bg-color: #e8e8d1;
+$primary-color: #6b8e23;
+$text-color: #4a4a4a;
+$subtitle-color: #7a7a7a;
+img {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    object-fit: cover;
+    height: 180px;
+    width: 100%;
+  }
+
+
+  ion-card {
+    --background: $card-bg-color;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    img {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      object-fit: cover;
+      height: 180px;
+      width: 100%;
+    }
+
+    ion-card-header {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      ion-card-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $primary-color;
+      }
+
+      ion-card-subtitle {
+        font-size: 0.9em;
+        color: $subtitle-color;
+      }
+    }
+
+    ion-card-content {
+      padding: 10px;
+      font-size: 0.95em;
+      color: $text-color;
+    }
+  }
