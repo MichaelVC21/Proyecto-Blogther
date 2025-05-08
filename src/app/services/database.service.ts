@@ -30,6 +30,10 @@ export class DatabaseService {
   addFirestoreDocument(collectionName: string, collectionData: any) {
     return this.firestore.collection(collectionName).add(collectionData);
   }
+  addFirestoreDocumentWithId(collection: string, id: string, data: any): Promise<void> {
+    return this.firestore.collection(collection).doc(id).set(data);
+  }
+  
 
   // actualiza la información de un documento o registro
   updateFireStoreDocument(collection: string, uid: string, data: any) {

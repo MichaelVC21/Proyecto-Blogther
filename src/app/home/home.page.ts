@@ -14,10 +14,13 @@ export class HomePage {
   ) {
     // Ejemplo de uso de la función addFirestoreDocument
     // leer el archivo database.ts para mas informacion
-    // this.db.addFirestoreDocument('users', {
-    //   username: 'test',
-    //   password: 'test',
-    //   suscripcion: 'premium',
+    // this.db.addFirestoreDocument('plantas', {
+    // nombre: "Menta",
+    // familia: "Lamiaceae",
+    // clima: "Templado",
+    // lugar: "Europa y Asia",
+    // descripcion: "Hierba aromática muy usada en cocina y medicina, de sabor fresco e intenso.",
+    // imagen: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Mentha_piperita_-_Köhler–s_Medizinal-Pflanzen-096.jpg"
     // }).then((res) => {
     //   console.log('res', res.id);
     // }).catch((err) => {

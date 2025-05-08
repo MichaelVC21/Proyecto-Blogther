@@ -5,6 +5,8 @@ import { ArticulosComponent } from 'src/app/components/articulos/articulos.compo
 import { PublicacionesComponent } from 'src/app/components/publicaciones/publicaciones.component';
 import { TabBarComponent } from 'src/app/components/tab-bar/tab-bar.component';
 import { PincipalComponent } from 'src/app/components/pincipal/pincipal.component';
+import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @NgModule({
   imports: [
@@ -13,14 +15,18 @@ import { PincipalComponent } from 'src/app/components/pincipal/pincipal.componen
     ArticulosComponent,
     PublicacionesComponent,
     TabBarComponent,
-    PincipalComponent // ✅ importa el componente standalone aquí
+    PincipalComponent,
+    PerfilComponent,
+    LoginComponent // ✅ importa el componente standalone aquí
   ],
   exports: [
     MenuComponent,
     ArticulosComponent,
     PublicacionesComponent,
     TabBarComponent,
-    PincipalComponent // ✅ también lo puedes exportar para usarlo en otros módulos
+    PincipalComponent,
+    PerfilComponent,
+    LoginComponent // ✅ también lo puedes exportar para usarlo en otros módulos
   ]
 })
 export class SharedModule {}
