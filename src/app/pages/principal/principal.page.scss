@@ -8,13 +8,14 @@ $icon-color: #4a4a4a;
 
 ion-header {
   background-color: $header-bg-color;
-  padding: 10px 16px;
+  margin-bottom: 30px;
 
   
   ion-item {
     --background: transparent;
     display: flex;
     align-items: center;
+    
     
 
     ion-input {
