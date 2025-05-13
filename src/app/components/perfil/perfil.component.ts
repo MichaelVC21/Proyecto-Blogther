@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular'; // importa Ionic
 import { CommonModule } from '@angular/common'; // opcional, pero útil
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-perfilcomponent',
@@ -11,7 +12,9 @@ import { CommonModule } from '@angular/common'; // opcional, pero útil
 })
 export class PerfilComponent  implements OnInit {
 
-  constructor() { }
+  constructor(
+    public auth: AuthService,
+  ) { }
 
   ngOnInit() {}
 

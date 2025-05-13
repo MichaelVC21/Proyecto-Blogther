@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { DatabaseService } from 'src/app/services/database.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-articulos',
@@ -9,10 +11,29 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./articulos.component.scss'],
   imports: [IonicModule, CommonModule],
 })
-export class ArticulosComponent  implements OnInit {
+export class ArticulosComponent  implements OnInit, AfterViewInit {
 
-  constructor() { }
+  plantas: any; // ✅ nombre coherente con el HTML
 
-  ngOnInit() {}
+  constructor(
+    public db: DatabaseService,
+    public cdr: ChangeDetectorRef,
+  ) {
+    
+  }
+  ngOnInit() { 
+    this.fetchPlantas()
+   }
+  ngAfterViewInit() {this.fetchPlantas()}
+    // Aquí puedes realizar acciones adicionales después de que la vista se haya inicializado
+
+
+  fetchPlantas(){
+    this.db.fetchFirestoreCollection('plantas').subscribe((data) => {
+      console.log(data); // Verifica aquí si los datos son correctos
+      this.plantas = data; // ✅ asigna los datos al array esperado en el HTML
+      this.cdr.detectChanges(); // Detecta cambios para actualizar la vista
+    });
+  }
 
 }

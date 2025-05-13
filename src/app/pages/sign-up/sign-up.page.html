@@ -1,14 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>sign-up</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <img src="../../../assets/img/logo blogther.svg" alt="logo">
-
-  <form [formGroup] = "registerForm" (ngSubmit) = "register()">
+  <form [formGroup] = "loginForm" (ngSubmit) = "login()">
     <ion-item>
       <ion-input label="Email"
       labelPlacement="stacked"
@@ -16,16 +13,6 @@
       [clearInput]="true"
       placeholder="Correo Electronico"
       type="email"
-      mode="md"></ion-input>
-    </ion-item>
-    <br>
-    <ion-item>
-      <ion-input label="Usuario"
-      labelPlacement="stacked"
-      formControlName="username"
-      [clearInput]="true"
-      placeholder="Nombre de Usuario"
-      type="text"
       mode="md"></ion-input>
     </ion-item>
     <br>
@@ -40,7 +27,7 @@
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
     </ion-item>
-    <ion-button expand="full" color="primary" type="submit" [disabled]="!registerForm.valid">
+    <ion-button expand="full" color="primary" type="submit" [disabled]="!loginForm.valid">
       <ion-icon name="person-outline" slot="start"></ion-icon>
       Iniciar sesión
     </ion-button>

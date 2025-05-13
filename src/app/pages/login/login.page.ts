@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginPage implements OnInit {
     public formBuilder: FormBuilder,
     public db: DatabaseService,
     public auth: AuthService,
+    public router: Router,
   ) { 
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,6 +42,7 @@ export class LoginPage implements OnInit {
         .then(() => {
           console.log('Usuario registrado correctamente');
           this.registerForm.reset();
+          this.router.navigate(['/principal']);
         })
         .catch((error) => {
           console.error('Error al registrar usuario:', error);
