@@ -2,9 +2,10 @@
 $background-color: #f3f3e8; /* Color de fondo */
 $header-bg-color: #f7f7ef;
 $card-bg-color: #e8e8d1;
-$primary-color: #6b8e23; /* Verde oliva */
+$primary-color: #314A36; /* Verde oliva */
 $text-color: #4a4a4a;
 $icon-color: #4a4a4a;
+
 
 ion-header {
   background-color: $header-bg-color;
@@ -20,7 +21,7 @@ ion-header {
 
     ion-input {
       --placeholder-color: $text-color;
-      color: $text-color;
+      color: $primary-color;
       font-size: 16px;
     }
 

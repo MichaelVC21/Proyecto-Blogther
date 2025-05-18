@@ -1,17 +1,10 @@
 <ion-content>
   <ion-card *ngFor="let planta of plantas" href="/arti">
     <img [src]="planta.imagen" alt="Imagen de {{ planta.nombre }}" />
-    
-    <ion-card-header>
-      <ion-card-title>{{ planta.nombre }}</ion-card-title>
-      <ion-card-subtitle>{{ planta.familia }}</ion-card-subtitle>
-    </ion-card-header>
-  
+ 
     <ion-card-content>
-      <p><strong>Descripción:</strong> {{ planta.descripcion }}</p>
-      <p><strong>Clima:</strong> {{ planta.clima }}</p>
-      <p><strong>Origen:</strong> {{ planta.lugar }}</p>
+      <h1 class="blur-title">{{ planta.nombre }}</h1>
+      <p>{{ planta.descripcion }}</p>
     </ion-card-content>
-  
   </ion-card>
 </ion-content>
