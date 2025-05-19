@@ -1,0 +1,32 @@
+/* Variables de color */
+$background-color: #f3f3e8;
+$card-bg-color: #e8e8d1;
+$primary-color: #314A36;
+$text-color: #4a4a4a;
+$subtitle-color: #7a7a7a;
+
+img {
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+.custom-segment {
+  background-color: $card-bg-color;
+  border-radius: 100px;
+  margin-top: 10px;
+
+  ion-segment-button {
+    --background: $background-color;
+    --color-checked: #314A36;
+
+    ion-label {
+      font-weight: 600;
+      color: $primary-color;
+    }
+  }
+}
+
+
