@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <!-- Botón de volver -->
+      <ion-back-button defaultHref="/" text="Volver"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" fullscreen>
+  <!-- Vista de cámara simulada -->
+  <div class="camera-container">
+    <img src="assets/placeholder.svg" alt="Camera view" />
+
+    <!-- Marco con esquinas -->
+    <div class="camera-frame">
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+      <div class="corner bottom-left"></div>
+      <div class="corner bottom-right"></div>
+    </div>
+
+    <!-- Efecto flash -->
+    <div *ngIf="isCapturing" class="flash-overlay"></div>
+  </div>
+
+  <!-- Control de disparo -->
+  <div class="controls">
+    <ion-button
+      shape="round"
+      (click)="handleTakePhoto()"
+      [disabled]="isCapturing"
+    >
+      <div class="inner-circle"></div>
+    </ion-button>
+  </div>
+</ion-content>
+

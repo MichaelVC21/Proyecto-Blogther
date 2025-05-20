@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis plantas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="plant-list-content" fullscreen>
+  <div class="grid">
+    <!-- Cada tarjeta de planta -->
+    <ion-card
+      *ngFor="let plant of plantCategories"
+      (click)="goToDetail(plant.id)"
+      class="plant-card"
+    >
+      <div class="card-image">
+        <img
+          [src]="plant.entries[0]?.image || 'assets/placeholder.svg'"
+          [alt]="plant.name"
+        />
+      </div>
+      <ion-card-content>
+        <ion-card-subtitle class="plant-name">
+          {{ plant.name }}
+        </ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Tarjeta de “Añadir” -->
+    <ion-card (click)="goToNewPlant()" class="plant-card add-card">
+      <div class="add-container">
+        <ion-icon name="add-outline" class="add-icon"></ion-icon>
+        <div class="add-text">Añadir</div>
+      </div>
+    </ion-card>
+  </div>
+  <app-tab-bar></app-tab-bar>
+  
+</ion-content>

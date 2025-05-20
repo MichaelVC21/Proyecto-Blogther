@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-title class="plant-name">{{ plant.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="plant-detail-content" fullscreen>
+  <!-- Grid de entradas + tile “Añadir” -->
+  <div class="grid">
+    <ion-card
+      *ngFor="let e of entries"
+      (click)="selectEntry(e)"
+      [class.selected]="e === selectedEntry"
+      class="entry-card"
+    >
+      <img [src]="e.image" alt="Dia {{ e.day }}" />
+      <ion-card-content>
+        <p class="day-label">Día {{ e.day }}</p>
+        <p *ngIf="e === selectedEntry" class="sub-label">
+          Última Actualización
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Tile añadir -->
+    <ion-card (click)="addEntry()" class="add-card">
+      <div class="add-icon">
+        <ion-icon name="add-outline"></ion-icon>
+      </div>
+      <ion-card-content>
+        <p class="day-label">Añadir</p>
+        <p class="sub-label">{{ todayIso | date:'dd/MM/yyyy' }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Detalle de la entrada seleccionada -->
+  <div class="detail-section">
+    <img
+      [src]="selectedEntry.image"
+      alt="Detalle Día {{ selectedEntry.day }}"
+      class="detail-img"
+    />
+    <p class="location">{{ selectedEntry.location[0] }}</p>
+    <div class="tags">
+      <ion-chip
+        *ngFor="let loc of uniqueLocations"
+        [class.active]="loc === selectedEntry.location[0]"
+      >
+        <ion-label>{{ loc }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,49 @@
+/* Variables de color */
+$background-color: #f3f3e8;
+$card-bg-color: #e8e8d1;
+$primary-color: #314A36;
+$text-color: #4a4a4a;
+$subtitle-color: #7a7a7a;
+
+img {
+    height: 200px;
+    width: 800px;
+   
+  }
+
+
+  ion-card {
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    img {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      object-fit: cover;
+      height: 254px;
+    }
+
+  ion-card-title {
+    color: green;
+    background-color: rgba(255, 255, 255, 0.3); 
+    -webkit-backdrop-filter: blur(5px); 
+    backdrop-filter: blur(5px); 
+  }  
+  .blur-title {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+    backdrop-filter: blur(5px); /* Efecto blur */
+    -webkit-backdrop-filter: blur(5px); /* Soporte para Safari */
+    font-weight: bold;
+    padding: 20px 10px;
+  }
+  ion-card-header {
+    position: absolute;
+    bottom: 0;
+    width: 10000px;
+    margin-left: -16px;
+    margin-bottom: -16px;
+  }
+}

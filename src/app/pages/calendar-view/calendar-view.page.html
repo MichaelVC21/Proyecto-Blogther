@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Calendario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="calendar-view-content" fullscreen>
+  <!-- Calendario INLINE sin botones -->
+  <div class="calendar-wrapper">
+    <!-- Calendario inline sin botones de Aceptar/Cancelar -->
+<ion-datetime
+class="calendar"
+presentation="date"
+
+[value]="todayIso"
+(ionChange)="onDateChange($event)"
+></ion-datetime>
+
+  </div>
+
+  <!-- Hora fija del dispositivo -->
+  <div class="time-wrapper">
+    <ion-label class="time-label">Time</ion-label>
+    <ion-label class="time-value">
+      {{ currentTime | date:'shortTime' }}
+    </ion-label>
+  </div>
+
+  <!-- Lista de próximas tareas -->
+  <ion-card class="tasks-card">
+    <ion-card-header>
+      <ion-card-title>Próximas Tareas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item *ngFor="let task of filteredTasks">
+          <ion-label>{{ task.title }}</ion-label>
+          <ion-note slot="end">{{ task.time }}</ion-note>
+        </ion-item>
+      </ion-list>
+      <div class="tasks-buttons left-align">  <!-- clase left-align -->
+        <ion-button fill="clear" size="small">Agregar</ion-button>
+        <ion-button fill="clear" size="small">Editar</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

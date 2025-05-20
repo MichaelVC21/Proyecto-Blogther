@@ -1,0 +1,102 @@
+@import 'src/theme/variables';
+
+:host {
+  --ion-background-color: var(--app-bg-color);
+}
+
+/* Título Planta */
+.plant-name {
+  color: var(--primary-bg-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Grid de 2 columnas */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
+.entry-card,
+.add-card {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.entry-card img,
+.add-card .add-icon {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.add-card {
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-card .add-icon ion-icon {
+  font-size: 2rem;
+  color: var(--primary-bg-color);
+}
+
+.selected {
+  border: 2px solid var(--primary-bg-color);
+}
+
+/* Labels dentro de la tarjeta */
+.day-label {
+  font-weight: 600;
+  margin: 8px 0 4px;
+}
+
+.sub-label {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Sección detalle */
+.detail-section {
+  padding: 0 16px 24px;
+  text-align: center;
+}
+
+.detail-img {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.location {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+/* Tags de ubicación */
+.tags {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tags ion-chip {
+  --background: #fff;
+  --border-radius: 16px;
+  border: 1px solid var(--primary-bg-color);
+}
+
+.tags ion-chip.active {
+  --background: var(--primary-bg-color);
+  color: #fff;
+}

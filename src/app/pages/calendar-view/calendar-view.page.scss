@@ -1,0 +1,71 @@
+@import 'src/theme/variables';
+
+:host {
+  --ion-background-color: var(--app-bg-color);
+}
+
+.calendar-wrapper {
+  padding: 0 16px;
+  margin-top: 16px;
+}
+.calendar {
+  width: 100%;
+  --padding-start: 0;
+  --padding-end: 0;
+  --border-radius: 12px;
+  background: #faf8f0;
+}
+
+/* Hora del teléfono */
+.time-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-top: 8px;
+}
+.time-label {
+  font-size: 1rem;
+}
+.time-value {
+  margin-left: auto;
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+/* Card de tareas */
+.tasks-card {
+  margin: 16px;
+  border-radius: 12px;
+  background: #fff;
+}
+.tasks-card ion-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.tasks-card ion-item {
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  padding: 8px 0;
+}
+.tasks-card ion-note {
+  font-size: 0.9rem;
+  color: var(--primary-bg-color);
+}
+/* Botones alineados a la IZQUIERDA */
+.tasks-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-left: 0;    /* se apoya al borde */
+}
+.tasks-buttons.left-align {
+  justify-content: flex-start;
+}
+.tasks-buttons ion-button {
+  --color: var(--primary-bg-color);
+  font-size: 0.8rem;
+  --padding-start: 8px;
+  --padding-end: 8px;
+}
