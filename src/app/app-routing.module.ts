@@ -50,7 +50,17 @@ const routes: Routes = [
   {
     path: 'sign-up',
     loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
+    path: 'suscripcion',
+    loadChildren: () => import('./pages/suscripcion/suscripcion.module').then( m => m.SuscripcionPageModule)
+  },
+  {
+    path: 'metodo-pago',
+loadChildren: () =>
+  import('./pages/suscripcion/metodo-pago/metodo-pago.module').then(m => m.MetodoPagoPageModule)
   }
+
 ];
 
 @NgModule({
