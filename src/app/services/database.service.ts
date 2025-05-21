@@ -62,6 +62,56 @@ export class DatabaseService {
     });
   }
 
+
+  getSubcollection(path: string, subcollection: string): Observable<any[]> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`${path}/${subcollection}`).valueChanges({ idField: 'id' });
+    });
+  }
+
+
+  addUserSubcollectionDocument(userId: string, subcollection: string, data: any): Promise<any> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/${subcollection}`).add(data);
+    });
+  }
+
+
+  updateUserSubcollectionDocument(userId: string, subcollection: string, documentId: string, data: any): Promise<any> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/${subcollection}`).doc(documentId).update(data);
+    });
+  }
+
+
+  addFirestoreDocumentWithId(collectionName: string, id: string, data: any) {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(collectionName).doc(id).set(data);
+    });
+  }
+  
+  addUserSubcollectionDocumentWithId(userId: string, subcollection: string, id: string, data: any) {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/${subcollection}`).doc(id).set(data);
+    });
+  }
+  
+
+  // Elimina documento de cualquier colección
+  deleteFirestoreDocument(collectionName: string, docId: string): Promise<void> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(collectionName).doc(docId).delete();
+    });
+  }
+  
+  // Elimina documento de una subcolección del usuario
+  deleteUserSubcollectionDocument(userId: string, subcollection: string, docId: string): Promise<void> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/${subcollection}`).doc(docId).delete();
+    });
+  }
+
+
   // Búsqueda por texto que empieza con un string
   searchCollectionByFieldPrefix(
     collection: string,

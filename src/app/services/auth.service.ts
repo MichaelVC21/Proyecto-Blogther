@@ -119,6 +119,7 @@ export class AuthService {
     });
   }
 
+  
 
 /*   verifyIsLogued() {
     let user = localStorage.getItem('user');

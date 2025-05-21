@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <ion-button href="/perfil">
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+      </ion-button>
+      <ion-title>Agregar Publicacion</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button>
+    <img src="" alt="imagen-de-publicacion">
+  </ion-button>
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <ion-icon name="people-outline"></ion-icon>
+    <p>Etiquetar</p>
+    <ion-icon name="add-outline"></ion-icon>
+  </div>
+
+  
+  <form [formGroup]="publiForm" (ngSubmit)="guardarPublicacion()">
+    <ion-item>
+      <ion-input
+        label="Título"
+        labelPlacement="stacked"
+        placeholder="Título de la publicación"
+        type="text"
+        formControlName="titulo">
+      </ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input
+        label="Descripción"
+        labelPlacement="stacked"
+        placeholder="Descripción de la publicación"
+        type="text"
+        formControlName="descripcion">
+      </ion-input>
+    </ion-item>
+  
+    <div style="display: flex; flex-direction: row; align-items: center; margin-top: 16px;">
+      <ion-button expand="full" type="submit" [disabled]="publiForm.invalid">
+        Publicar
+      </ion-button>
+      <ion-button expand="full" type="button" href="/mis-publi">
+        Cancelar
+      </ion-button>
+    </div>
+  </form>
+  
+</ion-content>

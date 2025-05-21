@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <ion-button style="--background: none;" href="/perfil">
+        <ion-icon name="arrow-back-outline" style="color: var(--ion-color-verdeoscuro); width: 24; height: 24px;"></ion-icon>
+      </ion-button>
+      <ion-title>Perfil</ion-title>
+      <ion-button style="--background: none;">
+        <ion-icon name="save" style="color: var(--ion-color-verdeoscuro);"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <img src="" alt="foto-perfil">
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <ion-title>Editar</ion-title>
+    <ion-icon name="pencil-outline"></ion-icon>
+  </div>
+  <form [formGroup]="changeProfile" (ngSubmit) = "chgProfile()">
+    <ion-item style="border: solid 1px grey; margin: 4px; border-radius: 14px;">
+      <ion-input label="Nombre" 
+      labelPlacement="stacked" 
+      placeholder="Nombre" 
+      type="text"
+      formControlName="username"> 
+      </ion-input>
+    </ion-item>
+    <br>
+    <ion-item style="border: solid 1px grey; margin: 4px; border-radius: 14px;">
+      <ion-input label="Descripcion"
+      labelPlacement="stacked"
+      placeholder="Descripcion"
+      type="text"
+      formControlName="descripcion">
+      </ion-input>
+    </ion-item>
+    <br>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <ion-button expand="full" type="submit" style="--background:none; color: var(--ion-color-verdeoscuro); border: solid 1px var(--ion-color-verdeoscuro); border-radius: 50px;"
+      href="/perfil">
+        Editar
+      </ion-button>
+      <ion-button expand="full" type="button" href="/perfil" style="--background:none; color: var(--ion-color-verdeoscuro); border: solid 1px var(--ion-color-verdeoscuro); border-radius: 50px;">
+        Cancelar
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

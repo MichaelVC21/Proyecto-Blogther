@@ -57,10 +57,21 @@ const routes: Routes = [
   },
   {
     path: 'metodo-pago',
-loadChildren: () =>
-  import('./pages/suscripcion/metodo-pago/metodo-pago.module').then(m => m.MetodoPagoPageModule)
+    loadChildren: () =>
+    import('./pages/suscripcion/metodo-pago/metodo-pago.module').then(m => m.MetodoPagoPageModule)
+  },
+  {
+    path: 'editar',
+    loadChildren: () => import('./pages/editar/editar.module').then( m => m.EditarPageModule)
+  },
+  {
+    path: 'mis-publi',
+    loadChildren: () => import('./pages/mis-publi/mis-publi.module').then( m => m.MisPubliPageModule)
+  },
+  {
+    path: 'agregar-publi',
+    loadChildren: () => import('./pages/agregar-publi/agregar-publi.module').then( m => m.AgregarPubliPageModule)
   }
-
 ];
 
 @NgModule({
