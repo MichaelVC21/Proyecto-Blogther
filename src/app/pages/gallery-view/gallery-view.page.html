@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>gallery-view</ion-title>
+    <ion-title>Escáner / Galería</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">gallery-view</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="gallery-content" fullscreen>
+  <div class="grid-photos">
+    <div *ngFor="let p of photos" class="photo-cell">
+      <img [src]="p.webPath" alt="Foto seleccionada" />
+    </div>
+  </div>
+
+  <!-- Botón flotante para abrir galería de nuevo -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="openGallery()">
+      <ion-icon name="images-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        Galería
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
