@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar mode="md">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/articulos"></ion-back-button>
     <ion-title>Articulo</ion-title>
@@ -8,9 +8,9 @@
 </ion-header>
 <img src="https://i.pinimg.com/736x/7b/e5/c5/7be5c50fa0f1efd7548cb5f8f330cfbc.jpg" alt="Silhouette of mountains"/>
 <ion-content>
-  <ion-segment value="buttons" class="custom-segment">
+  <ion-segment #botones mode="ios" value="buttons" class="custom-segment">
     <ion-segment-button value="default">
-      <ion-label>Información</ion-label>
+      <ion-label>Información</ion-label> 
     </ion-segment-button>
     <ion-segment-button value="segment">
       <ion-label>Curiosidades</ion-label>
@@ -19,4 +19,5 @@
       <ion-label>Plagas</ion-label>
     </ion-segment-button>
   </ion-segment>
+  {{botones.value}}
 </ion-content>
