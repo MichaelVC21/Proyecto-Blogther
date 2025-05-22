@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
 import { ToastController } from '@ionic/angular';
+import { signOut, getAuth } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -102,7 +103,7 @@ export class AuthService {
           console.log('Usuario autenticado:', user);
 
           this.getProfile(user.uid); // Mantiene la lógica actual de obtener y guardar perfil
-          this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/perfil');
         } else {
           throw new Error('No se pudo obtener el usuario');
         }
@@ -119,7 +120,23 @@ export class AuthService {
     });
   }
 
+
+  logout() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      localStorage.removeItem('profile');
+      localStorage.removeItem('user');
+      localStorage.clear();
   
+      this.profile = null; // ← Esto estaba mal antes, ponías this.auth.profile
+      this.router.navigate(['/sign-up']);
+      setTimeout(() => {
+        location.reload();
+      }, 200);
+    }).catch((error) => {
+      console.error('Error al cerrar sesión:', error);
+    });
+  }
 
 /*   verifyIsLogued() {
     let user = localStorage.getItem('user');

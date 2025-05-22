@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <div style="display: flex; flex-direction: row; align-items: center;">
+    <ion-button href="/sign-up">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      <ion-label>Volver</ion-label>
+    </ion-button>
+    <ion-title style="color: var(--ion-color-verdeoscuro); background-color: var(--ion-color-fondo);">Cambiar contraseña</ion-title>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="changeProfile" (ngSubmit)="cambiarContrasena()">
+    <ion-item>
+      <ion-input label="Usuario" labelPlacement="stacked" type="text" formControlName="usuario" [disabled]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña actual</ion-label>
+      <ion-input type="password" formControlName="contraseñaActual">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Nueva contraseña" labelPlacement="stacked" type="password" formControlName="contraseña">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Confirmar nueva contraseña" labelPlacement="stacked" type="password" formControlName="confirmarContraseña">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="changeProfile.invalid">Guardar nueva contraseña</ion-button>
+  </form>
+</ion-content>

@@ -35,8 +35,8 @@ export class LoginPage implements OnInit {
       const { email, password, username } = this.registerForm.value;
       const additionalData = {
         name: username,
-        phone: '',
         username: username,
+        usertype: 'freemium',
       };
       this.auth.registerUser(email, password, additionalData)
         .then(() => {

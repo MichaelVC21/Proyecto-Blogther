@@ -24,9 +24,17 @@ export class SignUpPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    const user = localStorage.getItem('profile');
    }
 
   ngOnInit() {
+    const profile = localStorage.getItem('profile');
+    if (profile) {
+      this.auth.profile = JSON.parse(profile);
+    } else {
+      this.auth.profile = null;
+    }
   }
   login() {
     if (this.loginForm.valid) {

@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MisPubliPageRoutingModule } from './mis-publi-routing.module';
+import { CambContraPageRoutingModule } from './camb-contra-routing.module';
 
-import { MisPubliPage } from './mis-publi.page';
+import { CambContraPage } from './camb-contra.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { MisPubliPage } from './mis-publi.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    MisPubliPageRoutingModule
+    CambContraPageRoutingModule
   ],
-  declarations: [MisPubliPage]
+  declarations: [CambContraPage]
 })
-export class MisPubliPageModule {}
+export class CambContraPageModule {}

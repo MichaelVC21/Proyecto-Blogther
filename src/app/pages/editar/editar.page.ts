@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { DatabaseService } from '../../services/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar',
@@ -16,9 +17,10 @@ export class EditarPage implements OnInit {
   constructor(
     public db: DatabaseService,
     public auth: AuthService,
-    private formBuilder: FormBuilder,
+    public fb: FormBuilder,
+    public router: Router,
   ) { 
-    this.changeProfile = this.formBuilder.group({
+    this.changeProfile = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       descripcion: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -48,6 +50,7 @@ export class EditarPage implements OnInit {
         .then(() => {
           console.log('Usuario actualizado correctamente');
           this.changeProfile.reset();
+          this.router.navigate(['/perfil']);
         })
         .catch((error) => {
           console.error('Error al actualizar usuario:', error);

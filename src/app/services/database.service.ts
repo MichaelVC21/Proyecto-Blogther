@@ -2,6 +2,7 @@ import { Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, Query } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,16 @@ export class DatabaseService {
     return runInInjectionContext(this.injector, () => {
       return this.firestore.collection(`users/${userId}/${subcollection}`).doc(docId).delete();
     });
+  }
+
+  // Verifica si un documento existe en una colección
+  async documentExists(collection: string, uid: string): Promise<boolean> {
+    try {
+      const doc = await firstValueFrom(this.getDocumentById(collection, uid));
+      return !!doc;
+    } catch (err) {
+      return false;
+    }
   }
 
 

@@ -1,4 +1,4 @@
-<ion-card href="/publi" *ngFor="let publicacion of publicaciones">
+<ion-card [routerLink]="['/publi', publicacion.id]" *ngFor="let publicacion of publicaciones">
   <img alt="Silhouette of mountains" src="{{publicacion.imagen}}" />
   <ion-card-header>
     <ion-card-title>{{publicacion.titulo}}</ion-card-title>
@@ -12,14 +12,14 @@
   (click)="editarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
   >
   Editar
-</ion-button>
-<ion-button
-  color="danger"
-  *ngIf="publicacion.uid === userUid"
-  (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
->
-  Eliminar
-</ion-button>
+  </ion-button>
+  <ion-button
+    color="danger"
+    *ngIf="publicacion.uid === userUid"
+    (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+  >
+    Eliminar
+  </ion-button>
 </ion-card>
 
 

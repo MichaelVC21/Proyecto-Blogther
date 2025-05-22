@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>sign-up</ion-title>
+    <ion-title>Iniciar sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -27,6 +27,23 @@
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
     </ion-item>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <br>
+      <ion-button>
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Iniciar sesión con Google
+      </ion-button>
+      <br>
+      <ion-button>
+        <ion-icon name="logo-facebook" slot="start"></ion-icon>
+        Iniciar sesión con Facebook
+      </ion-button>
+    </div>
+    <br>
+    <ion-button href="/camb-contra" style="--background: none; color: var(--ion-color-verdeoscuro);">
+      Cambiar contraseña?
+    </ion-button>
+    <br>
     <ion-button expand="full" color="primary" type="submit" [disabled]="!loginForm.valid">
       <ion-icon name="person-outline" slot="start"></ion-icon>
       Iniciar sesión

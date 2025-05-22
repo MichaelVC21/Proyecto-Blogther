@@ -10,15 +10,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let publi of publicaciones" style="width: 300px; height: 300px;">
-    <img [src]="publi.imagenUrl || ''" alt="foto-publi">
+  <ion-card *ngFor="let publicacion of publicaciones" style="width: 300px; height: 300px;">
+    <img [src]="publicacion.imagenUrl || ''" alt="foto-publi">
 
     <ion-card-header>
-      <ion-card-title>{{ publi.titulo }}</ion-card-title>
+      <ion-card-title>{{ publicacion.titulo }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <p>{{ publi.descripcion }}</p>
+      <p>{{ publicacion.descripcion }}</p>
     </ion-card-content>
 
     <div style="display: flex; flex-direction: row;">
@@ -26,9 +26,49 @@
       <ion-icon name="send" style="width: 20px; height: 21px; margin: 3px; color: var(--ion-color-verdemedioscuro);"></ion-icon>
       <ion-icon name="star" style="width: 20px; height: 21px; margin: 3px; color: var(--ion-color-verdemedioscuro);"></ion-icon>
     </div>
+    <ion-button
+    *ngIf="publicacion.uid === userUid"
+    (click)="editarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+    >
+    Editar
+    </ion-button>
+    <ion-button
+      color="danger"
+      *ngIf="publicacion.uid === userUid"
+      (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+    >
+      Eliminar
+    </ion-button>
   </ion-card>
   <br>
   <ion-button href="/agregar-publi" style="width: 300px; height: 300px;">
     <ion-icon name="add-outline"></ion-icon>
   </ion-button>
 </ion-content>
+
+
+<ion-card *ngIf="publicacionSeleccionada">
+  <ion-card-header>
+    <ion-card-title>Editar publicación</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content [formGroup]="publiForm">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input formControlName="titulo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea formControlName="descripcion"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="full" (click)="guardarCambios()">
+      Guardar cambios
+    </ion-button>
+
+    <ion-button expand="full" color="medium" (click)="cancelarEdicion()">
+      Cancelar
+    </ion-button>
+  </ion-card-content>
+</ion-card>

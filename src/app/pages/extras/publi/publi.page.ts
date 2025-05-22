@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-publi',
@@ -8,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PubliPage implements OnInit {
 
-  constructor() { }
+  publicacion: any = null;
+  
+  constructor(
+    public route: ActivatedRoute,
+    public db: DatabaseService
+  ) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.db.getDocumentById('Publicaciones', id).subscribe(data => {
+        this.publicacion = data;
+        console.log('📄 Publicación cargada:', this.publicacion);
+      });
+    }
   }
 
 }
