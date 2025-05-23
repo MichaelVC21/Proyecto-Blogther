@@ -29,7 +29,7 @@ export class ArticulosComponent  implements OnInit, AfterViewInit {
 
 
   fetchPlantas(){
-    this.db.fetchFirestoreCollection('plantas').subscribe((data) => {
+    this.db.fetchFirestoreCollection('Articulos').subscribe((data) => {
       console.log(data); // Verifica aquí si los datos son correctos
       this.plantas = data; // ✅ asigna los datos al array esperado en el HTML
       this.cdr.detectChanges(); // Detecta cambios para actualizar la vista

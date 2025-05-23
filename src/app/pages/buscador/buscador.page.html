@@ -1,29 +1,275 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>buscador</ion-title>
+    <ion-title>Buscador</ion-title>
+    <ion-buttons slot="end" *ngIf="hasSearched">
+      <ion-button (click)="clearSearch()" fill="clear">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
-  <ion-searchbar
-    animated
-    placeholder="Buscador"
-    showCancelButton="focus"
-    class="custom-searchbar"
-  ></ion-searchbar>
-
-
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="background-color: #ffff;">
+  <!-- Header colapsible -->
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large"></ion-title>
+      <ion-title size="large">Buscador</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionInput)="onSearchChange($event)"
+      animated
+      placeholder="Buscar personas, publicaciones o artículos..."
+      showCancelButton="focus"
+      class="custom-searchbar"
+      debounce="300"
+    ></ion-searchbar>
+  </div>
+
+  <!-- Filtros de categoría -->
+  <div class="filters-container" *ngIf="hasSearched">
+    <ion-segment
+      [(ngModel)]="selectedFilter"
+      (ionChange)="onFilterChange($event)"
+      class="search-filters"
+    >
+      <ion-segment-button value="todos">
+        <ion-label>
+          Todos
+          <span class="result-count" *ngIf="getResultCount() > 0">
+            ({{ getResultCount() }})
+          </span>
+        </ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="personas">
+        <ion-label>
+          Personas
+          <span class="result-count" *ngIf="getResultCount('personas') > 0">
+            ({{ getResultCount('personas') }})
+          </span>
+        </ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="publicaciones">
+        <ion-label>
+          Publicaciones
+          <span class="result-count" *ngIf="getResultCount('publicaciones') > 0">
+            ({{ getResultCount('publicaciones') }})
+          </span>
+        </ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="articulos">
+        <ion-label>
+          Artículos
+          <span class="result-count" *ngIf="getResultCount('articulos') > 0">
+            ({{ getResultCount('articulos') }})
+          </span>
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Estado de carga -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Buscando...</p>
+  </div>
+
+  <!-- Estado inicial - sin búsqueda -->
+  <div class="initial-state" *ngIf="!hasSearched && !loading">
+    <div class="initial-content">
+      <ion-icon name="search-outline" class="initial-icon"></ion-icon>
+      <h2>Busca en toda la plataforma</h2>
+      <p>Encuentra personas, publicaciones y artículos</p>
+      
+      <div class="search-suggestions">
+        <h3>Sugerencias de búsqueda:</h3>
+        <div class="suggestion-chips">
+          <ion-chip 
+            (click)="searchTerm = 'plantas'; onSearchChange({detail: {value: 'plantas'}})"
+            class="suggestion-chip"
+          >
+            <ion-icon name="leaf-outline" slot="start"></ion-icon>
+            <ion-label>Plantas</ion-label>
+          </ion-chip>
+          
+          <ion-chip 
+            (click)="searchTerm = 'cuidados'; onSearchChange({detail: {value: 'cuidados'}})"
+            class="suggestion-chip"
+          >
+            <ion-icon name="heart-outline" slot="start"></ion-icon>
+            <ion-label>Cuidados</ion-label>
+          </ion-chip>
+          
+          <ion-chip 
+            (click)="searchTerm = 'jardinería'; onSearchChange({detail: {value: 'jardinería'}})"
+            class="suggestion-chip"
+          >
+            <ion-icon name="flower-outline" slot="start"></ion-icon>
+            <ion-label>Jardinería</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultados de búsqueda -->
+  <div class="results-container" *ngIf="hasSearched && !loading">
+    <!-- Sin resultados -->
+    <div class="no-results" *ngIf="filteredResults.length === 0">
+      <ion-icon name="search-outline" class="no-results-icon"></ion-icon>
+      <h3>No se encontraron resultados</h3>
+      <p>Intenta con otros términos de búsqueda</p>
+      
+      <ion-button 
+        fill="outline" 
+        (click)="clearSearch()"
+        class="clear-search-btn"
+      >
+        <ion-icon name="refresh-outline" slot="start"></ion-icon>
+        Nueva búsqueda
+      </ion-button>
+    </div>
+
+    <!-- Lista de resultados -->
+    <div class="results-list" *ngIf="filteredResults.length > 0">
+      <!-- Grupo de Personas -->
+      <div class="result-group" *ngIf="selectedFilter === 'todos' && personas.length > 0">
+        <div class="group-header">
+          <ion-icon name="people-outline" class="group-icon"></ion-icon>
+          <h3>Personas ({{ personas.length }})</h3>
+        </div>
+        <div class="group-results">
+          <div 
+            class="result-card person-card" 
+            *ngFor="let persona of personas; trackBy: trackByFn"
+            (click)="onResultClick(persona)"
+          >
+            <div class="result-avatar">
+              <img 
+                [src]="persona.imagen || 'assets/img/default-avatar.jpeg'" 
+                [alt]="persona.titulo"
+              >
+              <div class="result-type-badge person-badge">
+                <ion-icon name="person-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="result-info">
+              <h4>{{ persona.titulo }}</h4>
+              <p>{{ persona.subtitulo }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grupo de Publicaciones -->
+      <div class="result-group" *ngIf="selectedFilter === 'todos' && publicaciones.length > 0">
+        <div class="group-header">
+          <ion-icon name="document-text-outline" class="group-icon"></ion-icon>
+          <h3>Publicaciones ({{ publicaciones.length }})</h3>
+        </div>
+        <div class="group-results">
+          <div 
+            class="result-card publication-card" 
+            *ngFor="let publicacion of publicaciones; trackBy: trackByFn"
+            (click)="onResultClick(publicacion)"
+          >
+            <div class="result-avatar">
+              <img 
+                [src]="publicacion.imagen || 'assets/img/default-post.jpeg'" 
+                [alt]="publicacion.titulo"
+              >
+              <div class="result-type-badge publication-badge">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="result-info">
+              <h4>{{ publicacion.titulo }}</h4>
+              <p>{{ publicacion.subtitulo }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grupo de Artículos -->
+      <div class="result-group" *ngIf="selectedFilter === 'todos' && articulos.length > 0">
+        <div class="group-header">
+          <ion-icon name="leaf-outline" class="group-icon"></ion-icon>
+          <h3>Artículos ({{ articulos.length }})</h3>
+        </div>
+        <div class="group-results">
+          <div 
+            class="result-card article-card" 
+            *ngFor="let articulo of articulos; trackBy: trackByFn"
+            (click)="onResultClick(articulo)"
+          >
+            <div class="result-avatar">
+              <img 
+                [src]="articulo.imagen || 'assets/img/default-plant.jpeg'" 
+                [alt]="articulo.titulo"
+              >
+              <div class="result-type-badge article-badge">
+                <ion-icon name="leaf-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="result-info">
+              <h4>{{ articulo.titulo }}</h4>
+              <p>{{ articulo.subtitulo }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultados filtrados (cuando no es "todos") -->
+      <div class="result-group" *ngIf="selectedFilter !== 'todos'">
+        <div class="group-results filtered-results">
+          <div 
+            class="result-card" 
+            [ngClass]="{
+              'person-card': result.tipo === 'persona',
+              'publication-card': result.tipo === 'publicacion',
+              'article-card': result.tipo === 'articulo'
+            }"
+            *ngFor="let result of filteredResults; trackBy: trackByFn"
+            (click)="onResultClick(result)"
+          >
+            <div class="result-avatar">
+              <img 
+                [src]="result.imagen || getDefaultImage(result.tipo)" 
+                [alt]="result.titulo"
+                (error)="onImageError($event, result.tipo)"
+              >
+              <div 
+                class="result-type-badge"
+                [ngClass]="{
+                  'person-badge': result.tipo === 'persona',
+                  'publication-badge': result.tipo === 'publicacion',
+                  'article-badge': result.tipo === 'articulo'
+                }"
+              >
+                <ion-icon [name]="getTypeIcon(result.tipo)"></ion-icon>
+              </div>
+            </div>
+            <div class="result-info">
+              <h4>{{ result.titulo }}</h4>
+              <p>{{ result.subtitulo }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
-
-
-
-
-<!-- Si o si abajo esto -->
+<!-- Tab bar -->
 <app-tab-bar></app-tab-bar>

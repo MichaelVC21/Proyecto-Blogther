@@ -48,8 +48,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/extras/publi/publi.module').then( m => m.PubliPageModule)
   },
   {
-    path: 'arti',
+    path: 'articulos',
     loadChildren: () => import('./pages/extras/arti/arti.module').then( m => m.ArtiPageModule)
+  },
+  {
+    path: 'articulos/:id',
+    loadComponent: () => import('./components/articulo-detalle/articulo-detalle.component').then(m => m.ArticuloDetalleComponent)
   },
   {
     path: 'sign-up',

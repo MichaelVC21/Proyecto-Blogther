@@ -1,8 +1,9 @@
 import { Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, Query } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { firstValueFrom } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -63,13 +64,11 @@ export class DatabaseService {
     });
   }
 
-
   getSubcollection(path: string, subcollection: string): Observable<any[]> {
     return runInInjectionContext(this.injector, () => {
       return this.firestore.collection(`${path}/${subcollection}`).valueChanges({ idField: 'id' });
     });
   }
-
 
   addUserSubcollectionDocument(userId: string, subcollection: string, data: any): Promise<any> {
     return runInInjectionContext(this.injector, () => {
@@ -77,13 +76,11 @@ export class DatabaseService {
     });
   }
 
-
   updateUserSubcollectionDocument(userId: string, subcollection: string, documentId: string, data: any): Promise<any> {
     return runInInjectionContext(this.injector, () => {
       return this.firestore.collection(`users/${userId}/${subcollection}`).doc(documentId).update(data);
     });
   }
-
 
   addFirestoreDocumentWithId(collectionName: string, id: string, data: any) {
     return runInInjectionContext(this.injector, () => {
@@ -96,7 +93,6 @@ export class DatabaseService {
       return this.firestore.collection(`users/${userId}/${subcollection}`).doc(id).set(data);
     });
   }
-  
 
   // Elimina documento de cualquier colección
   deleteFirestoreDocument(collectionName: string, docId: string): Promise<void> {
@@ -121,7 +117,6 @@ export class DatabaseService {
       return false;
     }
   }
-
 
   // Búsqueda por texto que empieza con un string
   searchCollectionByFieldPrefix(
@@ -166,4 +161,143 @@ export class DatabaseService {
     });
   }
 
+  // ========================
+  // MÉTODOS ESPECÍFICOS PARA BÚSQUEDA GLOBAL
+  // ========================
+
+  // Búsqueda global en múltiples colecciones
+  globalSearch(searchTerm: string): Observable<{
+    personas: any[],
+    publicaciones: any[],
+    articulos: any[]
+  }> {
+    const termLower = searchTerm.toLowerCase();
+    
+    const personasSearch = this.searchPersonas(termLower);
+    const publicacionesSearch = this.searchPublicaciones(termLower);
+    const articulosSearch = this.searchArticulos(termLower);
+
+    return combineLatest([personasSearch, publicacionesSearch, articulosSearch]).pipe(
+      map(([personas, publicaciones, articulos]) => ({
+        personas,
+        publicaciones,
+        articulos
+      }))
+    );
+  }
+
+  // Búsqueda específica en Personas
+  private searchPersonas(searchTerm: string): Observable<any[]> {
+    return this.fetchFirestoreCollection('Personas').pipe(
+      map(personas => personas.filter(persona => {
+        const searchFields = [
+          persona.nombre,
+          persona.apellido,
+          persona.username,
+          persona.email,
+          persona.bio
+        ];
+        return searchFields.some(field => 
+          field && field.toLowerCase().includes(searchTerm)
+        );
+      }))
+    );
+  }
+
+  // Búsqueda específica en Publicaciones
+  private searchPublicaciones(searchTerm: string): Observable<any[]> {
+    return this.fetchFirestoreCollection('Publicaciones').pipe(
+      map(publicaciones => publicaciones.filter(publicacion => {
+        const searchFields = [
+          publicacion.titulo,
+          publicacion.descripcion,
+          publicacion.categoria,
+          publicacion.tags,
+          publicacion.autor
+        ];
+        return searchFields.some(field => 
+          field && field.toLowerCase().includes(searchTerm)
+        );
+      }))
+    );
+  }
+
+  // Búsqueda específica en Artículos
+  private searchArticulos(searchTerm: string): Observable<any[]> {
+    return this.fetchFirestoreCollection('Articulos').pipe(
+      map(articulos => articulos.filter(articulo => {
+        const searchFields = [
+          articulo.nombre,
+          articulo.categoria,
+          articulo.informacion,
+          articulo.curiosidades,
+          articulo.plagas,
+          articulo.interior,
+          articulo.exterior
+        ];
+        return searchFields.some(field => 
+          field && field.toLowerCase().includes(searchTerm)
+        );
+      }))
+    );
+  }
+
+  // Búsqueda optimizada por categoría específica
+  searchByCategory(searchTerm: string, category: 'personas' | 'publicaciones' | 'articulos'): Observable<any[]> {
+    switch (category) {
+      case 'personas':
+        return this.searchPersonas(searchTerm.toLowerCase());
+      case 'publicaciones':
+        return this.searchPublicaciones(searchTerm.toLowerCase());
+      case 'articulos':
+        return this.searchArticulos(searchTerm.toLowerCase());
+      default:
+        return this.fetchFirestoreCollection(category);
+    }
+  }
+
+  // Búsqueda por múltiples términos
+  multiTermSearch(terms: string[]): Observable<{
+    personas: any[],
+    publicaciones: any[],
+    articulos: any[]
+  }> {
+    const searches = terms.map(term => this.globalSearch(term));
+    
+    return combineLatest(searches).pipe(
+      map(results => {
+        // Combinar y deduplicar resultados
+        const combinedPersonas = new Map();
+        const combinedPublicaciones = new Map();
+        const combinedArticulos = new Map();
+
+        results.forEach(result => {
+          result.personas.forEach(p => combinedPersonas.set(p.id, p));
+          result.publicaciones.forEach(p => combinedPublicaciones.set(p.id, p));
+          result.articulos.forEach(a => combinedArticulos.set(a.id, a));
+        });
+
+        return {
+          personas: Array.from(combinedPersonas.values()),
+          publicaciones: Array.from(combinedPublicaciones.values()),
+          articulos: Array.from(combinedArticulos.values())
+        };
+      })
+    );
+  }
+
+  // Búsqueda con límite de resultados para optimizar performance
+  searchWithLimit(searchTerm: string, limit: number = 10): Observable<{
+    personas: any[],
+    publicaciones: any[],
+    articulos: any[]
+  }> {
+    return this.globalSearch(searchTerm).pipe(
+      map(results => ({
+        personas: results.personas.slice(0, limit),
+        publicaciones: results.publicaciones.slice(0, limit),
+        articulos: results.articulos.slice(0, limit)
+      }))
+    );
+  }
 }

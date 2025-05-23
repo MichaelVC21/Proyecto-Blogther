@@ -1,10 +1,10 @@
 <ion-content>
-  <ion-card *ngFor="let planta of plantas" href="/arti">
+  <ion-card *ngFor="let planta of plantas" [href]="'/articulos/' + planta.id">
     <img [src]="planta.imagen" alt="Imagen de {{ planta.nombre }}" />
  
     <ion-card-content>
       <h1 class="blur-title">{{ planta.nombre }}</h1>
-      <p>{{ planta.descripcion }}</p>
+      <p>{{ planta.informacion }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

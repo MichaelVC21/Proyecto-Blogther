@@ -1,0 +1,211 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        (click)="goBack()"
+        defaultHref="/articulos"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ articulo?.nombre || "Artículo" }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background-color: aliceblue;">
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <h3>Cargando artículo...</h3>
+      <p>Por favor espera un momento</p>
+    </div>
+  </div>
+
+  <!-- Estado de error -->
+  <div *ngIf="error && !loading" class="error-container">
+    <ion-card class="error-card">
+      <ion-card-content>
+        <div class="error-content">
+          <ion-icon name="warning-outline" class="error-icon"></ion-icon>
+          <h2>Error de conexión</h2>
+          <p>No se pudo cargar el artículo. Verifica tu conexión a internet.</p>
+          <ion-button 
+            fill="solid" 
+            color="primary" 
+            (click)="retryLoad()"
+            class="retry-button"
+          >
+            <ion-icon name="refresh-outline" slot="start"></ion-icon>
+            Reintentar
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Estado de no encontrado -->
+  <div *ngIf="notFound && !loading" class="not-found-container">
+    <ion-card class="not-found-card">
+      <ion-card-content>
+        <div class="not-found-content">
+          <ion-icon name="search-outline" class="not-found-icon"></ion-icon>
+          <h2>Artículo no encontrado</h2>
+          <p>El artículo que buscas no existe o ha sido eliminado.</p>
+          <ion-button 
+            fill="outline" 
+            color="primary" 
+            (click)="goBack()"
+            class="back-button"
+          >
+            <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+            Volver a artículos
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Contenido del artículo -->
+  <div *ngIf="articulo && !loading && !error && !notFound" class="articulo-container">
+    <!-- Imagen del artículo -->
+    <div class="imagen-container" *ngIf="articulo?.imagen">
+      <img [src]="articulo.imagen" [alt]="'Imagen de ' + articulo.nombre" />
+      <div class="imagen-overlay"></div>
+    </div>
+
+    <!-- Información principal -->
+    <ion-card class="main-info-card">
+      <ion-card-content>
+        <h1 class="articulo-title">{{ articulo?.nombre }}</h1>
+
+        <!-- Información básica con chips -->
+        <div class="info-chips">
+          <ion-chip *ngIf="articulo?.precio" color="success" class="info-chip">
+            <ion-icon name="cash-outline" slot="start"></ion-icon>
+            <ion-label>${{ articulo?.precio }}</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="articulo?.categoria" color="primary" class="info-chip">
+            <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+            <ion-label>{{ articulo?.categoria }}</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="articulo?.stock" color="warning" class="info-chip">
+            <ion-icon name="cube-outline" slot="start"></ion-icon>
+            <ion-label>Stock: {{ articulo?.stock }}</ion-label>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Navegación por pestañas -->
+    <ion-segment
+      class="custom-segment"
+      [value]="selectedSegment"
+      (ionChange)="onSegmentChanged($event)"
+    >
+      <ion-segment-button value="descripcion">
+        <ion-icon name="document-text-outline" class="segment-icon"></ion-icon>
+        <ion-label>Descripción</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="curiosidades">
+        <ion-icon name="bulb-outline" class="segment-icon"></ion-icon>
+        <ion-label>Curiosidades</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="plagas">
+        <ion-icon name="bug-outline" class="segment-icon"></ion-icon>
+        <ion-label>Plagas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- Contenido de las pestañas -->
+    <div class="segment-content">
+      <!-- Pestaña Descripción -->
+      <div *ngIf="selectedSegment === 'descripcion'" class="tab-content">
+        <ion-card class="content-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="information-circle-outline" class="header-icon"></ion-icon>
+              Información General
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="descripcion-section">
+              <p class="descripcion" *ngIf="articulo?.informacion">
+                {{ articulo.informacion }}
+              </p>
+              <p class="no-info" *ngIf="!articulo?.informacion">
+                No hay descripción disponible.
+              </p>
+            </div>
+
+            <div class="cuidados-container" *ngIf="articulo?.interior || articulo?.exterior">
+              <div class="cuidado-card" *ngIf="articulo?.interior">
+                <div class="cuidado-header">
+                  <ion-icon name="home-outline" class="cuidado-icon"></ion-icon>
+                  <h3>Cuidado Interior</h3>
+                </div>
+                <p>{{ articulo.interior }}</p>
+              </div>
+
+              <div class="cuidado-card" *ngIf="articulo?.exterior">
+                <div class="cuidado-header">
+                  <ion-icon name="sunny-outline" class="cuidado-icon"></ion-icon>
+                  <h3>Cuidado Exterior</h3>
+                </div>
+                <p>{{ articulo.exterior }}</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Pestaña Curiosidades -->
+      <div *ngIf="selectedSegment === 'curiosidades'" class="tab-content">
+        <ion-card class="content-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="star-outline" class="header-icon"></ion-icon>
+              Datos Curiosos
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="curiosidades-content" *ngIf="articulo?.curiosidades; else noCuriosidades">
+              <p class="descripcion">{{ articulo.curiosidades }}</p>
+            </div>
+            <ng-template #noCuriosidades>
+              <div class="no-content">
+                <ion-icon name="bulb-outline" class="no-content-icon"></ion-icon>
+                <p>No hay curiosidades disponibles para este artículo.</p>
+              </div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <!-- Pestaña Plagas -->
+      <div *ngIf="selectedSegment === 'plagas'" class="tab-content">
+        <ion-card class="content-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="shield-outline" class="header-icon"></ion-icon>
+              Plagas Comunes
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="plagas-content" *ngIf="articulo?.plagas && articulo.plagas.length > 0; else noPlagas">
+              <p class="descripcion">{{ articulo.plagas }}</p>
+            </div>
+            <ng-template #noPlagas>
+              <div class="no-content">
+                <ion-icon name="checkmark-circle-outline" class="no-content-icon success"></ion-icon>
+                <p>No hay información sobre plagas para este artículo.</p>
+              </div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>
