@@ -33,5 +33,8 @@ export class PerfilComponent  implements OnInit {
   }
 
   ngOnInit() {}
-
+  
+  logout() {
+    this.auth.logout();
+  }
 }

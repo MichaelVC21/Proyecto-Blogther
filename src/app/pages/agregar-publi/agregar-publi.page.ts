@@ -20,8 +20,8 @@ export class AgregarPubliPage implements OnInit {
     public auth: AuthService,
     public db: DatabaseService,
     public cdr: ChangeDetectorRef,
-    private fb: FormBuilder,
-    private router: Router
+    public fb: FormBuilder,
+    public router: Router
   ) {
     this.publiForm = this.fb.group({
       titulo: ['', Validators.required],

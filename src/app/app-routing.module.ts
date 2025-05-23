@@ -44,6 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/extras/publi/publi.module').then( m => m.PubliPageModule)
   },
   {
+    path: 'publi/:id',
+    loadChildren: () => import('./pages/extras/publi/publi.module').then( m => m.PubliPageModule)
+  },
+  {
     path: 'arti',
     loadChildren: () => import('./pages/extras/arti/arti.module').then( m => m.ArtiPageModule)
   },
@@ -71,6 +75,10 @@ const routes: Routes = [
   {
     path: 'agregar-publi',
     loadChildren: () => import('./pages/agregar-publi/agregar-publi.module').then( m => m.AgregarPubliPageModule)
+  },
+  {
+    path: 'camb-contra',
+    loadChildren: () => import('./pages/camb-contra/camb-contra.module').then( m => m.CambContraPageModule)
   }
 ];
 

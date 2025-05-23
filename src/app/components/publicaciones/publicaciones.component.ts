@@ -6,14 +6,14 @@ import { DatabaseService } from 'src/app/services/database.service';
 import { ChangeDetectorRef } from '@angular/core'; // opcional, pero útil
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.scss'],
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class PublicacionesComponent  implements OnInit {
 
@@ -26,7 +26,7 @@ export class PublicacionesComponent  implements OnInit {
     public auth: AuthService,
     public db: DatabaseService,
     public cdr: ChangeDetectorRef,
-    public formBuilder: FormBuilder,
+    public fb: FormBuilder,
     public router: Router,
   ) { 
     const profile = JSON.parse(localStorage.getItem('profile')!);
@@ -40,7 +40,7 @@ export class PublicacionesComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.publiForm = this.formBuilder.group({
+    this.publiForm = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
