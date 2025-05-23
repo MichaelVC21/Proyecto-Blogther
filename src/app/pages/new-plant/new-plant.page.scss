@@ -1,0 +1,127 @@
+@import 'src/theme/variables';  // asegúrate de tener tus variables aquí
+
+:host {
+  --ion-background-color: var(--app-bg-color);
+}
+
+.toolbar-border {
+  border-bottom: 1px solid #ddd;
+}
+
+.new-plant-content {
+  padding: 0 16px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 16px;
+}
+
+/* ---------------------------------------------------
+   Photo card con esquinas redondeadas y overflow
+   --------------------------------------------------- */
+.photo-card {
+  border-radius: 16px;
+  overflow: hidden;
+  height: 180px;
+  margin-bottom: 24px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ---------------------------------------------------
+   Inputs: sin líneas, con borde redondeado fuerte
+   y label más oscuro, padding interno extra
+   --------------------------------------------------- */
+.input-item {
+  --background: transparent;
+  margin-bottom: 16px;
+
+  .input-field {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    border: 2px solid var(--primary-bg-color);
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .input-label {
+    font-size: 0.9rem;
+    color: var(--primary-bg-color);
+    margin-bottom: 4px;
+  }
+}
+
+/* ---------------------------------------------------
+   Grupo de botones ovalados con borde
+   --------------------------------------------------- */
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: 24px;
+  
+}
+
+.btn-submit,
+.btn-cancel {
+  --border-radius: 20px;
+  --border-width: 2px;
+  width: 100%;
+  outline: #8B9773;
+    border: 2px solid #8B9773;
+    background: transparent;
+}
+
+/* Submit: fondo transparente con borde primario */
+.btn-submit {
+  color: var(--primary-bg-color);
+  border-color: var(--primary-bg-color);
+}
+
+/* Cancel: borde gris más claro */
+.btn-cancel {
+  color: #666;
+  border-color: #999;
+}
+/* tarjeta de foto clickable */
+.photo-card {
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 24px;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  /* botón de cámara grande sobre el placeholder */
+  .camera-button {
+    background: var(--primary-bg-color);
+    color: #fff;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ion-icon {
+      font-size: 28px;
+    }
+  }
+  

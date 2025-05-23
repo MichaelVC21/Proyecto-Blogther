@@ -79,7 +79,22 @@ const routes: Routes = [
   {
     path: 'camb-contra',
     loadChildren: () => import('./pages/camb-contra/camb-contra.module').then( m => m.CambContraPageModule)
+  },
+  {
+    path: 'calendario',
+    loadChildren: () => import('./pages/calendario/calendario.module').then( m => m.CalendarioPageModule)
+  },
+  {
+    path: 'scanner',
+    loadChildren: () => import('./pages/scanner/scanner.module').then( m => m.ScannerPageModule)
+  },
+  {
+    path: 'new-plant',
+    loadChildren: () => import('./pages/new-plant/new-plant.module').then( m => m.NewPlantPageModule)
   }
+
+
+
 ];
 
 @NgModule({

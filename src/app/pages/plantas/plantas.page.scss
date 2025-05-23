@@ -1,0 +1,57 @@
+.plant-list-content {
+    --background: #faf8f0;
+    padding: 1rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding-bottom: 5rem; /* espacio para la barra de navegación */
+  }
+  
+  .plant-card {
+    cursor: pointer;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #fff;
+    .card-image {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #f0f0f0;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    ion-card-content {
+      text-align: center;
+      .plant-name {
+        color: #6b7459;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  /* Tarjeta de “Añadir” */
+  .add-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #faf8f0;
+    .add-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .add-icon {
+      font-size: 2rem;
+      color: #a2ab91;
+    }
+    .add-text {
+      margin-top: 0.5rem;
+      color: #6b7459;
+    }
+  }
+  
