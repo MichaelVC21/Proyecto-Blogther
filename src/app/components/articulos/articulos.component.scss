@@ -1,16 +1,15 @@
 // Estilos para la página de artículos
 ion-content {
-  --background: #f8f9fa;
+  --background: #F5F5ED;
   padding: 0;
 }
 
 // Header opcional
 ion-header {
-  --background: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   
   ion-toolbar {
-    --background: #f8f9fa;
+   
     --color: #2c3e50;
     
     ion-title {
@@ -27,11 +26,9 @@ ion-header {
 
 // Estilos para las tarjetas de plantas
 ion-card {
-  margin: 16px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  background: white;
+  
   position: relative;
   
   // Imagen de la planta
@@ -46,24 +43,23 @@ ion-card {
   ion-card-content {
     padding: 0;
     position: relative;
+    height: 150px;
     
     // Título superpuesto sobre la imagen
     h1 {
       position: absolute;
-      bottom:60px;
+      bottom: 140px;
       left: 0px;
       right: 0px;
-      color: white;
+      color: #2E4A39;
       font-size: 18px;
       font-weight: 700;
-      margin: 0;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
       z-index: 2;
+      font-family: 'Concert One', sans-serif;
       
       &.blur-title {
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-        background: rgba(0, 0, 0, 0.3);
         padding: 8px 12px;
         display: inline-block;
       }
@@ -73,7 +69,7 @@ ion-card {
     p {
       padding: 16px;
       margin: 0;
-      background: white;
+      background: #F5F5ED;
       position: relative;
       z-index: 1;
     }

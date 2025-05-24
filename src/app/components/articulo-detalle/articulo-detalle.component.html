@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="background-color: aliceblue;">
+<ion-content >
   <!-- Estado de carga -->
   <div *ngIf="loading" class="loading-container">
     <div class="loading-content">
@@ -75,8 +75,6 @@
     <!-- Información principal -->
     <ion-card class="main-info-card">
       <ion-card-content>
-        <h1 class="articulo-title">{{ articulo?.nombre }}</h1>
-
         <!-- Información básica con chips -->
         <div class="info-chips">
           <ion-chip *ngIf="articulo?.precio" color="success" class="info-chip">
@@ -103,18 +101,15 @@
       [value]="selectedSegment"
       (ionChange)="onSegmentChanged($event)"
     >
-      <ion-segment-button value="descripcion">
-        <ion-icon name="document-text-outline" class="segment-icon"></ion-icon>
+      <ion-segment-button value="descripcion" >
         <ion-label>Descripción</ion-label>
       </ion-segment-button>
 
       <ion-segment-button value="curiosidades">
-        <ion-icon name="bulb-outline" class="segment-icon"></ion-icon>
         <ion-label>Curiosidades</ion-label>
       </ion-segment-button>
 
       <ion-segment-button value="plagas">
-        <ion-icon name="bug-outline" class="segment-icon"></ion-icon>
         <ion-label>Plagas</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -123,16 +118,16 @@
     <div class="segment-content">
       <!-- Pestaña Descripción -->
       <div *ngIf="selectedSegment === 'descripcion'" class="tab-content">
-        <ion-card class="content-card">
+        <ion-card class="content-card" style="background: #F5F5ED;">
           <ion-card-header>
             <ion-card-title>
-              <ion-icon name="information-circle-outline" class="header-icon"></ion-icon>
+              <ion-icon name="information-circle-outline" class="header-icon" ></ion-icon>
               Información General
             </ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <div class="descripcion-section">
-              <p class="descripcion" *ngIf="articulo?.informacion">
+            <div class="descripcion-section" >
+              <p class="descripcion" *ngIf="articulo?.informacion" >
                 {{ articulo.informacion }}
               </p>
               <p class="no-info" *ngIf="!articulo?.informacion">
@@ -163,7 +158,7 @@
 
       <!-- Pestaña Curiosidades -->
       <div *ngIf="selectedSegment === 'curiosidades'" class="tab-content">
-        <ion-card class="content-card">
+        <ion-card style="background: #F5F5ED;" class="content-card">
           <ion-card-header>
             <ion-card-title>
               <ion-icon name="star-outline" class="header-icon"></ion-icon>
@@ -186,7 +181,7 @@
 
       <!-- Pestaña Plagas -->
       <div *ngIf="selectedSegment === 'plagas'" class="tab-content">
-        <ion-card class="content-card">
+        <ion-card style="background: #F5F5ED;" class="content-card">
           <ion-card-header>
             <ion-card-title>
               <ion-icon name="shield-outline" class="header-icon"></ion-icon>
