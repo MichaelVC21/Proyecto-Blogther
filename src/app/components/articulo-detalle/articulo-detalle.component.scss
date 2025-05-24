@@ -124,6 +124,7 @@ ion-content {
   position: relative;
   z-index: 10;
   background: transparent;
+  width: 100%;
 
 }
 
@@ -132,6 +133,7 @@ ion-content {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  width: 100%;
   
   .info-chip {
     --background: rgba(var(--ion-color-primary-rgb), 0.1);
@@ -152,6 +154,7 @@ ion-content {
 
 // Segmento personalizado
 .custom-segment {
+  width: 100%;
   border-radius: 50px;
   background: var(--color-white);
   box-shadow: var(--shadow-card);
@@ -164,10 +167,6 @@ ion-content {
   
     flex-direction: column;
     
-    .segment-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
     
     ion-label {
       font-size: 12px;
