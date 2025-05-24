@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar class="toolbar-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mis plantas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="new-plant-content">
+  <form (ngSubmit)="handleSubmit()" class="form-container">
+
+     <!-- Foto o placeholder -->
+     <ion-card class="photo-card" (click)="handleCameraClick()">
+      <ng-container *ngIf="imageSrc; else placeholder">
+        <img [src]="imageSrc" />
+      </ng-container>
+      <ng-template #placeholder>
+        <div class="camera-button">
+          <ion-icon name="camera-outline"></ion-icon>
+        </div>
+      </ng-template>
+    </ion-card>
+
+    <!-- CAMPOS CON OUTLINE + FLOATING LABEL -->
+   
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="name" name = "name"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea
+          [(ngModel)]="description"
+          name="description"
+          rows="4"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Lugar</ion-label>
+        <ion-input
+          [(ngModel)]="location"
+          name="location"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Día</ion-label>
+        <ion-input
+          [(ngModel)]="day"
+          name="day"
+          required>
+        </ion-input>
+      </ion-item>
+   
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Clima</ion-label>
+        <ion-input
+          [(ngModel)]="clima"
+          name="clima"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Familia</ion-label>
+        <ion-input
+          [(ngModel)]="family"
+          name="family"
+          required>
+        </ion-input>
+      </ion-item>
+
+    <!-- BOTONES -->
+    <div class="button-group">
+      <ion-button
+        type="submit"
+        fill="outline"
+        shape="round"
+        class="btn-submit"
+      >
+        Subir
+      </ion-button>
+      <ion-button
+        fill="outline"
+        shape="round"
+        class="btn-cancel"
+        (click)="back()"
+      >
+        Cancelar
+      </ion-button>
+    </div>
+
+  </form>
+</ion-content>
+
+<ion-footer slot="fixed">
+  <app-tab-bar></app-tab-bar>
+</ion-footer>

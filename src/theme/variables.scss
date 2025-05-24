@@ -162,3 +162,14 @@
 	--ion-color-tint: var(--ion-color-hueso-tint);
 }
 
+ion-datetime {
+	--background: #f6f6ed;           /* Fondo general */
+	--ion-text-color: #363b29;       /* Color de texto */
+	--ion-color-primary: #d1d1d1;    /* Botón GUARDAR, día seleccionado */
+	--ion-color-primary-contrast: #000000; /* Texto botón GUARDAR */
+	--highlight-background: #ffffff;    /* Fondo día seleccionado */
+	--highlight-color: #7c8660;      /* Color texto día seleccionado */
+	--background-rgb: 246,246,237;
+  }
+
+  

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="plant-detail-content" fullscreen>
+  <!-- Nombre de la familia -->
+  <div class="family-name">{{ family }}</div>
+
+  <!-- Grid de días -->
+  <div class="grid">
+    <ion-card
+      *ngFor="let entry of entries; let i = index"
+      class="plant-card"
+      (click)="goToEntry(entry.id!)"
+    >
+      <div class="card-image" (click)="detalle(entry.id!)">
+        <img [src]="entry.image || 'assets/placeholder.svg'" />
+      </div>
+      <ion-card-content>
+        <ion-card-subtitle class="plant-name">
+          Día {{ i + 1 }}
+        </ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Tarjeta “Añadir” solo con icono -->
+    <ion-card class="plant-card add-card" (click)="goToNewEntry()">
+      <div class="add-container">
+        <ion-icon name="add-outline"></ion-icon>
+      </div>
+    </ion-card>
+  </div>
+
+  <!-- Leyenda “Añadir” / Fecha última actualización -->
+  <div class="info-grid">
+    <div class="add-label">Añadir</div>
+    <div class="info-date">
+      {{ entries[0]?.date | date:'dd/MM/yyyy' }}
+    </div>
+    <div class="update-label">Última Actualización</div>
+    <div></div>
+  </div>
+
+  <!-- Preview de ubicación -->
+  
+</ion-content>
+
+<ion-footer>
+  <app-tab-bar></app-tab-bar>
+</ion-footer>
