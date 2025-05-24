@@ -1,5 +1,5 @@
 <ion-card [routerLink]="['/publi', publicacion.id]" *ngFor="let publicacion of publicaciones">
-  <img alt="Silhouette of mountains" src="{{publicacion.imagen}}" />
+  <img alt="Imagen de publicación" src="{{publicacion.imagen}}" />
   <ion-card-header>
     <ion-card-title>{{publicacion.titulo}}</ion-card-title>
   </ion-card-header>
@@ -7,43 +7,71 @@
   <ion-card-content>
     {{publicacion.descripcion}}
   </ion-card-content>
-  <ion-button
-  *ngIf="publicacion.uid === userUid"
-  (click)="editarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
-  >
-  Editar
-  </ion-button>
-  <ion-button
-    color="danger"
-    *ngIf="publicacion.uid === userUid"
-    (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
-  >
-    Eliminar
-  </ion-button>
+
+  <!-- Barra de iconos de interacción -->
+  <div class="interaction-bar">
+    <ion-button fill="clear" size="small" class="interaction-btn">
+      <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" class="interaction-btn">
+      <ion-icon name="share-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" class="interaction-btn">
+      <ion-icon name="star-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Botones de edición (solo para el propietario) -->
+  <div class="button-container" *ngIf="publicacion.uid === userUid">
+    <ion-button
+      size="small"
+      fill="outline"
+      (click)="editarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+    >
+      <ion-icon name="create-outline" slot="start"></ion-icon>
+      Editar
+    </ion-button>
+    <ion-button
+      color="danger"
+      size="small"
+      fill="outline"
+      (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+    >
+      <ion-icon name="trash-outline" slot="start"></ion-icon>
+      Eliminar
+    </ion-button>
+  </div>
 </ion-card>
 
-
-<ion-card *ngIf="publicacionSeleccionada">
+<!-- Formulario de edición -->
+<ion-card *ngIf="publicacionSeleccionada" class="edit-form">
   <ion-card-header>
-    <ion-card-title>Editar publicación</ion-card-title>
+    <ion-card-title>
+      <ion-icon name="create" slot="start"></ion-icon>
+      Editar publicación
+    </ion-card-title>
   </ion-card-header>
 
   <ion-card-content [formGroup]="publiForm">
     <ion-item>
+      <ion-icon name="text-outline" slot="start"></ion-icon>
       <ion-label position="floating">Título</ion-label>
       <ion-input formControlName="titulo"></ion-input>
     </ion-item>
 
     <ion-item>
+      <ion-icon name="document-text-outline" slot="start"></ion-icon>
       <ion-label position="floating">Descripción</ion-label>
       <ion-textarea formControlName="descripcion"></ion-textarea>
     </ion-item>
 
     <ion-button expand="full" (click)="guardarCambios()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
       Guardar cambios
     </ion-button>
 
     <ion-button expand="full" color="medium" (click)="cancelarEdicion()">
+      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
       Cancelar
     </ion-button>
   </ion-card-content>
