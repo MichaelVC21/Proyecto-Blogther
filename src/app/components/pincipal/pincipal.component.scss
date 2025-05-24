@@ -1,49 +1,147 @@
-/* Variables de color */
-$background-color: #f3f3e8;
-$card-bg-color: #e8e8d1;
-$primary-color: #314A36;
-$text-color: #4a4a4a;
-$subtitle-color: #7a7a7a;
+// Estilos para la página principal
+ion-header {
+  --background: #f8f9fa;
+  box-shadow: none;
+  border-bottom: 1px solid #e9ecef;
 
-img {
-    height: 200px;
-    width: 800px;
-   
-  }
+  ion-item {
+    --background: transparent;
+    --border-width: 0;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 8px;
+    margin: 8px 0;
 
-
-  ion-card {
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.02);
+    ion-input {
+      --background: #ffffff;
+      --color: #6c757d;
+      --placeholder-color: #6c757d;
+      --placeholder-opacity: 1;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      border: 1px solid #e9ecef;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 400;
+      height: 45px;
+      
+      &::part(native) {
+        border-radius: 25px;
+      }
     }
 
-    img {
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-      object-fit: cover;
-      height: 254px;
-    }
+    ion-button {
+      --background: #28a745;
+      --background-hover: #218838;
+      --background-activated: #1e7e34;
+      --color: white;
+      --border-radius: 50%;
+      --padding-start: 0;
+      --padding-end: 0;
+      margin-left: 8px;
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
 
-  ion-card-title {
-    color: green;
-    background-color: rgba(255, 255, 255, 0.3); 
-    -webkit-backdrop-filter: blur(5px); 
-    backdrop-filter: blur(5px); 
-  }  
-  .blur-title {
-    background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
-    backdrop-filter: blur(5px); /* Efecto blur */
-    -webkit-backdrop-filter: blur(5px); /* Soporte para Safari */
-    font-weight: bold;
-    padding: 20px 10px;
+      ion-icon {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
   }
+}
+
+ion-content {
+  --background: #f8f9fa;
+  
+  app-pincipal {
+    display: block;
+    padding: 0;
+  }
+}
+
+// Estilos para los títulos de sección
+h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 24px 16px 12px 16px;
+  padding: 0;
+}
+
+// Estilos para las tarjetas principales
+ion-card {
+  margin: 0 16px 20px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+  height: 140px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   ion-card-header {
     position: absolute;
     bottom: 0;
-    width: 10000px;
-    margin-left: -16px;
-    margin-bottom: -16px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 16px;
+    margin: 0;
+
+    ion-card-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      
+      &.blur-title {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+    }
   }
+
+  // Efecto hover para mejorar la interactividad
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+}
+
+// Estilos para la imagen de suscripción en la parte superior
+a[href="/suscripcion"] {
+  display: block;
+  margin: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+// Asegurar que el tab-bar esté fijo en la parte inferior
+app-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }

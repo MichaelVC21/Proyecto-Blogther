@@ -1,40 +1,131 @@
-/* Variables de color */
-$background-color: #f3f3e8; /* Color de fondo */
-$header-bg-color: #f7f7ef;
-$card-bg-color: #e8e8d1;
-$primary-color: #314A36; /* Verde oliva */
-$text-color: #4a4a4a;
-$icon-color: #4a4a4a;
-
-
+// Estilos para la página principal
 ion-header {
-  background-color: $header-bg-color;
-  margin-bottom: 30px;
+  --background: #f8f9fa;
+  box-shadow: none;
+  border-bottom: 1px solid #e9ecef;
 
-  
   ion-item {
     --background: transparent;
-    display: flex;
-    align-items: center;
-    
-    
+    --border-width: 0;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 8px;
+    margin: 8px 0;
 
     ion-input {
-      --placeholder-color: $text-color;
-      color: $primary-color;
-      font-size: 16px;
+      --background: #ffffff;
+      --color: #6c757d;
+      --placeholder-color: #6c757d;
+      --placeholder-opacity: 1;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      border: 1px solid #e9ecef;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 400;
+      height: 45px;
+      
+      &::part(native) {
+        border-radius: 25px;
+      }
     }
 
     ion-button {
-      --background: transparent;
-      color: $icon-color;
-      margin-left: auto;
+      --background: #28a745;
+      --background-hover: #218838;
+      --background-activated: #1e7e34;
+      --color: white;
+      --border-radius: 50%;
+      --padding-start: 0;
+      --padding-end: 0;
+      margin-left: 8px;
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
 
       ion-icon {
-        font-size: 24px;
+        font-size: 20px;
+        font-weight: bold;
       }
     }
   }
 }
 
+ion-content {
+  --background: #f8f9fa;
+  
+  app-pincipal {
+    display: block;
+    padding: 0;
+  }
+}
 
+// Estilos para las tarjetas del contenido principal
+.content-card {
+  background: white;
+  border-radius: 12px;
+  margin: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-content {
+    padding: 16px;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+      text-transform: capitalize;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: #6c757d;
+      margin: 4px 0 0 0;
+      font-weight: 400;
+    }
+  }
+}
+
+// Estilos específicos para cada sección
+.articulos-section {
+  .card-title {
+    color: #2c3e50;
+  }
+}
+
+.campanitas-section {
+  .card-title {
+    color: #e91e63;
+  }
+}
+
+.publicaciones-section {
+  .card-title {
+    color: #4caf50;
+  }
+}
+
+.decoracion-section {
+  .card-title {
+    color: #ff9800;
+  }
+}
+
+// Asegurar que el tab-bar esté fijo en la parte inferior
+app-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}

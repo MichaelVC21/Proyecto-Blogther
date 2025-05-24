@@ -1,20 +1,159 @@
+// Estilos para la página de artículos
+ion-content {
+  --background: #f8f9fa;
+  padding: 0;
+}
 
-    ion-content {
-      --background: none;
-      padding: 10px;
+// Header opcional
+ion-header {
+  --background: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  ion-toolbar {
+    --background: #f8f9fa;
+    --color: #2c3e50;
+    
+    ion-title {
+      font-size: 18px;
+      font-weight: 600;
     }
+    
+    ion-back-button {
+      --color: #2c3e50;
+      --icon-font-size: 24px;
+    }
+  }
+}
+
+// Estilos para las tarjetas de plantas
+ion-card {
+  margin: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  background: white;
+  position: relative;
+  
+  // Imagen de la planta
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  // Contenido de la tarjeta
+  ion-card-content {
+    padding: 0;
+    position: relative;
+    
+    // Título superpuesto sobre la imagen
+    h1 {
+      position: absolute;
+      bottom:60px;
+      left: 0px;
+      right: 0px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+      
+      &.blur-title {
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 12px;
+        display: inline-block;
+      }
+    }
+    
+    // Descripción debajo de la imagen
+    p {
+      padding: 16px;
+      margin: 0;
+      background: white;
+      position: relative;
+      z-index: 1;
+    }
+  }
+  
+  // Gradiente overlay para mejorar legibilidad del título
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  // Efecto hover
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  ion-card {
+    margin: 12px;
+    border-radius: 12px;
     
     img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-bottom-left-radius: 15px;
-      border-bottom-right-radius: 15px;
+      height: 180px;
     }
-      h1 {
-        color: green;
-        background-color: rgba(255, 255, 255, 0.3); 
-        -webkit-backdrop-filter: blur(5px); 
-        backdrop-filter: blur(5px); 
-      }
     
+    ion-card-content {
+      h1 {
+        font-size: 16px;
+        bottom: 145px;
+        left: 0px;
+        right: 0px;
+        
+        &.blur-title {
+          padding: 6px 10px;
+        }
+      }
+      
+      p {
+        padding: 12px;
+        font-size: 13px;
+      }
+    }
+    
+    &::before {
+      height: 100px;
+    }
+  }
+}
+
+// Animación de entrada para las tarjetas
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ion-card {
+  animation: slideInUp 0.5s ease-out;
+  animation-fill-mode: both;
+  
+  // Delay escalonado para múltiples tarjetas
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+}
