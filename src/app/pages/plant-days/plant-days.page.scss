@@ -1,0 +1,123 @@
+.plant-detail-content {
+    padding: 16px;
+    background: #F5F5ED;
+  }
+  
+  /* Familia grande */
+  .family-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #6b705c;
+  }
+  
+  /* Grid de 2 columnas */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  /* Tarjeta de día */
+  .plant-card {
+    background: #ebeadf;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .card-image {
+    flex: 1;
+    overflow: hidden;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Subtítulo Día */
+  .plant-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 8px 0 0;
+    color: #333;
+  }
+  
+  /* Tarjeta “Añadir” */
+  .add-card {
+    background: #f7f7f7;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .add-container ion-icon {
+    font-size: 36px;
+    color: #888;
+  }
+  
+  /* Leyendas bajo el grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 8px 0 16px;
+    align-items: center;
+  }
+  .add-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+  .info-date {
+    font-size: 12px;
+    color: #333;
+    text-align: right;
+  }
+  .update-label {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Preview de ubicación */
+  .location-preview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .location-preview img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 8px;
+  }
+  .location-name {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Chips */
+  .tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  ion-chip {
+    --border-radius: 16px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    font-size: 14px;
+    --background: #fff;
+    color: #333;
+  }
+  ion-chip.selected {
+    --background: #c8ebc5;
+  }
+  

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Historial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="entry-detail-content" fullscreen>
+  <ng-container *ngIf="entry">
+    <!-- Nombre y etiqueta Día -->
+    <h2 class="plant-name">{{ entry.nombre }}</h2>
+
+    <div class="detail-image-container">
+      <img [src]="entry.image || 'assets/placeholder.svg'" />
+      <span class="day-label">{{ entry.day }}</span>
+    </div>
+
+    <!-- Modo LECTURA -->
+    <div *ngIf="!showForm">
+      <p class="description">
+        {{ entry.description }}
+      </p>
+      <p class="entry-date">
+        Fecha: {{ entry.date | date:'dd/MM/yyyy' }}
+      </p>
+      <ion-button fill="outline" class="edit-btn" (click)="editar()">
+        Editar
+      </ion-button>
+    </div>
+
+    <!-- Modo EDICIÓN -->
+    <form [formGroup]="entryForm" *ngIf="showForm" (ngSubmit)="guardar()">
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-datetime
+          formControlName="date"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD/MM/YYYY"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked">Notas</ion-label>
+        <ion-textarea
+          formControlName="description"
+          rows="6"
+        ></ion-textarea>
+      </ion-item>
+
+      <div class="form-buttons">
+        <ion-button fill="outline" (click)="cancelar()" type="button">
+          Cancelar
+        </ion-button>
+        <ion-button type="submit" [disabled]="entryForm.invalid">
+          Guardar
+        </ion-button>
+      </div>
+    </form>
+  </ng-container>
+</ion-content>
+
+<ion-footer>
+  <app-tab-bar></app-tab-bar>
+</ion-footer>

@@ -8,17 +8,20 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     padding-bottom: 5rem; /* espacio para la barra de navegación */
+    padding-left: 7px;
+    padding-right: 7px;
   }
   
   .plant-card {
     cursor: pointer;
+    font-family: 'Concert One', cursive;
     border-radius: 0.5rem;
     overflow: hidden;
-    background: #fff;
+    background: #F5F5ED;
     .card-image {
       width: 100%;
       aspect-ratio: 1;
-      background: #f0f0f0;
+      background: #F5F5ED;
       img {
         width: 100%;
         height: 100%;
@@ -26,9 +29,9 @@
       }
     }
     ion-card-content {
-      text-align: center;
+      text-align: left;
       .plant-name {
-        color: #6b7459;
+        color: #000000;
         font-weight: 500;
       }
     }
@@ -39,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #faf8f0;
+    background: #fdfdfd;
     .add-container {
       display: flex;
       flex-direction: column;
@@ -47,11 +50,24 @@
     }
     .add-icon {
       font-size: 2rem;
-      color: #a2ab91;
+      color: #8f8f8f;
     }
     .add-text {
       margin-top: 0.5rem;
-      color: #6b7459;
+      color: #000000;
+    }
+  }
+
+  .header-card {
+    margin: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+  
+    img {
+      display: block;
+      width: 100%;
+      height: 180px;        // ajusta la altura a tu gusto
+      object-fit: cover;    // mantiene proporciones y recorta si hace falta
     }
   }
   

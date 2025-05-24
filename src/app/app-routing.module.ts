@@ -91,7 +91,22 @@ const routes: Routes = [
   {
     path: 'new-plant',
     loadChildren: () => import('./pages/new-plant/new-plant.module').then( m => m.NewPlantPageModule)
+  },
+  {
+    path: 'plant-days/:familia',
+    loadChildren: () => import('./pages/plant-days/plant-days.module').then( m => m.PlantDaysPageModule)
+  },
+  {
+    path: 'plant-detalle/:id',
+    loadChildren: () =>
+      import('./pages/plant-detalle/plant-detalle.module').then(m => m.PlantDetallePageModule)
+  },
+  {
+    path: 'buscador-scanner',
+    loadChildren: () => import('./pages/buscador-scanner/buscador-scanner.module').then( m => m.BuscadorScannerPageModule)
   }
+
+
 
 
 

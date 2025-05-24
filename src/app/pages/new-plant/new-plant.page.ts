@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
+import { NavController } from '@ionic/angular';
 import {
   Camera,
   CameraResultType,
@@ -22,17 +23,20 @@ export class NewPlantPage implements OnInit {
   imageSrc: string | null = null;
   location = '';      // <-- nuevo: lugar en la casa
   day = '';           // <-- nuevo: día (por ejemplo, "Lunes" o fecha)
+  family = '';
+  clima = '';
 
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit(): void {}
 
   back() {
-    this.router.navigate(['/tabs/plantas']);
+    this.navCtrl.back();
   }
 
   /** Toma los datos del formulario y crea un nuevo documento en Firestore */
@@ -64,7 +68,7 @@ export class NewPlantPage implements OnInit {
         .collection(`users/${user.uid}/plants`)
         .add(plantData);
       // Una vez guardada, regresar al listado
-      this.router.navigate(['/tabs/plantas']);
+      this.router.navigate(['/plantas']);
     } catch (error) {
       console.error('Error al agregar la planta:', error);
     }
