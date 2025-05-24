@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Escáner</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="scanner-content">
+  <!-- Título secundario -->
+  <h2>Datos que coinciden con la imagen</h2>
+
+  <!-- Cabecera “Publicaciones” + pestaña “Artículos” -->
+  <div class="pub-header">
+    <span class="label">Publicaciones</span>
+    <ion-segment [(ngModel)]="selectedSegment" class="segment">
+      <ion-segment-button value="articulos">
+        Artículos
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Lista de artículos -->
+  <div class="cards-list">
+    <ion-card
+      *ngFor="let pub of publications"
+      (click)="openDetail(pub)"
+      class="result-card"
+    >
+      <div class="card-img">
+        <img [src]="pub.image" alt="{{ pub.title }}" />
+      </div>
+      <ion-card-content>
+        <h3 class="card-title">{{ pub.title }}</h3>
+        <p class="card-desc">
+          {{ pub.description }}
+          <strong> LEER MAS…</strong>
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <app-tab-bar></app-tab-bar>
+</ion-footer>

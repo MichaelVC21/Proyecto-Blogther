@@ -4,19 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScannerPageRoutingModule } from './scanner-routing.module';
-
-import { ScannerPage } from './scanner.page';
+import { PlantDaysPageRoutingModule } from './plant-days-routing.module';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { PlantDaysPage } from './plant-days.page';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    SharedModule,
-    ScannerPageRoutingModule
+    IonicModule,SharedModule,
+    PlantDaysPageRoutingModule
   ],
-  declarations: [ScannerPage]
+  declarations: [PlantDaysPage]
 })
-export class ScannerPageModule {}
+export class PlantDaysPageModule {}

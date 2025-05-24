@@ -5,11 +5,17 @@
 </ion-header>
 
 <ion-content class="plant-list-content" fullscreen>
-  <div class="grid">
+  
+
+      <!-- Cabecera grande -->
+      <ion-card class="header-card">
+        <img src="" alt="Mis plantas" />
+      </ion-card>
+      <div class="grid">
     <!-- Cada tarjeta de planta -->
     <ion-card
       *ngFor="let plant of plantCategories"
-      (click)="goToDetail(plant.id)"
+      (click)="goToDetail(plant.name)"
       class="plant-card"
     >
       <div class="card-image">
@@ -34,5 +40,9 @@
     </ion-card>
   </div>
 
-  <app-tab-bar></app-tab-bar>
+
 </ion-content>
+
+<ion-footer>
+  <app-tab-bar></app-tab-bar>
+</ion-footer>

@@ -4,19 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScannerPageRoutingModule } from './scanner-routing.module';
+import { BuscadorScannerPageRoutingModule } from './buscador-scanner-routing.module';
 
-import { ScannerPage } from './scanner.page';
+import { BuscadorScannerPage } from './buscador-scanner.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     SharedModule,
-    ScannerPageRoutingModule
+    BuscadorScannerPageRoutingModule
   ],
-  declarations: [ScannerPage]
+  declarations: [BuscadorScannerPage]
 })
-export class ScannerPageModule {}
+export class BuscadorScannerPageModule {}

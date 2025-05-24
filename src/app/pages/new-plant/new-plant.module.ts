@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { NewPlantPageRoutingModule } from './new-plant-routing.module';
 
 import { NewPlantPage } from './new-plant.page';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     NewPlantPageRoutingModule
   ],
   declarations: [NewPlantPage]

@@ -1,4 +1,3 @@
-<!-- src/app/pages/new-plant/new-plant.page.html -->
 <ion-header>
   <ion-toolbar class="toolbar-border">
     <ion-buttons slot="start">
@@ -10,11 +9,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="new-plant-content" fullscreen>
+<ion-content class="new-plant-content">
   <form (ngSubmit)="handleSubmit()" class="form-container">
-    
-    <!-- Foto o placeholder -->
-    <ion-card class="photo-card" (click)="handleCameraClick()">
+
+     <!-- Foto o placeholder -->
+     <ion-card class="photo-card" (click)="handleCameraClick()">
       <ng-container *ngIf="imageSrc; else placeholder">
         <img [src]="imageSrc" />
       </ng-container>
@@ -25,58 +24,59 @@
       </ng-template>
     </ion-card>
 
-    <!-- Nombre -->
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked" class="input-label">Nombre</ion-label>
-      <ion-input
-        [(ngModel)]="name"
-        name="name"
-        required
-        class="input-field"
-      ></ion-input>
-    </ion-item>
+    <!-- CAMPOS CON OUTLINE + FLOATING LABEL -->
+   
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="name" name = "name"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea
+          [(ngModel)]="description"
+          name="description"
+          rows="4"
+        ></ion-textarea>
+      </ion-item>
 
-    <!-- Descripción -->
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked" class="input-label">Descripción</ion-label>
-      <ion-textarea
-        [(ngModel)]="description"
-        name="description"
-        rows="4"
-        class="input-field"
-      ></ion-textarea>
-    </ion-item>
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Lugar</ion-label>
+        <ion-input
+          [(ngModel)]="location"
+          name="location"
+          required>
+        </ion-input>
+      </ion-item>
 
-    <!-- Lugar (select con opciones) -->
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked" class="input-label">Lugar</ion-label>
-      <ion-select
-        [(ngModel)]="location"
-        name="location"
-        interface="popover"
-        placeholder="Selecciona lugar"
-        required
-      >
-        <ion-select-option value="Sala">Sala</ion-select-option>
-        <ion-select-option value="Cocina">Cocina</ion-select-option>
-        <ion-select-option value="Dormitorio">Dormitorio</ion-select-option>
-        <ion-select-option value="Jardín">Jardín</ion-select-option>
-        <ion-select-option value="Balcón">Balcón</ion-select-option>
-      </ion-select>
-    </ion-item>
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Día</ion-label>
+        <ion-input
+          [(ngModel)]="day"
+          name="day"
+          required>
+        </ion-input>
+      </ion-item>
+   
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Clima</ion-label>
+        <ion-input
+          [(ngModel)]="clima"
+          name="clima"
+          required>
+        </ion-input>
+      </ion-item>
 
-    <!-- Día (datetime) -->
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked" class="input-label">Día</ion-label>
-      <ion-input
-        [(ngModel)]="day"
-        name="day"
-        required
-        class="input-field"
-      ></ion-input>
-    </ion-item>
+      <ion-item lines="none" class="custom-field">
+        <ion-label position="stacked">Familia</ion-label>
+        <ion-input
+          [(ngModel)]="family"
+          name="family"
+          required>
+        </ion-input>
+      </ion-item>
 
-    <!-- Botones -->
+    <!-- BOTONES -->
     <div class="button-group">
       <ion-button
         type="submit"
@@ -98,3 +98,7 @@
 
   </form>
 </ion-content>
+
+<ion-footer slot="fixed">
+  <app-tab-bar></app-tab-bar>
+</ion-footer>
