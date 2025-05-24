@@ -1,0 +1,100 @@
+<!-- src/app/pages/new-plant/new-plant.page.html -->
+<ion-header>
+  <ion-toolbar class="toolbar-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" fill="clear">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mis plantas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="new-plant-content" fullscreen>
+  <form (ngSubmit)="handleSubmit()" class="form-container">
+    
+    <!-- Foto o placeholder -->
+    <ion-card class="photo-card" (click)="handleCameraClick()">
+      <ng-container *ngIf="imageSrc; else placeholder">
+        <img [src]="imageSrc" />
+      </ng-container>
+      <ng-template #placeholder>
+        <div class="camera-button">
+          <ion-icon name="camera-outline"></ion-icon>
+        </div>
+      </ng-template>
+    </ion-card>
+
+    <!-- Nombre -->
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" class="input-label">Nombre</ion-label>
+      <ion-input
+        [(ngModel)]="name"
+        name="name"
+        required
+        class="input-field"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Descripción -->
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" class="input-label">Descripción</ion-label>
+      <ion-textarea
+        [(ngModel)]="description"
+        name="description"
+        rows="4"
+        class="input-field"
+      ></ion-textarea>
+    </ion-item>
+
+    <!-- Lugar (select con opciones) -->
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" class="input-label">Lugar</ion-label>
+      <ion-select
+        [(ngModel)]="location"
+        name="location"
+        interface="popover"
+        placeholder="Selecciona lugar"
+        required
+      >
+        <ion-select-option value="Sala">Sala</ion-select-option>
+        <ion-select-option value="Cocina">Cocina</ion-select-option>
+        <ion-select-option value="Dormitorio">Dormitorio</ion-select-option>
+        <ion-select-option value="Jardín">Jardín</ion-select-option>
+        <ion-select-option value="Balcón">Balcón</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Día (datetime) -->
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked" class="input-label">Día</ion-label>
+      <ion-input
+        [(ngModel)]="day"
+        name="day"
+        required
+        class="input-field"
+      ></ion-input>
+    </ion-item>
+
+    <!-- Botones -->
+    <div class="button-group">
+      <ion-button
+        type="submit"
+        fill="outline"
+        shape="round"
+        class="btn-submit"
+      >
+        Subir
+      </ion-button>
+      <ion-button
+        fill="outline"
+        shape="round"
+        class="btn-cancel"
+        (click)="back()"
+      >
+        Cancelar
+      </ion-button>
+    </div>
+
+  </form>
+</ion-content>
