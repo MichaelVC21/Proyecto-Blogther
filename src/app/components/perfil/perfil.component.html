@@ -1,7 +1,7 @@
-<img src="https://i.pinimg.com/736x/29/41/b0/2941b0a266c0fc1cb388429315b9ccf9.jpg" alt="foto-perfil">
 
 <div>
-  <h1> nombre {{auth.profile?.username}}</h1>
+  <img [src]="auth.profile?.photoURL" alt="Foto de perfil" class="user-avatar" />
+  <h1>nombre {{ auth.profile?.username }}</h1>
   <p>{{ descripcion }}</p>
   <ion-button expand="full" color="primary" href="/mis-publi">
     <ion-icon name="albums-outline" slot="start"></ion-icon>

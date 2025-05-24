@@ -1,0 +1,28 @@
+ion-header {
+    --background: #F5F5ED;
+    
+    ion-toolbar {
+      --background: #F5F5ED;
+      --color: #2c3e50;
+      
+      ion-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #6c757d;
+      }
+      
+      // Botones del header (editar, configuración)
+      ion-button {
+        --color: #6c757d;
+        --background: #F5F5ED;
+        --box-shadow: none;
+        margin: 0;
+        height: auto;
+        
+        ion-icon {
+          font-size: 24px;
+          margin: 0;
+        }
+      }
+    }
+  }
