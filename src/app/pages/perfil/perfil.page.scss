@@ -6,14 +6,16 @@ ion-header {
       --color: #2c3e50;
       
       ion-title {
-        font-size: 18px;
+        font-size: 23px;
         font-weight: 600;
-        color: #6c757d;
+        color: #8B9773;
+        font-family: 'Concert One', sans-serif;
+
       }
       
       // Botones del header (editar, configuración)
       ion-button {
-        --color: #6c757d;
+        --color: #8B9773;
         --background: #F5F5ED;
         --box-shadow: none;
         margin: 0;

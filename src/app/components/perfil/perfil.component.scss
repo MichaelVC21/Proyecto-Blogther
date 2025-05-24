@@ -3,6 +3,39 @@ ion-content {
   --background: #F5F5ED;
   padding: 0;
 }
+ion-button.button-solid.ion-color {
+  --background: transparent !important;
+  --color: inherit !important;
+  --box-shadow: none !important;
+  --ion-color-base: transparent !important;
+  --ion-color-contrast: inherit !important;
+}
+
+.btn-publi {
+  --background: #BBC3C6;
+  --color: black;
+  font-size: 20px;
+  font-family: 'Concert One', sans-serif;
+}
+
+.btn-favoritos {
+  --background: #D3DCBD;
+  --color: black;
+  font-size: 20px;
+  font-family: 'Concert One', sans-serif;
+}
+
+.btn-calendario {
+  --background: #8B9773;
+  --color: black;
+  font-size: 20px;
+  font-family: 'Concert One', sans-serif;
+}
+
+
+
+
+
 
 // Contenedor principal del perfil
 div {
@@ -10,6 +43,7 @@ div {
   text-align: center;
   background: #F5F5ED;
   min-height: 100vh;
+  
 }
 
 // Imagen de perfil
@@ -29,15 +63,19 @@ h1 {
   color: #2c3e50;
   margin: 0 0 8px 0;
   text-transform: capitalize;
+  font-family: 'Quicksand', sans-serif;
+
 }
 
 // Descripción/subtítulo
 p {
   font-size: 14px;
-  color: black;
+  color: #2c3e50;
   margin: 0 0 32px 0;
   font-weight: 400;
   line-height: 1.4;
+  font-family: 'Quicksand', sans-serif;
+
 }
 
 // Estilos para los botones
@@ -47,38 +85,11 @@ ion-button {
   --padding-bottom: 16px;
   --padding-start: 20px;
   --padding-end: 20px;
-  margin: 8px 0;
+  margin: 10px 0;
   height: 56px;
   font-weight: 600;
   font-size: 16px;
   text-transform: none;
-  
-  // Botón Publicaciones (gris)
-  &[color="primary"] {
-    --background: #e9ecef;
-    --background-hover: #dee2e6;
-    --background-activated: #ced4da;
-    --color: #2c3e50;
-    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  // Botón Favoritos (verde claro)
-  &[color="secondary"] {
-    --background: #d4edda;
-    --background-hover: #c3e6cb;
-    --background-activated: #b1dfbb;
-    --color: #155724;
-    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  // Botón Calendario (verde oscuro)
-  &[color="tertiary"] {
-    --background: #28a745;
-    --background-hover: #218838;
-    --background-activated: #1e7e34;
-    --color: white;
-    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
 
   // Íconos dentro de los botones
   ion-icon {

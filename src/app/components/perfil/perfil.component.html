@@ -1,19 +1,22 @@
 
 <div>
   <img [src]="auth.profile?.photoURL" alt="Foto de perfil" class="user-avatar" />
-  <h1>nombre {{ auth.profile?.username }}</h1>
+  <h1> {{ auth.profile?.username }}</h1>
   <p>{{ descripcion }}</p>
-  <ion-button expand="full" color="primary" href="/mis-publi">
+  <ion-button expand="full" class="btn-publi" href="/mis-publi">
     <ion-icon name="albums-outline" slot="start"></ion-icon>
     Publicaciones
   </ion-button>
-  <ion-button expand="full" color="secondary">
+  
+  <ion-button expand="full" class="btn-favoritos">
     <ion-icon name="star-outline" slot="start"></ion-icon>
     Favoritos
   </ion-button>
-  <ion-button expand="full" color="tertiary" href="/calendario">
-    <ion-icon name="calendar-number-outline"></ion-icon>
+  
+  <ion-button expand="full" class="btn-calendario" href="/calendario">
+    <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
     Calendario
   </ion-button>
+  
 </div>
 
