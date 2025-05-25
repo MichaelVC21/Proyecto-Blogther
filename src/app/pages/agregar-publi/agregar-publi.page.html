@@ -2,7 +2,7 @@
   <ion-toolbar>
     <div style="display: flex; flex-direction: row; align-items: center;">
       <ion-button href="/perfil">
-        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        <ion-icon name="arrow-back-outline" slot="start" color="verdeoscuro"></ion-icon>
       </ion-button>
       <ion-title>Agregar Publicacion</ion-title>
     </div>
@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-button (click)="triggerFileInput()" expand="full" style="margin-bottom: 12px;">
-    <img [src]="imagenBase64" alt="imagen-de-publicacion" style="max-height: 200px; max-width: 100%;">
+    <img [src]="imagenBase64" alt="imagen-de-publicacion" style="max-height: 500px; max-width: 100%;">
   </ion-button>
 
   <input type="file" accept="image/*" (change)="cargarImagen($event)" hidden #fileInput />

@@ -75,6 +75,10 @@ const routes: Routes = [
   },
   {
     path: 'articulos/:id',
+    loadChildren: () => import('./pages/extras/arti/arti.module').then( m => m.ArtiPageModule)
+  },
+  {
+    path: 'articulos/:id',
     loadComponent: () => import('./components/articulo-detalle/articulo-detalle.component').then(m => m.ArticuloDetalleComponent)
   },
   {
@@ -136,17 +140,14 @@ const routes: Routes = [
     path: 'transferencia',
     loadChildren: () => import('./pages/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
     },
-{
+  {
     path: 'favoritos',
     loadChildren: () => import('./pages/favoritos/favoritos.module').then( m => m.FavoritosPageModule)
   },
   {
   path: 'qr',
   loadChildren: () => import('./pages/qr/qr.module').then(m => m.QrPageModule)
-}
-
-  
-  
+  }
 ];
 
 @NgModule({

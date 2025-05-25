@@ -21,6 +21,7 @@ export class PublicacionesComponent  implements OnInit {
   publicacionSeleccionada: any = null;
   publiForm!: FormGroup;
   userUid: string;
+  iconosActivos: { [publicacionId: string]: { heart: boolean, star: boolean, share: boolean } } = {};
 
   constructor(
     public auth: AuthService,
@@ -44,6 +45,13 @@ export class PublicacionesComponent  implements OnInit {
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
+  }
+  toggleIcon(pubId: string, icon: 'heart' | 'star' | 'share') {
+    if (!this.iconosActivos[pubId]) {
+      this.iconosActivos[pubId] = { heart: false, star: false, share: false };
+    }
+  
+    this.iconosActivos[pubId][icon] = !this.iconosActivos[pubId][icon];
   }
   editarPublicacion(publi: any) {
     this.publicacionSeleccionada = publi;
