@@ -39,7 +39,6 @@ ion-card {
     display: block;
   }
   
-  // Contenido de la tarjeta
   ion-card-content {
     padding: 0;
     position: relative;
@@ -72,6 +71,8 @@ ion-card {
       background: #F5F5ED;
       position: relative;
       z-index: 1;
+      font-family: 'Quicksand', sans-serif;
+
     }
   }
   

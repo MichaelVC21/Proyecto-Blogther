@@ -40,6 +40,7 @@ ion-content {
     justify-content: flex-start;
     min-height: 100vh;
     padding: 24px 0 0 0;
+    font-family: 'Quicksand', sans-serif;
   }
   
   .scanner-preview {
@@ -52,6 +53,7 @@ ion-content {
     align-items: center;
     margin-bottom: 30px;
     overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
   }
   
   .scanner-frame {
@@ -103,6 +105,7 @@ ion-content {
     justify-content: space-around;
     gap: 18px;
     margin-top: 22px;
+    font-family: 'Quicksand', sans-serif;
   }
   
   .scanner-btn {
