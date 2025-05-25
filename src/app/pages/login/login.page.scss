@@ -3,6 +3,9 @@ img{
     height: 350px;
     margin: 0 auto;
 }
+ion-toolbar{
+    --background: var(--ion-color-fondo);
+}
 ion-content{
     --background: var(--ion-color-fondo);
 }
@@ -20,13 +23,15 @@ form > ion-item > ion-input{
 }
 form > ion-button{
     font-family: 'Concert One', sans-serif;
-    --background: var(--ion-color-verdeoscuro);
+    --background: none;
+    color: var(--ion-color-verdeoscuro);
 }
 ion-button{
     --background: var(--ion-color-verdeoscuro);
+    font-family: 'Concert One', sans-serif;
 }
 ion-content > div > ion-button{
-    --background: var(--ion-color-verdeoscuro);
+    --background: var(--ion-color-veishoscuro);
     font-family: 'Concert One', sans-serif;
     --border-radius: 50px;
 }

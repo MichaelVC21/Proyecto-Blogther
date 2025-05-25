@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true">
 
-  <img src="../../../assets/img/logo blogther.svg" alt="logo">
+  <img src="../../../assets/img/logo blogther.svg" alt="logo" style="width: 300px; height: 300px;">
 
   <div>
     <br>
@@ -50,7 +50,7 @@
       placeholder="Ingrese Contraseña"
       type="password"
       mode="md">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        <ion-input-password-toggle slot="end" color="verdeoscuro"></ion-input-password-toggle>
       </ion-input>
     </ion-item>
     <ion-button expand="full" type="submit" [disabled]="!registerForm.valid">
@@ -59,7 +59,7 @@
     </ion-button>
   </form>
   <br>
-  <ion-button href="/sign-up">
+  <ion-button expand="full" href="/sign-up">
     Inicia sesión si ya tienes cuenta
   </ion-button>
 </ion-content>

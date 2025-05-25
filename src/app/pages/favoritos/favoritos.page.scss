@@ -1,0 +1,31 @@
+ion-toolbar{
+    --background: var(--ion-color-fondo);
+    --color: var(--ion-color-verdeoscuro);
+}
+// Estilos para las cards de publicaciones
+ion-list{
+    --background: var(--ion-color-fondo);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ion-item{
+    --background: var(--ion-color-fondo);
+    --color: var(--ion-color-verdeoscuro);
+    font-family: 'Quicksand', sans-serif;
+}
+ion-content{
+    --background: var(--ion-color-fondo);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ion-button{
+    --background: var(--ion-color-fondo);
+    color: var(--ion-color-verdeoscuro);
+    font-family: 'Concert One', sans-serif;
+}

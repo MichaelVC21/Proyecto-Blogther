@@ -1,0 +1,25 @@
+img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 24px auto;
+    display: block;
+}
+ion-button {
+    font-family: 'Concert One', sans-serif;
+    --background: none;
+    color: var(--ion-color-verdeoscuro);
+    margin: auto;
+}
+ion-toolbar {
+    --background: var(--ion-color-fondo);
+}
+ion-content {
+    --background: var(--ion-color-fondo);
+}
+ion-item {
+    --background: var(--ion-color-fondo);
+    color: var(--ion-color-verdeoscuro);
+    font-family: 'Quicksand', sans-serif;
+}
