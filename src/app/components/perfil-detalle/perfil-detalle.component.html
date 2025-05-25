@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()" defaultHref="/perfiles"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ perfil?.nombre || "Perfil" }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="perfil-content">
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando perfil...</p>
+  </div>
+
+  <!-- Estado de error -->
+  <div *ngIf="error && !loading" class="error-container">
+    <ion-icon name="warning-outline" class="error-icon"></ion-icon>
+    <h3>Error de conexión</h3>
+    <p>No se pudo cargar el perfil</p>
+    <ion-button fill="solid" color="primary" (click)="retryLoad()">
+      <ion-icon name="refresh-outline" slot="start"></ion-icon>
+      Reintentar
+    </ion-button>
+  </div>
+
+  <!-- Estado de no encontrado -->
+  <div *ngIf="notFound && !loading" class="not-found-container">
+    <ion-icon name="person-outline" class="not-found-icon"></ion-icon>
+    <h3>Perfil no encontrado</h3>
+    <p>El perfil que buscas no existe</p>
+    <ion-button fill="outline" color="primary" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+      Volver
+    </ion-button>
+  </div>
+
+  <!-- Contenido del perfil -->
+  <div *ngIf="perfil && !loading && !error && !notFound" class="perfil-container">
+    
+    <!-- Foto de perfil circular -->
+    <div class="profile-photo-container">
+      <div class="profile-photo">
+        <img 
+          *ngIf="perfil.foto; else defaultPhoto" 
+          [src]="perfil.foto" 
+          [alt]="'Foto de ' + perfil.nombre"
+          class="profile-image"
+        />
+        <ng-template #defaultPhoto>
+          <div class="default-photo">
+            <ion-icon name="person" class="default-icon"></ion-icon>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Nombre del usuario -->
+    <h2 class="profile-name">{{ perfil.nombre }}</h2>
+
+    <!-- Contador de seguidores y seguidos -->
+    <div class="followers-container">
+      <div class="follower-item">
+        <ion-icon name="people-outline" class="follower-icon"></ion-icon>
+        <span class="follower-count">{{ perfil.seguidores }}</span>
+        <span class="follower-label">seguidores</span>
+      </div>
+      
+      <div class="follower-item">
+        <ion-icon name="people-outline" class="follower-icon"></ion-icon>
+        <span class="follower-count">{{ perfil.seguidos }}</span>
+        <span class="follower-label">seguidos</span>
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="description-container" *ngIf="perfil.descripcion">
+      <p class="profile-description">{{ perfil.descripcion }}</p>
+    </div>
+
+    <!-- Galería de plantas -->
+    <div class="plants-section" *ngIf="perfil.plantas && perfil.plantas.length > 0">
+      <div class="plants-grid">
+        <div 
+          *ngFor="let planta of perfil.plantas" 
+          class="plant-item"
+        >
+          <div class="plant-image-container">
+            <img 
+              [src]="planta.imagen" 
+              [alt]="planta.nombre"
+              class="plant-image"
+            />
+          </div>
+          <p class="plant-name">{{ planta.nombre }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje cuando no hay plantas -->
+    <div *ngIf="!perfil.plantas || perfil.plantas.length === 0" class="no-plants">
+      <ion-icon name="leaf-outline" class="no-plants-icon"></ion-icon>
+      <p>No hay plantas para mostrar</p>
+    </div>
+
+    <!-- Botón expandir (como en el diseño) -->
+    <div class="expand-button">
+      <ion-button fill="clear" color="medium">
+        <ion-icon name="expand-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

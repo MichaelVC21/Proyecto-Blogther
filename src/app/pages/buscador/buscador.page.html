@@ -23,7 +23,7 @@
       [(ngModel)]="searchTerm"
       (ionInput)="onSearchChange($event)"
       animated
-      placeholder="Buscar personas, publicaciones o artículos..."
+      placeholder="Buscar perfiles, publicaciones o artículos..."
       showCancelButton="focus"
       class="custom-searchbar"
       debounce="300"
@@ -46,11 +46,11 @@
         </ion-label>
       </ion-segment-button>
 
-      <ion-segment-button value="personas">
+      <ion-segment-button value="perfiles">
         <ion-label>
-          Personas
-          <span class="result-count" *ngIf="getResultCount('personas') > 0">
-            ({{ getResultCount('personas') }})
+          Perfiles
+          <span class="result-count" *ngIf="getResultCount('perfiles') > 0">
+            ({{ getResultCount('perfiles') }})
           </span>
         </ion-label>
       </ion-segment-button>
@@ -86,7 +86,7 @@
     <div class="initial-content">
       <ion-icon name="search-outline" class="initial-icon"></ion-icon>
       <h2>Busca en toda la plataforma</h2>
-      <p>Encuentra personas, publicaciones y artículos</p>
+      <p>Encuentra perfiles, publicaciones y artículos</p>
       
       <div class="search-suggestions">
         <h3>Sugerencias de búsqueda:</h3>
@@ -139,30 +139,30 @@
 
     <!-- Lista de resultados -->
     <div class="results-list" *ngIf="filteredResults.length > 0">
-      <!-- Grupo de Personas -->
-      <div class="result-group" *ngIf="selectedFilter === 'todos' && personas.length > 0">
+      <!-- Grupo de Perfiles -->
+      <div class="result-group" *ngIf="selectedFilter === 'todos' && perfil.length > 0">
         <div class="group-header">
           <ion-icon name="people-outline" class="group-icon"></ion-icon>
-          <h3>Personas ({{ personas.length }})</h3>
+          <h3>Perfiles ({{ perfil.length }})</h3>
         </div>
         <div class="group-results">
           <div 
             class="result-card person-card" 
-            *ngFor="let persona of personas; trackBy: trackByFn"
-            (click)="onResultClick(persona)"
+            *ngFor="let perfil of perfil; trackBy: trackByFn"
+            (click)="onResultClick(perfil)"
           >
             <div class="result-avatar">
               <img 
-                [src]="persona.imagen || 'assets/img/default-avatar.jpeg'" 
-                [alt]="persona.titulo"
+                [src]="perfil.imagen || 'assets/img/default-avatar.jpeg'" 
+                [alt]="perfil.titulo"
               >
               <div class="result-type-badge person-badge">
                 <ion-icon name="person-outline"></ion-icon>
               </div>
             </div>
             <div class="result-info">
-              <h4>{{ persona.titulo }}</h4>
-              <p>{{ persona.subtitulo }}</p>
+              <h4>{{ perfil.titulo }}</h4>
+              <p>{{ perfil.subtitulo }}</p>
             </div>
             <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
           </div>
@@ -235,7 +235,7 @@
           <div 
             class="result-card" 
             [ngClass]="{
-              'person-card': result.tipo === 'persona',
+              'person-card': result.tipo === 'perfil',
               'publication-card': result.tipo === 'publicacion',
               'article-card': result.tipo === 'articulo'
             }"
@@ -251,7 +251,7 @@
               <div 
                 class="result-type-badge"
                 [ngClass]="{
-                  'person-badge': result.tipo === 'persona',
+                  'person-badge': result.tipo === 'perfil',
                   'publication-badge': result.tipo === 'publicacion',
                   'article-badge': result.tipo === 'articulo'
                 }"
