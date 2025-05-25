@@ -1,5 +1,8 @@
+.ion-header {
+    background: #F5F5ED;
+}
 .perfil-content {
-    --background: #f5f5f5;
+    --background: #F5F5ED;
   }
   
   .loading-container, .error-container, .not-found-container {
@@ -33,7 +36,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: white;
+    background: #F5F5ED;
     margin: 0;
     min-height: 100vh;
   }

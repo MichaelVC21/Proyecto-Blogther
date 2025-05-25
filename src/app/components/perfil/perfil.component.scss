@@ -11,6 +11,23 @@ ion-button.button-solid.ion-color {
   --ion-color-contrast: inherit !important;
 }
 
+.followers-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  gap: 10px;               /* Espacio entre los elementos */
+  margin-bottom: 20px; 
+  font-weight: bold;
+  color: black;    /* Espacio inferior si lo necesitas */
+}
+
+.follower-icon {
+  font-size: 1.2rem;
+  font-weight: bold; 
+  color: black;
+}
+
+
 .btn-publi {
   --background: #BBC3C6;
   --color: black;
