@@ -130,9 +130,15 @@ const routes: Routes = [
   {
     path: 'buscador-scanner',
     loadChildren: () => import('./pages/buscador-scanner/buscador-scanner.module').then( m => m.BuscadorScannerPageModule)
-  }
-,
-
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule)
+  },
+  {
+    path: 'transferencia',
+    loadChildren: () => import('./pages/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
+  },
   {
     path: 'favoritos',
     loadChildren: () => import('./pages/favoritos/favoritos.module').then( m => m.FavoritosPageModule)
