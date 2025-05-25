@@ -1,23 +1,5 @@
-:host {
-    /* Sólo los ion-card-content de las cards de planta */
-    ion-card-content {
-      font-family: 'Concert One', cursive !important;
-      --background: var(--ion-color-fondo);
-    }
-  }
-  h1 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #2c3e50;
-    margin: 0 0 8px 0;
-    text-transform: capitalize;
-    font-family: 'Quicksand', sans-serif;
-    --background: var(--ion-color-fondo);
-  
-  }
-  
-  .plant-list-content {
-    --background: var(--ion-color-fondo);
+.plant-list-content {
+    --background: #faf8f0;
     padding: 1rem;
   }
   
