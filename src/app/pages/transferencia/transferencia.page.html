@@ -1,0 +1,143 @@
+
+  <!-- Formulario de pago -->
+  <form [formGroup]="pagoForm" (ngSubmit)="procesarPago()">
+    
+    <!-- Información de la tarjeta -->
+    <ion-card class="payment-section">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="card" class="section-icon"></ion-icon>
+          Información de la tarjeta
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-label position="stacked">Número de tarjeta *</ion-label>
+          <ion-input 
+            type="text" 
+            placeholder="1234 5678 9012 3456"
+            maxlength="19"
+            (ionInput)="formatearNumeroTarjeta($event)"
+            [class.ion-invalid]="pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched">
+          </ion-input>
+          <ion-note slot="error" *ngIf="pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched">
+            Ingresa un número de tarjeta válido
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Nombre del titular *</ion-label>
+          <ion-input 
+            type="text" 
+            placeholder="Juan Pérez"
+            formControlName="nombreTitular"
+            [class.ion-invalid]="pagoForm.get('nombreTitular')?.invalid && pagoForm.get('nombreTitular')?.touched">
+          </ion-input>
+          <ion-note slot="error" *ngIf="pagoForm.get('nombreTitular')?.invalid && pagoForm.get('nombreTitular')?.touched">
+            Nombre requerido
+          </ion-note>
+        </ion-item>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">Vencimiento *</ion-label>
+              <ion-input 
+                type="text" 
+                placeholder="MM/AA"
+                maxlength="5"
+                (ionInput)="formatearFecha($event)"
+                [class.ion-invalid]="pagoForm.get('fechaVencimiento')?.invalid && pagoForm.get('fechaVencimiento')?.touched">
+              </ion-input>
+              <ion-note slot="error" *ngIf="pagoForm.get('fechaVencimiento')?.invalid && pagoForm.get('fechaVencimiento')?.touched">
+                Fecha inválida
+              </ion-note>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">CVV *</ion-label>
+              <ion-input 
+                type="password" 
+                placeholder="123"
+                maxlength="4"
+                formControlName="cvv"
+                [class.ion-invalid]="pagoForm.get('cvv')?.invalid && pagoForm.get('cvv')?.touched">
+              </ion-input>
+              <ion-note slot="error" *ngIf="pagoForm.get('cvv')?.invalid && pagoForm.get('cvv')?.touched">
+                CVV inválido
+              </ion-note>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+
+   
+
+    <!-- Términos y total -->
+    <ion-card class="summary-section">
+      <ion-card-content>
+        
+        <div class="resumen-pago">
+          <h3>Resumen del pago</h3>
+          <div class="linea-resumen">
+            <span>{{ planSeleccionado.nombre }}</span>
+            <span class="precio-resumen">${{ planSeleccionado.precio }} {{ planSeleccionado.moneda }}</span>
+          </div>
+          <div class="linea-resumen impuestos">
+            <span>Impuestos</span>
+            <span>Incluidos</span>
+          </div>
+          <hr>
+          <div class="linea-resumen total">
+            <strong>Total a pagar</strong>
+            <strong class="precio-total">${{ planSeleccionado.precio }} {{ planSeleccionado.moneda }}</strong>
+          </div>
+        </div>
+
+        <ion-item class="terms-item">
+          <ion-checkbox formControlName="aceptarTerminos"></ion-checkbox>
+          <ion-label class="ion-text-wrap">
+            <p>
+              Acepto los 
+              <a href="#" class="terms-link">términos y condiciones</a> 
+              y la 
+              <a href="#" class="terms-link">política de privacidad</a>
+            </p>
+          </ion-label>
+        </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botones de acción -->
+    <div class="action-buttons">
+      <ion-button 
+        expand="block" 
+        size="large" 
+        type="submit"
+        [disabled]="!esFormularioValido || isProcessing"
+        class="subscribe-button">
+        <ion-icon name="card" slot="start" *ngIf="!isProcessing"></ion-icon>
+        <ion-spinner name="crescent" slot="start" *ngIf="isProcessing"></ion-spinner>
+        {{ isProcessing ? 'Procesando...' : 'Suscribirse Ahora' }}
+      </ion-button>
+      
+      <ion-button 
+        expand="block" 
+        fill="clear" 
+        size="large"
+        (click)="cancelar()"
+        [disabled]="isProcessing"
+        class="cancel-button">
+        Cancelar
+      </ion-button>
+    </div>
+
+  </form>
+
+ 
+
