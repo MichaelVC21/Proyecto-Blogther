@@ -70,5 +70,16 @@ export class PlantDaysPage implements OnInit {
     detalle(entryId: string) {
       this.navCtrl.navigateForward(['/plant-detalle', entryId]);
     }
+    getImageUrl(image?: string): string {
+      // Si la imagen es una URL válida, devuélvela. Si es falsy, usa placeholder.
+      if (image && (image.startsWith('http://') || image.startsWith('https://'))) {
+        return image;
+      }
+      if (image && image.trim() !== '') {
+        // Si es una ruta relativa o de assets
+        return image;
+      }
+      return 'assets/placeholder.svg';
+    }
   }
   

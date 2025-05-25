@@ -1,49 +1,75 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light" class="custom-toolbar">
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="back()">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Escáner</ion-title>
+    <ion-title class="custom-title">Escaner</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="scanner-content">
-  <!-- Título secundario -->
-  <h2>Datos que coinciden con la imagen</h2>
+<ion-content class="ion-padding">
+  <h3 class="section-title">Datos que coinciden con la imagen</h3>
 
-  <!-- Cabecera “Publicaciones” + pestaña “Artículos” -->
-  <div class="pub-header">
-    <span class="label">Publicaciones</span>
-    <ion-segment [(ngModel)]="selectedSegment" class="segment">
-      <ion-segment-button value="articulos">
-        Artículos
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+  <ion-segment
+    [(ngModel)]="selectedSegment"
+    (ionChange)="segmentChanged($event)"
+  >
+    <ion-segment-button value="publicaciones">
+      <ion-label>Publicaciones</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="articulos">
+      <ion-label>Artículos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <!-- Lista de artículos -->
-  <div class="cards-list">
+  <!-- Publicaciones -->
+  <ng-container *ngIf="selectedSegment === 'publicaciones'">
     <ion-card
-      *ngFor="let pub of publications"
-      (click)="openDetail(pub)"
+      *ngFor="let pub of filteredPublications; trackBy: trackById"
       class="result-card"
     >
       <div class="card-img">
-        <img [src]="pub.image" alt="{{ pub.title }}" />
+        <img [src]="pub.imagen" alt="{{ pub.titulo }}" />
       </div>
+        
       <ion-card-content>
-        <h3 class="card-title">{{ pub.title }}</h3>
-        <p class="card-desc">
-          {{ pub.description }}
-          <strong> LEER MAS…</strong>
-        </p>
+        <ion-card-title>{{ pub.titulo }}</ion-card-title>
+        <p>{{ pub.descripcion }}</p>
+        <ion-button
+          fill="clear"
+          size="small"
+          (click)="openDetail(pub)"
+        >
+          VER MÁS
+        </ion-button>
+
+        <div class="interaction-bar">
+          <ion-button fill="clear" size="small" class="interaction-btn">
+            <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" class="interaction-btn">
+            <ion-icon name="share-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" class="interaction-btn">
+            <ion-icon name="star-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+
       </ion-card-content>
     </ion-card>
-  </div>
-</ion-content>
 
-<ion-footer>
-  <app-tab-bar></app-tab-bar>
-</ion-footer>
+    <div
+      *ngIf="filteredPublications.length === 0"
+      class="no-results"
+    >
+      No se encontraron coincidencias para “Rosa”.
+    </div>
+  </ng-container>
+
+  <!-- Artículos (placeholder para cuando esté listo) -->
+  <ng-container *ngIf="selectedSegment === 'articulos'">
+    <p class="no-results">Aún no hay artículos configurados.</p>
+  </ng-container>
+</ion-content>

@@ -9,7 +9,7 @@
 
       <!-- Cabecera grande -->
       <ion-card class="header-card">
-        <img src="" alt="Mis plantas" />
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/041/714/449/small_2x/ai-generated-green-wall-of-tropical-plants-on-a-transparent-background-png.png" alt="Mis plantas" />
       </ion-card>
       <div class="grid">
     <!-- Cada tarjeta de planta -->
@@ -20,24 +20,30 @@
     >
       <div class="card-image">
         <img
-          [src]="plant.entries[0]?.image || 'assets/placeholder.svg'"
+          [src]="plant.entries[0]?.imagen"
           [alt]="plant.name"
         />
       </div>
       <ion-card-content>
         <ion-card-subtitle class="plant-name">
           {{ plant.name }}
+          
         </ion-card-subtitle>
       </ion-card-content>
     </ion-card>
 
     <!-- Tarjeta de “Añadir” -->
+    <ion-card-content>
     <ion-card (click)="goToNewPlant()" class="plant-card add-card">
       <div class="add-container">
         <ion-icon name="add-outline" class="add-icon"></ion-icon>
-        <div class="add-text">Añadir</div>
+        
       </div>
+      
     </ion-card>
+    <div class="add-text">Añadir</div>
+  </ion-card-content>
+
   </div>
 
 

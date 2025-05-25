@@ -6,7 +6,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 
 interface PlantEntry {
   id?: string;
-  nombre?: string;
+  name?: string;
   familia?: string;
   day?: string;
   image?: string;
@@ -48,7 +48,12 @@ export class PlantDetallePage implements OnInit {
     // inicializar el formulario
     this.entryForm = this.fb.group({
       description: ['', Validators.required],
-      date: ['', Validators.required]
+      date: ['', Validators.required],
+      name:      ['', Validators.required],
+      familia:     [''],
+      day:         [''],
+      location:    [''],
+      clima:       ['']
     });
   
     // Suscríbete a la colección entera y filtra por el id
@@ -56,8 +61,13 @@ export class PlantDetallePage implements OnInit {
     .subscribe(doc => {
     this.entry = doc;
     this.entryForm.patchValue({
-      description: doc.description || '',
-      date: doc.date ? doc.date.substring(0, 10) : ''
+      name:      doc.name    || '',
+          familia:     doc.family    || '',
+          day:         doc.day       || '',
+          location:    doc.location  || '',
+          clima:       doc.clima     || '',
+          description: doc.description || '',
+          date:        doc.date?.substring(0,10) || ''
     });
     this.cdr.detectChanges();
     });
@@ -92,6 +102,11 @@ export class PlantDetallePage implements OnInit {
     }
   
     const datos = {
+      name:        this.entryForm.value.name,
+      familia:     this.entryForm.value.familia,
+      day:         this.entryForm.value.day,
+      location:    this.entryForm.value.location,
+      clima:       this.entryForm.value.clima,
       description: this.entryForm.value.description,
       date: this.entryForm.value.date,
       userUid: this.userUid
@@ -104,6 +119,10 @@ export class PlantDetallePage implements OnInit {
         if (this.entry) {
           this.entry.description = datos.description;
           this.entry.date = datos.date;
+          this.entry.name = datos.name;
+          this.entry.familia = datos.familia;
+          this.entry.day = datos.day;
+
         }
         this.showForm = false;
         this.cdr.detectChanges();

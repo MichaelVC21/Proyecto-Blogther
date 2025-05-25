@@ -1,37 +1,74 @@
-.plant-detail-content {
-    padding: 16px;
-    background: #F5F5ED;
+:host {
+    --main-bg: #f4f5f4;
+    --main-text: #6d7c50;
+    --title-font: 'Fredoka', sans-serif;
+    --subtitle-font: 'Fredoka', sans-serif;
+    --card-radius: 16px;
+    --card-bg: #f4f5f4;
+    --add-bg: #f7f7fa;
   }
   
-  /* Familia grande */
+  ion-content.plant-detail-content {
+    background: var(--main-bg);
+  }
+  
+  .custom-toolbar {
+    background: var(--main-bg)!important;
+    border: none!important;
+    box-shadow: none!important;
+    
+  }
+  
+  .custom-title {
+    font-family: #0000;
+    font-weight: 400;
+    font-size: 17px;
+    color: var(--main-text);
+    letter-spacing: 0.5px;
+  }
+  
   .family-name {
-    font-size: 24px;
+    font-family: var(--title-font);
     font-weight: 700;
-    margin-bottom: 16px;
-    color: #6b705c;
+    font-size: 2.3rem;
+    color: var(--main-text);
+    margin-top: 8px;
+    margin-left: 18px;
+    margin-bottom: 10px;
   }
   
-  /* Grid de 2 columnas */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 0 16px 16px;
+  justify-items: center;
+}
   
-  /* Tarjeta de día */
   .plant-card {
-    background: #ebeadf;
-    border-radius: 12px;
-    overflow: hidden;
-    height: 180px;
+    border-radius: var(--card-radius);
+    background: var(--card-bg);
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+
   }
   
   .card-image {
-    flex: 1;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #fff;
+    border-radius: var(--card-radius) var(--card-radius) 0 0;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .card-image img {
     width: 100%;
@@ -39,85 +76,101 @@
     object-fit: cover;
   }
   
-  /* Subtítulo Día */
   .plant-name {
-    font-size: 16px;
+    font-family: var(--subtitle-font);
+    font-size: 1.0rem;
+    color: #393d3c;
     font-weight: 600;
-    margin: 8px 0 0;
-    color: #333;
+    text-align: left;
+    margin-top: 6px;
+    margin-left: 0;
   }
   
-  /* Tarjeta “Añadir” */
   .add-card {
-    background: #f7f7f7;
-    justify-content: center;
+    background: var(--add-bg)!important;
+    display: flex;
     align-items: center;
+    justify-content: center;
   }
   .add-container {
+    width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
   }
-  .add-container ion-icon {
-    font-size: 36px;
-    color: #888;
+  .add-card ion-icon {
+    font-size: 4rem;
+    color: #c5c8bc;
   }
   
-  /* Leyendas bajo el grid */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 8px 0 16px;
-    align-items: center;
-  }
-  .add-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-  }
-  .info-date {
-    font-size: 12px;
-    color: #333;
-    text-align: right;
+    grid-template-columns: 1fr 1fr;
+    font-family: var(--subtitle-font);
+    font-size: 1rem;
+    margin: 0 16px 10px 16px;
+    color: #393d3c;
+    letter-spacing: 0.2px;
+    align-items: baseline;
   }
   .update-label {
-    font-size: 12px;
-    color: #666;
+    font-size: 1rem;
+    color: #7d7d7d;
+    margin-bottom: 1px;
+  }
+  .add-label {
+    font-weight: 600;
+    color: #7d7d7d;
+    text-align: left;
+  }
+  .info-date {
+    color: #7d7d7d;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: right;
+    margin-top: 2px;
   }
   
-  /* Preview de ubicación */
   .location-preview {
     display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 16px 0 0 18px;
   }
-  .location-preview img {
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
+  
+  .location-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
     object-fit: cover;
-    margin-right: 8px;
+    margin-bottom: 6px;
   }
+  
   .location-name {
-    font-size: 16px;
-    color: #333;
+    font-family: var(--title-font);
+    font-size: 1.2rem;
+    color: var(--main-text);
+    margin-bottom: 7px;
+    margin-top: 2px;
   }
   
-  /* Chips */
-  .tags {
+  .location-tabs {
     display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
+    gap: 12px;
+    margin-top: 2px;
   }
-  ion-chip {
-    --border-radius: 16px;
-    --padding-start: 10px;
-    --padding-end: 10px;
-    font-size: 14px;
-    --background: #fff;
-    color: #333;
+  .tab {
+    font-family: var(--subtitle-font);
+    font-size: 1rem;
+    color: #7d7d7d;
+    background: none;
+    border-radius: 13px;
+    padding: 2px 10px;
+    border: none;
   }
-  ion-chip.selected {
-    --background: #c8ebc5;
+  .tab.selected {
+    background: var(--card-bg);
+    color: #fff;
+    font-weight: 600;
   }
-  

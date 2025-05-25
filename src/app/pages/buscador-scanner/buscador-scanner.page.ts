@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { IonHeader, IonFooter } from "@ionic/angular/standalone";
+import { DatabaseService } from 'src/app/services/database.service';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 interface Publication {
   id: string;
-  image: string;
-  title: string;
-  description: string;
+  imagen: string;
+  titulo: string;
+  descripcion: string;
 }
 
 @Component({
@@ -15,31 +17,53 @@ interface Publication {
   styleUrls: ['./buscador-scanner.page.scss'],
   standalone:false
 })
-export class BuscadorScannerPage implements OnInit {
-  // “Artículos” es la única pestaña de momento
-  selectedSegment = 'articulos';
+export class BuscadorScannerPage implements OnInit, OnDestroy {
+  selectedSegment: 'publicaciones' | 'articulos' = 'publicaciones';
 
-  // Datos simulados; aquí luego llamas a tu servicio real
+  // Resultados que llegan de Firebase y luego se filtran
   publications: Publication[] = [];
+  filteredPublications: Publication[] = [];
 
-  constructor(private navCtrl: NavController) {}
+  private subs = new Subscription();
+  private readonly FIXED_TERM = 'rosa';
+
+  constructor(
+    private navCtrl: NavController,
+    private db: DatabaseService
+  ) {}
 
   ngOnInit() {
-    // Simula carga de resultados
-    this.publications = [
-      {
-        id: '1',
-        image: 'assets/placeholder.svg',
-        title: 'Sabías que la rosa verde…',
-        description: 'Después de meses de cuidados y paciencia, mi orquídea finalmente ha florecido! 🌸'
-      },
-      {
-        id: '2',
-        image: 'assets/placeholder.svg',
-        title: 'Rosas verdes',
-        description: 'Después de meses de cuidados y paciencia, mi orquídea finalmente ha florecido! 🌼'
-      }
-    ];
+    // 1) Traer todas las publicaciones desde Firestore
+    const sub = this.db
+      .fetchFirestoreCollection('Publicaciones')    // devuelve Observable<any[]>
+      .pipe(
+        map((docs: any[]) =>
+          docs.map(d => ({
+            id: d.id,
+            imagen: d.imagen || d.foto || 'assets/img/default-post.jpeg',
+            titulo: d.titulo || 'Sin título',
+            descripcion: d.descripcion || '',
+          }))
+        ),
+        // 2) Filtrar por la palabra fija "rosa"
+        map((all: Publication[]) =>
+          all.filter(
+            p =>
+              p.titulo.toLowerCase().includes(this.FIXED_TERM) ||
+              p.descripcion.toLowerCase().includes(this.FIXED_TERM)
+          )
+        )
+      )
+      .subscribe(results => {
+        this.publications = results;
+        this.filteredPublications = results;
+      });
+
+    this.subs.add(sub);
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   back() {
@@ -47,7 +71,15 @@ export class BuscadorScannerPage implements OnInit {
   }
 
   openDetail(pub: Publication) {
-    // Vincula con tu ruta de detalle:
-    this.navCtrl.navigateForward(['/article-detail', pub.id]);
+    this.navCtrl.navigateForward(['/publi', pub.id]);
+  }
+
+  segmentChanged(event: any) {
+    this.selectedSegment = event.detail.value;
+    // si añades artículos, aquí podrías recargar o filtrar otro array
+  }
+
+  trackById(_i: number, item: Publication) {
+    return item.id;
   }
 }

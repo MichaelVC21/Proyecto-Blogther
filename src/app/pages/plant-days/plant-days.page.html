@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar color="light">
+  <ion-toolbar color="light" class="custom-toolbar">
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="back()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Historial</ion-title>
+    <ion-title class="custom-title">Historial</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
       (click)="goToEntry(entry.id!)"
     >
       <div class="card-image" (click)="detalle(entry.id!)">
-        <img [src]="entry.image || 'assets/placeholder.svg'" />
+        <img [src]="getImageUrl(entry.image)" alt="Imagen de la planta" />
       </div>
       <ion-card-content>
         <ion-card-subtitle class="plant-name">
@@ -40,16 +40,24 @@
 
   <!-- Leyenda “Añadir” / Fecha última actualización -->
   <div class="info-grid">
+    <div class="update-label">Ultima Actualizacion</div>
     <div class="add-label">Añadir</div>
     <div class="info-date">
-      {{ entries[0]?.date | date:'dd/MM/yyyy' }}
+      {{ entries[0]?.date | date:'dd / MM / yyyy' }}
     </div>
-    <div class="update-label">Última Actualización</div>
     <div></div>
   </div>
 
-  <!-- Preview de ubicación -->
-  
+  <!-- Preview de ubicación y tabs inferiores (mockup, agrega tu lógica real) -->
+  <div class="location-preview">
+    <img class="location-img" src="assets/room.jpg" alt="Ubicación" />
+    <div class="location-name">Cocina</div>
+    <div class="location-tabs">
+      <span class="tab">Sala de estar</span>
+      <span class="tab">Baño</span>
+      <span class="tab selected">Cocina</span>
+    </div>
+  </div>
 </ion-content>
 
 <ion-footer>
