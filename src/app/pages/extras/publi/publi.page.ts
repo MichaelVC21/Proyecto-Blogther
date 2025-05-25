@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class PubliPage implements OnInit {
 
   publicacion: any = null;
+  iconosActivos: { [publicacionId: string]: { heart: boolean, star: boolean, share: boolean } } = {};
   
   constructor(
     public route: ActivatedRoute,
@@ -27,6 +28,13 @@ export class PubliPage implements OnInit {
         console.log('📄 Publicación cargada:', this.publicacion);
       });
     }
+  }
+  toggleIcon(pubId: string, icon: 'heart' | 'star' | 'share') {
+    if (!this.iconosActivos[pubId]) {
+      this.iconosActivos[pubId] = { heart: false, star: false, share: false };
+    }
+  
+    this.iconosActivos[pubId][icon] = !this.iconosActivos[pubId][icon];
   }
   guardarEnFavoritos(publi: any) {
     const uid = this.auth.profile?.id;

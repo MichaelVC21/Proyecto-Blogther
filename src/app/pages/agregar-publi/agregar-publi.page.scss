@@ -1,0 +1,19 @@
+ion-toolbar{
+    --background: var(--ion-color-fondo);
+}
+ion-header{
+    --background: var(--ion-color-fondo);
+}
+ion-content{
+    --background: var(--ion-color-fondo);
+}
+ion-item{
+    --background: var(--ion-color-fondo);
+    color: var(--ion-color-verdeoscuro);
+    font-family: 'QuickSand', sans-serif;
+}
+ion-button{
+    --background: none;
+    color: var(--ion-color-verdeoscuro);
+    --font-family: 'ConcertOne', sans-serif;
+}

@@ -17,6 +17,7 @@ export class MisPubliPage implements OnInit {
   publicacionSeleccionada: any = null;
   publiForm!: FormGroup;
   userUid: string;
+  iconosActivos: { [publicacionId: string]: { heart: boolean, star: boolean, share: boolean } } = {};
 
   constructor(
     public auth: AuthService,
@@ -30,6 +31,7 @@ export class MisPubliPage implements OnInit {
     this.db.fetchFirestoreCollection('Publicaciones').subscribe((data) => {
       console.log(data);
       console.log('🧾 Publicaciones:', data); 
+      
       this.publicaciones = data;
       this.cdr.detectChanges(); // Detecta cambios para actualizar la vista
     })
@@ -41,13 +43,33 @@ export class MisPubliPage implements OnInit {
       this.db.getSubcollection(`users/${uid}`, 'mis-publicaciones').subscribe((data) => {
         console.log(data);
         this.publicaciones = data;
-        this.cdr.detectChanges(); // Detecta cambios para actualizar la vista
+
+        // ✅ Inicializa los íconos al cargar publicaciones
+        data.forEach(pub => {
+          if (!this.iconosActivos[pub.id]) {
+            this.iconosActivos[pub.id] = {
+              heart: false,
+              star: false,
+              share: false
+            };
+          }
+        });
+
+        this.cdr.detectChanges();
       });
     }
+
     this.publiForm = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
+  }
+  toggleIcon(pubId: string, icon: 'heart' | 'star' | 'share') {
+    if (!this.iconosActivos[pubId]) {
+      this.iconosActivos[pubId] = { heart: false, star: false, share: false };
+    }
+  
+    this.iconosActivos[pubId][icon] = !this.iconosActivos[pubId][icon];
   }
   editarPublicacion(publi: any) {
     this.publicacionSeleccionada = publi;
