@@ -7,6 +7,28 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'perfil-detalle/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  // Rutas alternativas por si acaso
+  {
+    path: 'perfiles/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  {
+    path: 'perfil/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  // Ruta para el buscador
+  {
+    path: 'buscador',
+    loadChildren: () => import('./pages/buscador/buscador.module').then(m => m.BuscadorPageModule)
+  },
+
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
