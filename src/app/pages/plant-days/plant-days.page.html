@@ -21,7 +21,7 @@
       (click)="goToEntry(entry.id!)"
     >
       <div class="card-image" (click)="detalle(entry.id!)">
-        <img [src]="getImageUrl(entry.image)" alt="Imagen de la planta" />
+        <img [src]="getImageUrl(entry.image!)" alt="Imagen de la planta" />
       </div>
       <ion-card-content>
         <ion-card-subtitle class="plant-name">
@@ -30,33 +30,66 @@
       </ion-card-content>
     </ion-card>
 
-    <!-- Tarjeta “Añadir” solo con icono -->
-    <ion-card class="plant-card add-card" (click)="goToNewEntry()">
-      <div class="add-container">
-        <ion-icon name="add-outline"></ion-icon>
-      </div>
-    </ion-card>
+    <!-- Tarjeta “Añadir” -->
+    <ion-card-content>
+      <ion-card (click)="goToNewEntry()" class="plant-card add-card">
+        <div class="add-container">
+          <ion-icon name="add-outline" class="add-icon"></ion-icon>
+          
+        </div>
+        
+      </ion-card>
+      <div class="add-text">Añadir</div>
+    </ion-card-content>
   </div>
 
-  <!-- Leyenda “Añadir” / Fecha última actualización -->
+  <!-- Última actualización -->
   <div class="info-grid">
-    <div class="update-label">Ultima Actualizacion</div>
-    <div class="add-label">Añadir</div>
+    <div class="update-label">Última actualización</div>
     <div class="info-date">
-      {{ entries[0]?.date | date:'dd / MM / yyyy' }}
+      {{ getLastUpdate() | date:'dd/MM/yyyy' }}
     </div>
     <div></div>
   </div>
+  
 
-  <!-- Preview de ubicación y tabs inferiores (mockup, agrega tu lógica real) -->
   <div class="location-preview">
-    <img class="location-img" src="assets/room.jpg" alt="Ubicación" />
-    <div class="location-name">Cocina</div>
-    <div class="location-tabs">
-      <span class="tab">Sala de estar</span>
-      <span class="tab">Baño</span>
-      <span class="tab selected">Cocina</span>
+    <!-- cabecera con imagen + título -->
+    <div class="location-header">
+      <img class="location-img" src="https://images.adsttc.com/media/images/596d/f470/b22e/380c/a700/0109/medium_jpg/CelsoPilati-0089.jpg?1500378207" alt="Ubicación" />
+ 
+      <div class="location-selected">
+        {{ selectedLocation }}
+      </div>
     </div>
+  </div>
+  <!-- Ubicaciones dinámicas -->
+  <div class="location-preview">
+    <div class="location-chips">
+      <ion-chip
+        *ngFor="let loc of uniqueLocations()"
+        (click)="selectLocation(loc)"
+        [outline]="loc !== selectedLocation"
+        [class.selected]="loc === selectedLocation"
+      >
+        <ion-label>{{ loc }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <!-- Detalle de la ubicación seleccionada -->
+    <div *ngIf="selectedLocation" class="location-detail">
+      <div class="card-image">
+        <img
+          [src]="getLocationImage(selectedLocation)"
+          [alt]="'Ubicación ' + selectedLocation"
+        />
+      </div>
+      <!-- reutilizamos plant-name para el título -->
+      <ion-card-subtitle class="plant-name">
+        {{ selectedLocation }}
+      </ion-card-subtitle>
+    </div>
+    
   </div>
 </ion-content>
 

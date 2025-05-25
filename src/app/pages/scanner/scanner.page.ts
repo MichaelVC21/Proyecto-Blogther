@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import {
+  Camera,
+  CameraResultType,
+  CameraSource,
+  Photo
+} from '@capacitor/camera';
 import { NavController } from '@ionic/angular';
 import { TabBarComponent } from '../../components/tab-bar/tab-bar.component';
 

@@ -1,0 +1,91 @@
+/* Contenedor general */
+.ion-header {
+  --background: var(--beige-bg);
+  
+  }
+  ion-title {
+    color: #363b29;
+    font-family: 'Quicksand', Arial, sans-serif;
+    font-size: x-large;
+  }
+/* entry-detail.page.scss */
+
+ion-content.entry-detail-content {
+  /* aplica 15px de padding en todas direcciones */
+  --padding-top:    15px;
+  --padding-bottom: 15px;
+  --padding-start:  15px;
+  --padding-end:    15px;
+}
+ion-toolbar{
+  --background: var(--ion-color-fondo);
+}
+ion-content{
+  --background: var(--ion-color-fondo);
+}
+
+
+/* Título “Mala Madre” */
+.plant-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.7rem;       /* alrededor de 40px */
+  font-weight: 700;
+  color: #8B9773;
+  margin: 0 0 16px;
+}
+
+/* Contenedor de la imagen */
+.detail-image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;           /* ajusta a tu gusto */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #EBEADF;
+  margin-bottom: 16px;
+}
+.detail-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Etiqueta Día 1 */
+.day-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(235, 234, 223, 0.7); /* semitransparente */
+  color: #2E4A39;
+  padding: 6px 12px;
+  border-top-right-radius: 12px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Descripción */
+.description {
+  flex: 1;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 24px;
+}
+
+/* Botón Editar */
+.edit-btn {
+  --background: transparent;
+  --border-radius: 25px;
+  --border-width: 2px;
+  --border-style: solid;
+  --border-color: #666666;
+  --color: #666666;
+  height: 20px;
+  width: 100%;
+  max-width: 160px;
+  align-self: center;
+  margin-bottom: 16px;
+  font-family: 'Quicksand', sans-serif;
+}

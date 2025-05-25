@@ -125,7 +125,7 @@ const routes: Routes = [
   {
     path: 'plant-detalle/:id',
     loadChildren: () =>
-      import('./plant-detalle/plant-detalle.module').then(m => m.PlantDetallePageModule)
+      import('./pages/plant-detalle/plant-detalle.module').then(m => m.PlantDetallePageModule)
   },
   {
     path: 'buscador-scanner',

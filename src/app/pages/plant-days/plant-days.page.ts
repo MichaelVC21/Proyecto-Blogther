@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
     date?: any;        // Timestamp o Date
     family?: string;
     userUid?: string;
+    location?: string;
     // cualquier otro campo que uses
   }
 @Component({
@@ -80,6 +81,30 @@ export class PlantDaysPage implements OnInit {
         return image;
       }
       return 'assets/placeholder.svg';
+    }
+    getLastUpdate(): Date {
+      if (!this.entries?.length) return new Date();
+      const timestamps = this.entries
+        .map(e => new Date(e.date).getTime());
+      return new Date(Math.max(...timestamps));
+    }
+    
+    // construye un array con las ubicaciones únicas
+    uniqueLocations(): string[] {
+      return Array.from(
+        new Set(this.entries.map(e => e.location || 'Sin ubicación'))
+      );
+    }
+    
+    // opcional: manejar selección de ubicación
+    selectedLocation = '';
+    selectLocation(loc: string) {
+      this.selectedLocation = loc;
+      // aquí podrías filtrar entries según la ubicación
+    }
+    getLocationImage(loc: string): string {
+      // Ejemplo: archivo por nombre
+      return `assets/images/location-${loc.toLowerCase()}.jpg`;
     }
   }
   

@@ -2,6 +2,7 @@
     /* Sólo los ion-card-content de las cards de planta */
     ion-card-content {
       font-family: 'Concert One', cursive !important;
+      --background: var(--ion-color-fondo);
     }
   }
   h1 {
@@ -11,11 +12,12 @@
     margin: 0 0 8px 0;
     text-transform: capitalize;
     font-family: 'Quicksand', sans-serif;
+    --background: var(--ion-color-fondo);
   
   }
   
   .plant-list-content {
-    --background: #faf8f0;
+    --background: var(--ion-color-fondo);
     padding: 1rem;
   }
   
