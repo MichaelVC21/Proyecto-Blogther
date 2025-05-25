@@ -51,7 +51,7 @@ ion-card {
       bottom: 140px;
       left: 0px;
       right: 0px;
-      color: #2E4A39;
+      color: white;
       font-size: 18px;
       font-weight: 700;
       z-index: 2;
@@ -83,15 +83,14 @@ ion-card {
     left: 0;
     right: 0;
     height: 120px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
     z-index: 1;
     pointer-events: none;
+    background: #F5F5ED;
   }
   
   // Efecto hover
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
   }
 }

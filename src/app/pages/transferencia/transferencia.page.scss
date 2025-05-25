@@ -1,140 +1,58 @@
-.payment-content {
-  --background: #f8f9fa;
-  padding-bottom: 20px;
-}
+ion-header {
+    --background: #F5F5ED;
+    
+    ion-toolbar {
+      --background: #F5F5ED;
+      --color: #2c3e50;
+      
+      ion-title {
+        font-size: 23px;
+        font-weight: 600;
+        color: #8B9773;
+        font-family: 'Concert One', sans-serif;
 
-// Header del plan
-.plan-header {
-  padding: 16px;
-  
-  .plan-card {
-    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
-    color: white;
-    margin: 0;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(var(--ion-color-primary-rgb), 0.3);
-    
-    ion-card-header {
-      padding-bottom: 8px;
+      }
       
-      ion-card-title {
-        color: white;
-        display: flex;
-        align-items: center;
-        font-size: 1.4rem;
-        font-weight: 600;
+      // Botones del header (editar, configuración)
+      ion-button {
+        --color: #8B9773;
+        --background: #F5F5ED;
+        --box-shadow: none;
+        margin: 0;
+        height: auto;
         
-        .plan-icon {
-          margin-right: 8px;
-          font-size: 1.5rem;
-        }
-      }
-      
-      ion-card-subtitle {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-      }
-    }
-    
-    .precio-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-      
-      .precio {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: white;
-      }
-      
-      .moneda {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        margin-top: 8px;
-      }
-      
-      ion-badge {
-        --background: var(--ion-color-success);
-        font-weight: 600;
-      }
-    }
-  }
-}
-
-// Selector de planes
-.planes-selector {
-  margin: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
-  
-  ion-card-title {
-    color: var(--ion-color-dark);
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  
-  ion-item {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --min-height: 80px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    
-    &.selected-plan {
-      --background: rgba(var(--ion-color-primary-rgb), 0.1);
-      border: 2px solid var(--ion-color-primary);
-    }
-    
-    ion-label {
-      h3 {
-        color: var(--ion-color-dark);
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
-      
-      p {
-        color: var(--ion-color-medium);
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-      }
-      
-      .plan-precio {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        
-        strong {
-          color: var(--ion-color-primary);
-          font-size: 1.1rem;
+        ion-icon {
+          font-size: 24px;
+          margin: 0;
         }
       }
     }
   }
-}
 
-// Secciones del formulario
-.payment-section,
-.billing-section,
-.summary-section {
-  margin: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+
+// Tarjetas
+ion-card {
+  margin: 16px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   
   ion-card-title {
-    color: var(--ion-color-dark);
-    font-size: 1.2rem;
-    font-weight: 600;
     display: flex;
     align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ion-color-dark);
     
-    .section-icon {
+    .bank-icon {
       margin-right: 8px;
-      color: var(--ion-color-primary);
+      color: #7f8b67;
+      font-size: 1.3rem;
     }
   }
-  
+}
+
+// Tarjeta de pago
+.payment-card {
   ion-item {
     --padding-start: 0;
     --padding-end: 0;
@@ -152,8 +70,7 @@
       }
     }
     
-    ion-input,
-    ion-select {
+    ion-input {
       font-size: 1rem;
       
       &.ion-invalid {
@@ -171,73 +88,74 @@
 }
 
 // Resumen de pago
-.resumen-pago {
-  background: rgba(var(--ion-color-primary-rgb), 0.05);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  
-  h3 {
-    color: var(--ion-color-dark);
-    font-weight: 600;
-    margin-bottom: 16px;
-    font-size: 1.1rem;
-  }
-  
-  .linea-resumen {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+.summary-card {
+  .payment-summary {
+    background: rgba(127, 139, 103, 0.05);
+    padding: 20px;
+    border-radius: 12px;
     
-    &.impuestos {
-      color: var(--ion-color-medium);
-      font-size: 0.9rem;
-    }
-    
-    &.total {
-      font-size: 1.1rem;
-      padding-top: 12px;
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
       
-      .precio-total {
-        color: var(--ion-color-primary);
-        font-size: 1.3rem;
+      &.taxes {
+        color: var(--ion-color-medium);
+        font-size: 0.9rem;
+      }
+      
+      &.total {
+        font-size: 1.1rem;
+        padding-top: 12px;
+        
+        .total-price {
+          color: #7f8b67;
+          font-size: 1.3rem;
+        }
+      }
+      
+      .price {
+        font-weight: 600;
+        color: var(--ion-color-dark);
       }
     }
-  }
-  
-  hr {
-    border: none;
-    height: 1px;
-    background: var(--ion-color-light-shade);
-    margin: 16px 0;
+    
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--ion-color-light-shade);
+      margin: 16px 0;
+    }
   }
 }
 
 // Términos y condiciones
 .terms-item {
-  --padding-start: 0;
-  --padding-end: 0;
-  --inner-padding-start: 16px;
-  --inner-padding-end: 16px;
+  --background: transparent;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  margin: 16px 0;
+  border-radius: 12px;
+  cursor: pointer;
   
   ion-checkbox {
     margin-right: 12px;
     --size: 20px;
-    --border-radius: 4px;
-    --border-color: var(--ion-color-primary);
+    --border-radius: 6px;
+    --border-color: #7f8b67;
     --checkmark-color: white;
-    --background-checked: var(--ion-color-primary);
+    --background-checked: #7f8b67;
   }
   
   ion-label p {
     font-size: 0.9rem;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--ion-color-medium-shade);
     margin: 0;
     
     .terms-link {
-      color: var(--ion-color-primary);
+      color: #7f8b67;
       text-decoration: none;
       font-weight: 500;
       
@@ -249,24 +167,23 @@
 }
 
 // Botones de acción
-.action-buttons {
-  padding: 20px 16px;
+.button-group {
+  padding: 20px 0;
   
-  .subscribe-button {
-    --background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+  .confirm-button {
+    --background: linear-gradient(135deg, #7f8b67 0%, #6a7559 100%);
     --color: white;
-    --border-radius: 12px;
+    --border-radius: 16px;
     font-weight: 600;
     font-size: 1.1rem;
     height: 56px;
     margin-bottom: 12px;
-    box-shadow: 0 4px 20px rgba(var(--ion-color-primary-rgb), 0.4);
+    box-shadow: 0 6px 24px rgba(127, 139, 103, 0.4);
     transition: all 0.3s ease;
     
     &:not([disabled]):hover {
-      --background: linear-gradient(135deg, var(--ion-color-primary-shade) 0%, var(--ion-color-primary-tint) 100%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(var(--ion-color-primary-rgb), 0.5);
+      box-shadow: 0 8px 32px rgba(127, 139, 103, 0.5);
     }
     
     &[disabled] {
@@ -278,12 +195,13 @@
     ion-icon,
     ion-spinner {
       margin-right: 8px;
+      font-size: 20px;
     }
   }
   
   .cancel-button {
     --color: var(--ion-color-medium);
-    --border-radius: 12px;
+    --border-radius: 16px;
     font-weight: 500;
     height: 48px;
     
@@ -293,69 +211,28 @@
   }
 }
 
-// Información de seguridad
-.security-info {
-  padding: 16px;
-  margin-top: 20px;
-  
-  ion-item {
-    --background: rgba(var(--ion-color-success-rgb), 0.05);
-    --border-radius: 12px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    
-    ion-icon {
-      font-size: 1.5rem;
-      margin-right: 12px;
-    }
-    
-    ion-label {
-      h3 {
-        color: var(--ion-color-success-shade);
-        font-weight: 600;
-        margin-bottom: 4px;
-        font-size: 1rem;
-      }
-      
-      p {
-        color: var(--ion-color-medium-shade);
-        font-size: 0.9rem;
-        margin: 0;
-      }
-    }
-  }
-}
-
 // Responsive design
 @media (max-width: 768px) {
-  .plan-header {
-    padding: 12px;
+  .plan-info {
+    padding: 16px;
     
-    .plan-card {
-      ion-card-title {
-        font-size: 1.2rem;
-        
-        .plan-icon {
-          font-size: 1.3rem;
-        }
-      }
-      
-      .precio-container .precio {
-        font-size: 1.8rem;
-      }
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    .plan-price {
+      font-size: 2rem;
     }
   }
   
-  .payment-section,
-  .billing-section,
-  .summary-section {
-    margin: 12px;
+  ion-card {
+    margin: 12px 0;
   }
   
-  .action-buttons {
-    padding: 16px 12px;
+  .button-group {
+    padding: 16px 0;
     
-    .subscribe-button {
+    .confirm-button {
       height: 52px;
       font-size: 1rem;
     }
@@ -374,68 +251,19 @@
   }
 }
 
-.payment-section,
-.billing-section,
-.summary-section {
+.plan-info,
+.payment-card,
+.summary-card {
   animation: fadeInUp 0.5s ease-out;
 }
 
-.plan-header {
-  animation: fadeInUp 0.3s ease-out;
-}
-
-.action-buttons {
+.button-group {
   animation: fadeInUp 0.7s ease-out;
 }
 
 // Estados de input
 ion-input {
   &:focus-within {
-    --highlight-color: var(--ion-color-primary);
-  }
-}
-
-ion-select {
-  &:focus-within {
-    --highlight-color: var(--ion-color-primary);
-  }
-}
-
-// Loading state
-.processing-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  
-  .processing-content {
-    background: white;
-    padding: 32px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    
-    ion-spinner {
-      --color: var(--ion-color-primary);
-      margin-bottom: 16px;
-    }
-    
-    h3 {
-      color: var(--ion-color-dark);
-      margin: 0;
-      font-weight: 600;
-    }
-    
-    p {
-      color: var(--ion-color-medium);
-      margin: 8px 0 0 0;
-      font-size: 0.9rem;
-    }
+    --highlight-color: #7f8b67;
   }
 }

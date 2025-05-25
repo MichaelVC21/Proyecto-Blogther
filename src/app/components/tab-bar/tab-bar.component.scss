@@ -1,0 +1,53 @@
+ion-tab-bar {
+  --background: #6c744e; // Fondo verde oliva
+  --color: white;
+  --color-selected: #F5F5ED;
+
+  height: 60px;
+  border-top: none;
+  padding: 0 8px;
+
+  ion-tab-button {
+    --ripple-color: transparent;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+
+    ion-icon {
+      font-size: 22px;
+    }
+
+    ion-label {
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    &:hover {
+      background-color: #55603c; // Color más oscuro al pasar el cursor
+      border-radius: 8px; // Esquinas levemente redondeadas
+    }
+  }
+
+  // Botón escáner (tercero), ya no elevado ni circular
+  ion-tab-button:nth-child(3) {
+    background-color: transparent;
+    color: white;
+
+    ion-icon {
+      font-size: 22px;
+    }
+
+    ion-label {
+      display: block;
+    }
+
+    &:hover {
+      background-color: #55603c;
+      border-radius: 8px;
+    }
+  }
+}

@@ -2,6 +2,11 @@ ion-toolbar{
     --background: var(--ion-color-fondo);
     --color: var(--ion-color-verdeoscuro);
 }
+ion-list-header{
+    --background: var(--ion-color-fondo);
+    --color: var(--ion-color-verdeoscuro);
+    font-family: 'Quicksand', sans-serif;
+}
 // Estilos para las cards de publicaciones
 ion-list{
     --background: var(--ion-color-fondo);
@@ -9,7 +14,7 @@ ion-list{
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+
 }
 ion-item{
     --background: var(--ion-color-fondo);
@@ -29,3 +34,23 @@ ion-button{
     color: var(--ion-color-verdeoscuro);
     font-family: 'Concert One', sans-serif;
 }
+.interaction-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px 16px 16px;
+    gap: 4px;
+    
+    .interaction-btn {
+      --color: #666;
+      --color-hover: #333;
+      margin: 0;
+      
+      ion-icon {
+        font-size: 1.2rem;
+      }
+      
+      &:hover {
+        --color: #007bff;
+      }
+    }
+  }

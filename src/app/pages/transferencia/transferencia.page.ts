@@ -5,7 +5,6 @@ import { DatabaseService } from 'src/app/services/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController, ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-transferencia',
@@ -16,29 +15,13 @@ import { Location } from '@angular/common';
 export class TransferenciaPage implements OnInit {
 
   pagoForm!: FormGroup;
-  usertype: string = 'freemium';
   isProcessing: boolean = false;
+  aceptarTerminos: boolean = false;
   
-  // Planes disponibles
-  planes = [
-    {
-      id: 'mensual',
-      nombre: 'Plan Mensual',
-      precio: 9.99,
-      descripcion: 'Acceso completo por 30 días',
-      moneda: 'USD'
-    },
-    {
-      id: 'anual',
-      nombre: 'Plan Anual',
-      precio: 99.99,
-      descripcion: 'Acceso completo por 12 meses (2 meses gratis)',
-      moneda: 'USD',
-      descuento: '17% OFF'
-    }
-  ];
-  
-  planSeleccionado = this.planes[0];
+  // Plan fijo
+  monto = 89.99;
+  moneda = 'Bs';
+  planNombre = 'Plan Premium Mensual';
 
   constructor(
     public db: DatabaseService,
@@ -49,16 +32,11 @@ export class TransferenciaPage implements OnInit {
     private loadingController: LoadingController,
     private toastController: ToastController,
     private router: Router,
-    private location: Location,
     private navController: NavController
   ) { 
     const user = localStorage.getItem('profile');
     if (user) {
       this.auth.profile = JSON.parse(user);
-      this.db.getDocumentById("users", this.auth.profile.id).subscribe((data) => {
-        console.log(data);
-        this.cdr.detectChanges();
-      });
     }
     
     this.initForm();
@@ -69,27 +47,12 @@ export class TransferenciaPage implements OnInit {
 
   initForm() {
     this.pagoForm = this.formBuilder.group({
-      // Información de la tarjeta
-      numeroTarjeta: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
+      numeroTarjeta: ['', [Validators.required, Validators.minLength(16)]],
       nombreTitular: ['', [Validators.required, Validators.minLength(2)]],
-      fechaVencimiento: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
-      cvv: ['', [Validators.required, Validators.pattern(/^\d{3,4}$/)]],
-      
-      // Información de facturación
-      email: [this.auth.profile?.email || '', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required, Validators.pattern(/^\+?[\d\s\-\(\)]+$/)]],
-      pais: ['', Validators.required],
-      ciudad: ['', Validators.required],
-      direccion: ['', Validators.required],
-      codigoPostal: ['', Validators.required],
-      
-      // Términos y condiciones
-      aceptarTerminos: [false, Validators.requiredTrue]
+      fechaVencimiento: ['', [Validators.required]],
+      cvv: ['', [Validators.required, Validators.minLength(3)]],
+      email: [this.auth.profile?.email || '', [Validators.required, Validators.email]]
     });
-  }
-
-  seleccionarPlan(plan: any) {
-    this.planSeleccionado = plan;
   }
 
   // Formatear número de tarjeta mientras se escribe
@@ -110,15 +73,10 @@ export class TransferenciaPage implements OnInit {
     this.pagoForm.patchValue({ fechaVencimiento: valor });
   }
 
-  // Validar si el formulario es válido
-  get esFormularioValido(): boolean {
-    return this.pagoForm.valid;
-  }
-
   // Procesar el pago
   async procesarPago() {
-    if (!this.esFormularioValido) {
-      this.mostrarToast('Por favor, completa todos los campos correctamente', 'warning');
+    if (!this.pagoForm.valid || !this.aceptarTerminos) {
+      this.mostrarToast('Por favor, completa todos los campos y acepta los términos', 'warning');
       return;
     }
 
@@ -131,10 +89,10 @@ export class TransferenciaPage implements OnInit {
     this.isProcessing = true;
 
     try {
-      // Simular procesamiento de pago (aquí integrarías con Stripe, PayPal, etc.)
+      // Simular procesamiento de pago (siempre exitoso)
       await this.simularProcesoPago();
       
-      // Si el pago es exitoso, cambiar usuario a premium
+      // Cambiar usuario a premium
       await this.cambiarASuscripcionPremium();
       
       await loading.dismiss();
@@ -149,53 +107,41 @@ export class TransferenciaPage implements OnInit {
     }
   }
 
-  // Simular proceso de pago (reemplazar con integración real)
+  // Simular proceso de pago (siempre exitoso)
   private simularProcesoPago(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        // Simular éxito del pago (90% de probabilidad)
-        if (Math.random() > 0.1) {
-          resolve();
-        } else {
-          reject(new Error('Pago rechazado'));
-        }
-      }, 3000);
+        resolve();
+      }, 2000);
     });
   }
 
-  // Tu función original adaptada
+  // Cambiar usuario a premium
   cambiarASuscripcionPremium(): Promise<void> {
     return new Promise((resolve, reject) => {
       const uid = this.auth.profile.id;
       const fechaSuscripcion = new Date();
       const fechaVencimiento = new Date();
-      
-      // Calcular fecha de vencimiento según el plan
-      if (this.planSeleccionado.id === 'mensual') {
-        fechaVencimiento.setMonth(fechaVencimiento.getMonth() + 1);
-      } else {
-        fechaVencimiento.setFullYear(fechaVencimiento.getFullYear() + 1);
-      }
+      fechaVencimiento.setMonth(fechaVencimiento.getMonth() + 1);
 
       const datosActualizacion = {
         usertype: 'premium',
-        planSuscripcion: this.planSeleccionado.id,
+        planSuscripcion: 'mensual',
         fechaSuscripcion: fechaSuscripcion.toISOString(),
         fechaVencimiento: fechaVencimiento.toISOString(),
-        precioPageado: this.planSeleccionado.precio,
-        ultimoPago: fechaSuscripcion.toISOString()
+        precioPageado: this.monto,
+        ultimoPago: fechaSuscripcion.toISOString(),
+        metodoPago: 'tarjeta_credito',
+        estadoPago: 'completado'
       };
 
       this.db.updateFireStoreDocument('users', uid, datosActualizacion)
         .then(() => {
-          this.usertype = 'premium';
-          
           // Actualizar localStorage
           const perfilActualizado = { 
             ...this.auth.profile, 
-            estado: 'premium',
             usertype: 'premium',
-            planSuscripcion: this.planSeleccionado.id
+            planSuscripcion: 'mensual'
           };
           
           localStorage.setItem('profile', JSON.stringify(perfilActualizado));
@@ -216,12 +162,12 @@ export class TransferenciaPage implements OnInit {
   async mostrarAlertaExito() {
     const alert = await this.alertController.create({
       header: '¡Pago Exitoso!',
-      message: `¡Felicidades! Tu suscripción ${this.planSeleccionado.nombre} ha sido activada correctamente.`,
+      message: `¡Felicidades! Tu suscripción premium ha sido activada correctamente.`,
       buttons: [
         {
           text: 'Continuar',
           handler: () => {
-            this.router.navigate(['/home']); // Redirigir a la página principal
+            this.router.navigate(['/principal']);
           }
         }
       ],
