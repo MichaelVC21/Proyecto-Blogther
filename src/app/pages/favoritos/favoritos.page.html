@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>favoritos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let favorito of favoritos">
+      <ion-label>
+        <h2>{{ favorito.titulo }}</h2>
+        <p>{{ favorito.descripcion }}</p>
+      </ion-label>
+      <ion-button fill="clear" slot="end" (click)="eliminarFavorito(favorito)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" color="primary" href="/publicaciones">
+    Ver Publicaciones
+  </ion-button>
+</ion-content>

@@ -16,7 +16,7 @@
     <ion-button fill="clear" size="small" class="interaction-btn">
       <ion-icon name="share-outline" slot="icon-only"></ion-icon>
     </ion-button>
-    <ion-button fill="clear" size="small" class="interaction-btn">
+    <ion-button fill="clear" size="small" class="interaction-btn" (click)="guardarEnFavoritos(publicacion)">
       <ion-icon name="star-outline" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
@@ -41,6 +41,24 @@
       Eliminar
     </ion-button>
   </div>
+  <!-- <div style="display: flex; flex-direction: row;">
+    <ion-icon name="heart" style="width: 20px; height: 21px; margin: 3px; color: var(--ion-color-verdemedioscuro);"></ion-icon>
+    <ion-icon name="send" style="width: 20px; height: 21px; margin: 3px; color: var(--ion-color-verdemedioscuro);"></ion-icon>
+    <ion-icon name="star" style="width: 20px; height: 21px; margin: 3px; color: var(--ion-color-verdemedioscuro);" (click)="guardarEnFavoritos(publicacion)"></ion-icon>
+  </div>
+  <ion-button
+  *ngIf="publicacion.uid === userUid"
+  (click)="editarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+  >
+  Editar
+  </ion-button>
+  <ion-button
+    color="danger"
+    *ngIf="publicacion.uid === userUid"
+    (click)="eliminarPublicacion(publicacion); $event.stopPropagation(); $event.preventDefault();"
+  >
+    Eliminar
+  </ion-button> -->
 </ion-card>
 
 <!-- Formulario de edición -->

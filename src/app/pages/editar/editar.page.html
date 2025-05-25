@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <img src="" alt="foto-perfil">
+  <img [src]="imagenDataUrl || auth.profile?.foto_perfil" alt="foto-perfil" (click)="handleCameraClick()">
   <div style="display: flex; flex-direction: row; align-items: center;">
     <ion-title>Editar</ion-title>
     <ion-icon name="pencil-outline"></ion-icon>

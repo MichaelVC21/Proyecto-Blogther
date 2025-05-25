@@ -8,6 +8,19 @@
 
   <img src="../../../assets/img/logo blogther.svg" alt="logo">
 
+  <div>
+    <br>
+    <ion-button expand="full">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Iniciar sesión con Google
+    </ion-button>
+    <br>
+    <ion-button expand="full">
+      <ion-icon name="logo-facebook" slot="start"></ion-icon>
+      Iniciar sesión con Facebook
+    </ion-button>
+  </div>
+
   <form [formGroup] = "registerForm" (ngSubmit) = "register()">
     <ion-item>
       <ion-input label="Email"
@@ -20,7 +33,7 @@
     </ion-item>
     <br>
     <ion-item>
-      <ion-input label="Usuario"
+      <ion-input label="Nombre de Usuario"
       labelPlacement="stacked"
       formControlName="username"
       [clearInput]="true"
@@ -45,4 +58,8 @@
       Iniciar sesión
     </ion-button>
   </form>
+  <br>
+  <ion-button href="/sign-up">
+    Inicia sesión si ya tienes cuenta
+  </ion-button>
 </ion-content>

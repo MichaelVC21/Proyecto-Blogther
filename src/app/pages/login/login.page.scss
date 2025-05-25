@@ -22,3 +22,11 @@ form > ion-button{
     font-family: 'Concert One', sans-serif;
     --background: var(--ion-color-verdeoscuro);
 }
+ion-button{
+    --background: var(--ion-color-verdeoscuro);
+}
+ion-content > div > ion-button{
+    --background: var(--ion-color-verdeoscuro);
+    font-family: 'Concert One', sans-serif;
+    --border-radius: 50px;
+}

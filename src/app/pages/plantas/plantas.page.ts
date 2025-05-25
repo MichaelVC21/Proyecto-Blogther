@@ -5,8 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 interface PlantEntry {
   id?: string;
-  nombre: string;
-  familia: string;
+  name: string;
+  family: string;
   image?: string;
   userUid?: string;
 }
@@ -38,7 +38,7 @@ export class PlantasPage implements OnInit {
     this.userUid = profileString ? JSON.parse(profileString).id : 'demo-user';
 
     // Suscribirnos a toda la colección “plantas”
-    this.db.fetchFirestoreCollection('plantas')
+    this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
       .subscribe(pls => {
         this.allPlants = pls;
         this.groupByFamily();
@@ -54,7 +54,7 @@ export class PlantasPage implements OnInit {
       // filtramos sólo las del usuario actual
       .filter(p => !p.userUid || p.userUid === this.userUid)
       .forEach(p => {
-        const fam = p.familia || 'Sin familia';
+        const fam = p.family || 'Sin familia';
         if (!mapFam[fam]) { mapFam[fam] = []; }
         mapFam[fam].push(p);
       });

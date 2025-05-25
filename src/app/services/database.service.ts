@@ -56,6 +56,13 @@ export class DatabaseService {
     });
   }
 
+
+  getDocument(path: string, id: string): Observable<any> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(path).doc(id).valueChanges({ idField: 'id' });
+    });
+  }
+
   // Busca todos los registros o documentos de una colección que coincidan con los parámetros buscados
   getCollectionByCustomparam(collection: string, customParam: string, searched: string): Observable<any> {
     return runInInjectionContext(this.injector, () => {
@@ -107,6 +114,14 @@ export class DatabaseService {
       return this.firestore.collection(`users/${userId}/${subcollection}`).doc(docId).delete();
     });
   }
+
+  deleteDocument(path: string, id: string): Promise<void> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(path).doc(id).delete();
+    });
+  }
+
+
 
   // Verifica si un documento existe en una colección
   async documentExists(collection: string, uid: string): Promise<boolean> {
