@@ -1,4 +1,39 @@
-.plant-list-content {
+
+ion-content {
+    --background: #F5F5ED;
+  }
+  
+  ion-header {
+    --background: #F5F5ED;
+    
+    ion-toolbar {
+      --background: #F5F5ED;
+      --color: #2c3e50;
+      
+      ion-title {
+        font-size: 23px;
+        font-weight: 600;
+        color: #8B9773;
+        font-family: 'Concert One', sans-serif;
+
+      }
+      
+      // Botones del header (editar, configuración)
+      ion-button {
+        --color: #8B9773;
+        --background: #F5F5ED;
+        --box-shadow: none;
+        margin: 0;
+        height: auto;
+        
+        ion-icon {
+          font-size: 24px;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .plant-list-content {
     --background: #faf8f0;
     padding: 1rem;
   }
