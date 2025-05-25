@@ -152,13 +152,7 @@ ion-content{
     margin-bottom: 16px;
   }
   
-  .location-img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 8px;
-  }
+  
   
   /* Chips dinámicos de ubicaciones */
   .location-chips {
@@ -177,18 +171,26 @@ ion-content{
     padding: 0 12px;
   }
   
-  .location-chips ion-chip.ion-selected {
-    --background: #8B9773;
-    --border-color: #8B9773;
-    --color: #fff;
+  .location-header {
+    display: flex;
+    align-items: center;   /* centra verticalmente */
+    gap: 12px;             /* separa imagen y texto */
+  
+    .location-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 0;           /* elimina el margin-bottom */
+    }
+  
+    .location-selected {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #363B29;
+      padding: 6px 12px;
+      text-transform: capitalize;
+    }
   }
-  .location-selected {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #363B29;
-    background: #E9E9D0;
-    padding: 6px 12px;
-    border-radius: 16px;
-    text-transform: capitalize;
-  }
+  

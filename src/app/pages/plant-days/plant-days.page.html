@@ -76,21 +76,11 @@
       </ion-chip>
     </div>
 
-    <!-- Detalle de la ubicación seleccionada -->
-    <div *ngIf="selectedLocation" class="location-detail">
-      <div class="card-image">
-        <img
-          [src]="getLocationImage(selectedLocation)"
-          [alt]="'Ubicación ' + selectedLocation"
-        />
-      </div>
-      <!-- reutilizamos plant-name para el título -->
-      <ion-card-subtitle class="plant-name">
-        {{ selectedLocation }}
-      </ion-card-subtitle>
+
+      
     </div>
     
-  </div>
+
 </ion-content>
 
 <ion-footer>

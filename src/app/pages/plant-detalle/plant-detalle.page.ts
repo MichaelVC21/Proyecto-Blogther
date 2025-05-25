@@ -118,7 +118,6 @@ export class PlantDetallePage implements OnInit {
         // actualizar localmente para reflejar cambios
         if (this.entry) {
           this.entry.description = datos.description;
-          this.entry.date = datos.date;
           this.entry.name = datos.name;
           this.entry.familia = datos.familia;
           this.entry.day = datos.day;

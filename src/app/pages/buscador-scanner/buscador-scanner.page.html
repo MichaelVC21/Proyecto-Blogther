@@ -46,9 +46,18 @@
         </ion-button>
 
         <div class="interaction-bar">
-          <ion-button fill="clear" size="small" class="interaction-btn">
-            <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
-          </ion-button>
+          <ion-button
+  fill="clear"
+  size="small"
+  class="interaction-btn"
+  (click)="toggleFavorite()"
+>
+  <ion-icon
+    [name]="isFavorito ? 'heart' : 'heart-outline'"
+    [color]="isFavorito ? 'danger' : 'medium'"
+    slot="icon-only"
+  ></ion-icon>
+</ion-button>
           <ion-button fill="clear" size="small" class="interaction-btn">
             <ion-icon name="share-outline" slot="icon-only"></ion-icon>
           </ion-button>

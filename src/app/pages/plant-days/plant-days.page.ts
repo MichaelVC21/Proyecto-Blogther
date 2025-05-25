@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
   import { NavController } from '@ionic/angular';
   import { DatabaseService } from 'src/app/services/database.service';
   import { AuthService } from 'src/app/services/auth.service';
+  import firebase from 'firebase/compat/app';
   
   interface PlantEntry {
     id?: string;
@@ -41,17 +42,36 @@ export class PlantDaysPage implements OnInit {
       this.userUid = profile ? JSON.parse(profile).id : '';
 
       this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
-        .subscribe(all => {
-          this.entries = all
-            .filter(p => p.family === this.family)  // ojo: en tu código es "family", no "familia"
-            .sort((a, b) => {
-              const ta = a.createdAt?.seconds ?? 0;
-              const tb = b.createdAt?.seconds ?? 0;
-              return tb - ta;
-            });
-          this.cdr.detectChanges();
+      .subscribe(all => {
+        // 1) filtrar y ordenar…
+        const filtered = all.filter(p => p.family === this.family);
+        // 2) normalizar date: puede ser Timestamp de Firestore o string ISO
+        this.entries = filtered.map(e => {
+          let d: Date;
+          if (e.date?.toDate) {
+            // Firebase Timestamp
+            d = e.date.toDate();
+          } else if (typeof e.date === 'string') {
+            d = new Date(e.date);
+          } else {
+            d = new Date();       // fallback hoy
+          }
+          return {
+            ...e,
+            date: d
+          };
+        })
+        // 3) ordenar por createdAt o por date si lo prefieres
+        .sort((a, b) => {
+          const ta = a.date.getTime();
+          const tb = b.date.getTime();
+          return tb - ta;
         });
-    }
+
+        this.selectedLocation = this.uniqueLocations()[0] || '';
+        this.cdr.detectChanges();
+      });
+  }
     back() {
       this.navCtrl.back();
     }
