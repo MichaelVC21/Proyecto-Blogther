@@ -1,0 +1,24 @@
+ion-toolbar{
+    --background: var(--ion-color-fondo);
+}
+ion-content{
+    --background: var(--ion-color-fondo);
+}
+form > ion-item{
+    --background: var(--ion-color-fondo);
+    color: var(--ion-color-verdeoscuro);
+}
+form > ion-item > ion-input{
+    --background: var(--ion-color-fondo);
+    --color: var(--ion-color-verdeoscuro);
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    font-family: 'Quicksand', sans-serif;
+}
+form > ion-button{
+    font-family: 'Concert One', sans-serif;
+    --background: none;
+    color: var(--ion-color-verdeoscuro);
+}

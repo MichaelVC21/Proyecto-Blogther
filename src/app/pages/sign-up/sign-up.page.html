@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <img src="../../../assets/img/logo blogther.svg" alt="" style="width: 300px; height: 300px;">
   <form [formGroup] = "loginForm" (ngSubmit) = "login()">
     <ion-item>
       <ion-input label="Email"
@@ -24,17 +25,17 @@
       placeholder="Ingrese Contraseña"
       type="password"
       mode="md">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        <ion-input-password-toggle slot="end" color="verdeoscuro"></ion-input-password-toggle>
       </ion-input>
     </ion-item>
     <br>
-    <ion-button href="/camb-contra" style="--background: none; color: var(--ion-color-verdeoscuro);">
-      Cambiar contraseña?
-    </ion-button>
-    <br>
-    <ion-button expand="full" color="primary" type="submit" [disabled]="!loginForm.valid">
+    <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">
       <ion-icon name="person-outline" slot="start"></ion-icon>
       Iniciar sesión
+    </ion-button>
+    <br>
+    <ion-button href="/camb-contra" style="--background: none; color: var(--ion-color-verdeoscuro);">
+      Cambiar contraseña?
     </ion-button>
   </form>
 </ion-content>

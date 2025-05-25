@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-center">Suscripcion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="qr-content">
+  <div class="qr-top-button">
+    <ion-button shape="round" fill="outline" size="small">QR</ion-button>
+  </div>
+
+  <div class="qr-container">
+    <img *ngIf="qrCodeDataURL" [src]="qrCodeDataURL" />
+  </div>
+
+  <div class="button-group">
+    <ion-button expand="block" class="suscribe-button">Suscribirse</ion-button>
+    <ion-button expand="block" color="light" class="cancel-button">Cancelar</ion-button>
+  </div>
+
+  <ion-item lines="none" class="terms">
+    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-label>Acepto los términos y condiciones</ion-label>
+  </ion-item>
+</ion-content>
+
+
+ 
+

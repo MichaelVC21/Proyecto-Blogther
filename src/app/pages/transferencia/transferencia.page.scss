@@ -1,0 +1,441 @@
+.payment-content {
+  --background: #f8f9fa;
+  padding-bottom: 20px;
+}
+
+// Header del plan
+.plan-header {
+  padding: 16px;
+  
+  .plan-card {
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+    color: white;
+    margin: 0;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(var(--ion-color-primary-rgb), 0.3);
+    
+    ion-card-header {
+      padding-bottom: 8px;
+      
+      ion-card-title {
+        color: white;
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+        font-weight: 600;
+        
+        .plan-icon {
+          margin-right: 8px;
+          font-size: 1.5rem;
+        }
+      }
+      
+      ion-card-subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+      }
+    }
+    
+    .precio-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      
+      .precio {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: white;
+      }
+      
+      .moneda {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 8px;
+      }
+      
+      ion-badge {
+        --background: var(--ion-color-success);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Selector de planes
+.planes-selector {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  
+  ion-card-title {
+    color: var(--ion-color-dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 80px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    &.selected-plan {
+      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+      border: 2px solid var(--ion-color-primary);
+    }
+    
+    ion-label {
+      h3 {
+        color: var(--ion-color-dark);
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      
+      p {
+        color: var(--ion-color-medium);
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+      
+      .plan-precio {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        strong {
+          color: var(--ion-color-primary);
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+// Secciones del formulario
+.payment-section,
+.billing-section,
+.summary-section {
+  margin: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  
+  ion-card-title {
+    color: var(--ion-color-dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    
+    .section-icon {
+      margin-right: 8px;
+      color: var(--ion-color-primary);
+    }
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-start: 16px;
+    --inner-padding-end: 16px;
+    margin-bottom: 8px;
+    
+    ion-label {
+      font-weight: 500;
+      color: var(--ion-color-dark);
+      
+      &[position="stacked"] {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+    }
+    
+    ion-input,
+    ion-select {
+      font-size: 1rem;
+      
+      &.ion-invalid {
+        --border-color: var(--ion-color-danger);
+        --color: var(--ion-color-danger);
+      }
+    }
+    
+    ion-note[slot="error"] {
+      font-size: 0.8rem;
+      color: var(--ion-color-danger);
+      margin-top: 4px;
+    }
+  }
+}
+
+// Resumen de pago
+.resumen-pago {
+  background: rgba(var(--ion-color-primary-rgb), 0.05);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  
+  h3 {
+    color: var(--ion-color-dark);
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+  
+  .linea-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    
+    &.impuestos {
+      color: var(--ion-color-medium);
+      font-size: 0.9rem;
+    }
+    
+    &.total {
+      font-size: 1.1rem;
+      padding-top: 12px;
+      
+      .precio-total {
+        color: var(--ion-color-primary);
+        font-size: 1.3rem;
+      }
+    }
+  }
+  
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--ion-color-light-shade);
+    margin: 16px 0;
+  }
+}
+
+// Términos y condiciones
+.terms-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-start: 16px;
+  --inner-padding-end: 16px;
+  
+  ion-checkbox {
+    margin-right: 12px;
+    --size: 20px;
+    --border-radius: 4px;
+    --border-color: var(--ion-color-primary);
+    --checkmark-color: white;
+    --background-checked: var(--ion-color-primary);
+  }
+  
+  ion-label p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--ion-color-medium-shade);
+    margin: 0;
+    
+    .terms-link {
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Botones de acción
+.action-buttons {
+  padding: 20px 16px;
+  
+  .subscribe-button {
+    --background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+    --color: white;
+    --border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    height: 56px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 20px rgba(var(--ion-color-primary-rgb), 0.4);
+    transition: all 0.3s ease;
+    
+    &:not([disabled]):hover {
+      --background: linear-gradient(135deg, var(--ion-color-primary-shade) 0%, var(--ion-color-primary-tint) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(var(--ion-color-primary-rgb), 0.5);
+    }
+    
+    &[disabled] {
+      --background: var(--ion-color-light);
+      --color: var(--ion-color-medium);
+      box-shadow: none;
+    }
+    
+    ion-icon,
+    ion-spinner {
+      margin-right: 8px;
+    }
+  }
+  
+  .cancel-button {
+    --color: var(--ion-color-medium);
+    --border-radius: 12px;
+    font-weight: 500;
+    height: 48px;
+    
+    &:hover {
+      --color: var(--ion-color-medium-shade);
+    }
+  }
+}
+
+// Información de seguridad
+.security-info {
+  padding: 16px;
+  margin-top: 20px;
+  
+  ion-item {
+    --background: rgba(var(--ion-color-success-rgb), 0.05);
+    --border-radius: 12px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    
+    ion-icon {
+      font-size: 1.5rem;
+      margin-right: 12px;
+    }
+    
+    ion-label {
+      h3 {
+        color: var(--ion-color-success-shade);
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-size: 1rem;
+      }
+      
+      p {
+        color: var(--ion-color-medium-shade);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .plan-header {
+    padding: 12px;
+    
+    .plan-card {
+      ion-card-title {
+        font-size: 1.2rem;
+        
+        .plan-icon {
+          font-size: 1.3rem;
+        }
+      }
+      
+      .precio-container .precio {
+        font-size: 1.8rem;
+      }
+    }
+  }
+  
+  .payment-section,
+  .billing-section,
+  .summary-section {
+    margin: 12px;
+  }
+  
+  .action-buttons {
+    padding: 16px 12px;
+    
+    .subscribe-button {
+      height: 52px;
+      font-size: 1rem;
+    }
+  }
+}
+
+// Animaciones
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.payment-section,
+.billing-section,
+.summary-section {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.plan-header {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.action-buttons {
+  animation: fadeInUp 0.7s ease-out;
+}
+
+// Estados de input
+ion-input {
+  &:focus-within {
+    --highlight-color: var(--ion-color-primary);
+  }
+}
+
+ion-select {
+  &:focus-within {
+    --highlight-color: var(--ion-color-primary);
+  }
+}
+
+// Loading state
+.processing-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  
+  .processing-content {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    
+    ion-spinner {
+      --color: var(--ion-color-primary);
+      margin-bottom: 16px;
+    }
+    
+    h3 {
+      color: var(--ion-color-dark);
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+      margin: 8px 0 0 0;
+      font-size: 0.9rem;
+    }
+  }
+}
