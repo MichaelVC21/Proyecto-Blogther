@@ -47,6 +47,7 @@
           [src]="perfil.foto" 
           [alt]="'Foto de ' + perfil.nombre"
           class="profile-image"
+          (error)="onProfileImageError($event)"
         />
         <ng-template #defaultPhoto>
           <div class="default-photo">
@@ -83,7 +84,7 @@
     <div class="plants-section" *ngIf="perfil.plantas && perfil.plantas.length > 0">
       <div class="plants-grid">
         <div 
-          *ngFor="let planta of perfil.plantas" 
+          *ngFor="let planta of perfil.plantas; trackBy: trackByPlantId" 
           class="plant-item"
         >
           <div class="plant-image-container">
@@ -91,7 +92,12 @@
               [src]="planta.imagen" 
               [alt]="planta.nombre"
               class="plant-image"
+              (error)="onImageError($event, planta)"
+              loading="lazy"
             />
+            <div class="image-overlay">
+              <ion-icon name="leaf-outline" class="plant-icon"></ion-icon>
+            </div>
           </div>
           <p class="plant-name">{{ planta.nombre }}</p>
         </div>
@@ -105,11 +111,6 @@
     </div>
 
     <!-- Botón expandir (como en el diseño) -->
-    <div class="expand-button">
-      <ion-button fill="clear" color="medium">
-        <ion-icon name="expand-outline"></ion-icon>
-      </ion-button>
-    </div>
 
   </div>
 </ion-content>
