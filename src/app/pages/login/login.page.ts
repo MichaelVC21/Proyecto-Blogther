@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
         name: username,
         username: username,
         usertype: 'freemium',
+        foto_perfil: '',
       };
       this.auth.registerUser(email, password, additionalData)
         .then(() => {

@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Subscription, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
 
 interface SearchResult {
   id: string;
-  tipo: 'persona' | 'publicacion' | 'articulo';
+  tipo: 'perfil' | 'publicacion' | 'articulo';
   titulo: string;
   subtitulo?: string;
   imagen?: string;
@@ -26,7 +27,7 @@ export class BuscadorPage implements OnInit, OnDestroy {
   hasSearched: boolean = false;
   
   // Resultados separados por tipo
-  personas: SearchResult[] = [];
+  perfil: SearchResult[] = [];
   publicaciones: SearchResult[] = [];
   articulos: SearchResult[] = [];
   
@@ -91,10 +92,10 @@ export class BuscadorPage implements OnInit, OnDestroy {
     const termLower = term.toLowerCase();
     
     // Búsquedas simultáneas en las 3 colecciones
-    const personasSearch = this.db.fetchFirestoreCollection('Personas').pipe(
-      map(personas => personas.filter(persona => 
-        this.matchesPersonaSearch(persona, termLower)
-      ).map(persona => this.mapToSearchResult(persona, 'persona')))
+    const perfilSearch = this.db.fetchFirestoreCollection('perfil').pipe(
+      map(perfil => perfil.filter(perfil => 
+        this.matchesPerfilSearch(perfil, termLower)
+      ).map(perfil => this.mapToSearchResult(perfil, 'perfil')))
     );
 
     const publicacionesSearch = this.db.fetchFirestoreCollection('Publicaciones').pipe(
@@ -109,22 +110,22 @@ export class BuscadorPage implements OnInit, OnDestroy {
       ).map(articulo => this.mapToSearchResult(articulo, 'articulo')))
     );
 
-    return combineLatest([personasSearch, publicacionesSearch, articulosSearch]).pipe(
-      map(([personas, publicaciones, articulos]) => ({
-        personas,
+    return combineLatest([perfilSearch, publicacionesSearch, articulosSearch]).pipe(
+      map(([perfil, publicaciones, articulos]) => ({
+        perfil,
         publicaciones,
         articulos
       }))
     );
   }
 
-  matchesPersonaSearch(persona: any, term: string): boolean {
+  matchesPerfilSearch(perfil: any, term: string): boolean {
     const searchFields = [
-      persona.nombre,
-      persona.apellido,
-      persona.username,
-      persona.email,
-      persona.bio
+      perfil.nombre,
+      perfil.apellido,
+      perfil.username,
+      perfil.email,
+      perfil.bio
     ];
 
     return searchFields.some(field => 
@@ -162,12 +163,12 @@ export class BuscadorPage implements OnInit, OnDestroy {
     );
   }
 
-  mapToSearchResult(item: any, tipo: 'persona' | 'publicacion' | 'articulo'): SearchResult {
+  mapToSearchResult(item: any, tipo: 'perfil' | 'publicacion' | 'articulo'): SearchResult {
     switch (tipo) {
-      case 'persona':
+      case 'perfil':
         return {
           id: item.id,
-          tipo: 'persona',
+          tipo: 'perfil',
           titulo: `${item.nombre || ''} ${item.apellido || ''}`.trim() || item.username || 'Usuario',
           subtitulo: item.bio || item.email || '',
           imagen: item.avatar || item.foto,
@@ -206,14 +207,14 @@ export class BuscadorPage implements OnInit, OnDestroy {
   }
 
   updateResults(results: any) {
-    this.personas = results.personas || [];
+    this.perfil = results.perfil || [];
     this.publicaciones = results.publicaciones || [];
     this.articulos = results.articulos || [];
     this.filterResults();
   }
 
   clearResults() {
-    this.personas = [];
+    this.perfil = [];
     this.publicaciones = [];
     this.articulos = [];
     this.filteredResults = [];
@@ -226,8 +227,8 @@ export class BuscadorPage implements OnInit, OnDestroy {
 
   filterResults() {
     switch (this.selectedFilter) {
-      case 'personas':
-        this.filteredResults = this.personas;
+      case 'perfil':
+        this.filteredResults = this.perfil;
         break;
       case 'publicaciones':
         this.filteredResults = this.publicaciones;
@@ -237,7 +238,7 @@ export class BuscadorPage implements OnInit, OnDestroy {
         break;
       default:
         this.filteredResults = [
-          ...this.personas,
+          ...this.perfil,
           ...this.publicaciones,
           ...this.articulos
         ];
@@ -246,22 +247,22 @@ export class BuscadorPage implements OnInit, OnDestroy {
 
   getResultCount(tipo?: string): number {
     switch (tipo) {
-      case 'personas':
-        return this.personas.length;
+      case 'perfil':
+        return this.perfil.length;
       case 'publicaciones':
         return this.publicaciones.length;
       case 'articulos':
         return this.articulos.length;
       default:
-        return this.personas.length + this.publicaciones.length + this.articulos.length;
+        return this.perfil.length + this.publicaciones.length + this.articulos.length;
     }
   }
 
   onResultClick(result: SearchResult) {
     switch (result.tipo) {
-      case 'persona':
+      case 'perfil':
         // Navegar al perfil de la persona
-        this.router.navigate(['/perfil', result.id]);
+        this.router.navigate(['/perfil-detalle/', result.id]);
         break;
       case 'publicacion':
         // Navegar a la publicación
@@ -276,7 +277,7 @@ export class BuscadorPage implements OnInit, OnDestroy {
 
   getTypeIcon(tipo: string): string {
     switch (tipo) {
-      case 'persona':
+      case 'perfil':
         return 'person-circle-outline';
       case 'publicacion':
         return 'document-text-outline';
@@ -289,7 +290,7 @@ export class BuscadorPage implements OnInit, OnDestroy {
 
   getTypeColor(tipo: string): string {
     switch (tipo) {
-      case 'persona':
+      case 'perfil':
         return 'primary';
       case 'publicacion':
         return 'secondary';
@@ -313,7 +314,7 @@ export class BuscadorPage implements OnInit, OnDestroy {
 
   getDefaultImage(tipo: string): string {
     switch (tipo) {
-      case 'persona':
+      case 'perfil':
         return 'assets/img/default-avatar.jpeg';
       case 'publicacion':
         return 'assets/img/default-post.jpeg';

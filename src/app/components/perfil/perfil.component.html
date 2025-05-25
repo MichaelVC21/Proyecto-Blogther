@@ -1,14 +1,26 @@
 
+<img src="{{auth.profile?.foto_perfil}}" alt="foto-perfil">
+
 <div>
   <img [src]="auth.profile?.photoURL" alt="Foto de perfil" class="user-avatar" />
   <h1> {{ auth.profile?.username }}</h1>
+  <p class="followers-container">
+    <ion-icon name="people-outline" class="follower-icon"></ion-icon>
+    <span class="follower-count">{{ auth.profile.seguidores }}</span>
+    <span class="follower-label">seguidores</span>  
+
+    <ion-icon name="people-outline" class="follower-icon"></ion-icon>
+    <span class="follower-count">{{ auth.profile.seguidos }}</span>
+    <span class="follower-label">seguidos</span>
+  <p>
   <p>{{ descripcion }}</p>
+
   <ion-button expand="full" class="btn-publi" href="/mis-publi">
     <ion-icon name="albums-outline" slot="start"></ion-icon>
     Publicaciones
   </ion-button>
-  
-  <ion-button expand="full" class="btn-favoritos">
+
+  <ion-button expand="full" class="btn-favoritos" href="/favoritos">
     <ion-icon name="star-outline" slot="start"></ion-icon>
     Favoritos
   </ion-button>
@@ -17,6 +29,10 @@
     <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
     Calendario
   </ion-button>
-  
+
+  <ion-button (click)="logout()" color="danger">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar sesión
+  </ion-button>
 </div>
 

@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
     id?: string;
     image?: string;
     date?: any;        // Timestamp o Date
-    familia?: string;
+    family?: string;
     userUid?: string;
     // cualquier otro campo que uses
   }
@@ -34,26 +34,18 @@ export class PlantDaysPage implements OnInit {
     ) { }
   
     ngOnInit() {
-      // 1. Capturamos la familia de la ruta
       this.family = this.route.snapshot.paramMap.get('familia') || '';
-  
-      // 2. Recuperamos el UID del usuario (igual que en PlantasPage)
+
       const profile = localStorage.getItem('profile');
       this.userUid = profile ? JSON.parse(profile).id : '';
-  
-      // 3. Nos suscribimos a la colección, filtramos y ordenamos
-      this.db.fetchFirestoreCollection('plantas')
+
+      this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
         .subscribe(all => {
           this.entries = all
-            // sólo del usuario actual y de la familia seleccionada
-            .filter(p =>
-              p.familia === this.family &&
-              (!p.userUid || p.userUid === this.userUid)
-            )
-            // ordenamos por fecha descendente
+            .filter(p => p.family === this.family)  // ojo: en tu código es "family", no "familia"
             .sort((a, b) => {
-              const ta = a.date?.seconds ?? a.date ?? 0;
-              const tb = b.date?.seconds ?? b.date ?? 0;
+              const ta = a.createdAt?.seconds ?? 0;
+              const tb = b.createdAt?.seconds ?? 0;
               return tb - ta;
             });
           this.cdr.detectChanges();
@@ -66,7 +58,7 @@ export class PlantDaysPage implements OnInit {
      * Navegar al detalle de una entrada concreta
      */
     goToEntry(entryId: string) {
-      this.navCtrl.navigateForward(['/entry-detail', entryId]);
+      this.navCtrl.navigateForward(['/plant-detalle', entryId]);
     }
   
     /**

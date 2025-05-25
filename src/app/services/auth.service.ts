@@ -129,7 +129,7 @@ export class AuthService {
       localStorage.clear();
   
       this.profile = null; // ← Esto estaba mal antes, ponías this.auth.profile
-      this.router.navigate(['/sign-up']);
+      this.router.navigate(['/login']);
       setTimeout(() => {
         location.reload();
       }, 200);

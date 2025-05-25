@@ -29,6 +29,7 @@
     "@capacitor/keyboard": "7.0.1",
     "@capacitor/status-bar": "7.0.1",
     "@ionic/angular": "^8.0.0",
+    "@ionic/pwa-elements": "^3.3.0",
     "firebase": "^11.6.0",
     "ionicons": "^7.0.0",
     "qrcode": "^1.5.4",

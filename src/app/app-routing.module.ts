@@ -7,8 +7,30 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'perfil-detalle/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  // Rutas alternativas por si acaso
+  {
+    path: 'perfiles/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  {
+    path: 'perfil/:id',
+    loadComponent: () => import('./components/perfil-detalle/perfil-detalle.component').then(m => m.PerfilDetalleComponent)
+  },
+  
+  // Ruta para el buscador
+  {
+    path: 'buscador',
+    loadChildren: () => import('./pages/buscador/buscador.module').then(m => m.BuscadorPageModule)
+  },
+
+  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -109,17 +131,7 @@ const routes: Routes = [
     path: 'buscador-scanner',
     loadChildren: () => import('./pages/buscador-scanner/buscador-scanner.module').then( m => m.BuscadorScannerPageModule)
   },
-  {
-  path: 'qr',
-  loadChildren: () => import('./pages/qr/qr.module').then(m => m.QrPageModule)
-}
-,
-  {
-    path: 'transferencia',
-    loadChildren: () => import('./pages/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
-  }
   
-
 
 
 
