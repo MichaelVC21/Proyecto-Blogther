@@ -33,31 +33,28 @@
     <ion-content>
       <ion-list>
         <!-- Notificaciones de tarea -->
-          <a href="/calendario">
-
         <ion-item button (click)="goToNotifications()">
           <ion-icon name="notifications-outline" slot="start"></ion-icon>
           <ion-label>
             <h2>Notificaciones de tarea</h2>
             <p>Gestiona tus recordatorios y alertas</p>
           </ion-label>
+          <a href="/calendario">
           <ion-icon name="chevron-forward" slot="end"></ion-icon>
+          </a>
         </ion-item>
-        </a>
+
         <!-- Suscripción -->
-          <a href="/suscripcion">
         <ion-item button (click)="goToSubscription()">
           <ion-icon name="card-outline" slot="start"></ion-icon>
-          
           <ion-label>
             <h2>Suscripción</h2>
             <p>Administra tu plan y beneficios</p>
           </ion-label>
-         
+          <a href="/suscripcion">
           <ion-icon name="chevron-forward" slot="end"></ion-icon>
-         
+          </a>
         </ion-item>
-         </a>
 
         <!-- Centro de ayuda y soporte -->
         <ion-item button (click)="toggleSupportCenter()">

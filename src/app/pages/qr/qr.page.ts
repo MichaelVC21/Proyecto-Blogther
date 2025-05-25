@@ -58,8 +58,8 @@ export class QrPage implements OnInit {
       fechaSuscripcion: fechaActual.toISOString(),
       fechaVencimiento: vencimiento.toISOString(),
       precioPageado: this.monto,
-      metodoPago: 'QR - No Verificado',
-      estadoPago: 'pendiente'
+      metodoPago: 'QR ',
+      estadoPago: 'pagado'
     };
 
     try {

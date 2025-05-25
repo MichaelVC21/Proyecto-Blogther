@@ -1,20 +1,28 @@
-
-  <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/metodo-pago"></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-center">Suscripcion</ion-title>
+    <ion-title class="title-center">Suscripción</ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-content class="ion-padding">
+  
+  <!-- Información del plan -->
+  <div class="plan-info">
+    <h2>{{ planNombre }}</h2>
+    <div class="plan-price">{{ monto }} {{ moneda }}</div>
+    <p class="plan-description">Acceso completo por 30 días</p>
+  </div>
+
   <!-- Formulario de pago -->
   <form [formGroup]="pagoForm" (ngSubmit)="procesarPago()">
     
-    <!-- Información de la tarjeta -->
-    <ion-card class="payment-section">
+    <ion-card class="payment-card">
       <ion-card-header>
         <ion-card-title>
-          <ion-icon name="card" class="section-icon"></ion-icon>
+          <ion-icon name="card" class="bank-icon"></ion-icon>
           Información de la tarjeta
         </ion-card-title>
       </ion-card-header>
@@ -80,58 +88,67 @@
           </ion-col>
         </ion-row>
 
-      </ion-card-content>
-    </ion-card>
-
-   
-
-    <!-- Términos y total -->
-    <ion-card class="summary-section">
-      <ion-card-content>
-        
-        <div class="resumen-pago">
-          <h3>Resumen del pago</h3>
-          <div class="linea-resumen">
-            <span>{{ planSeleccionado.nombre }}</span>
-            <span class="precio-resumen">${{ planSeleccionado.precio }} {{ planSeleccionado.moneda }}</span>
-          </div>
-          <div class="linea-resumen impuestos">
-            <span>Impuestos</span>
-            <span>Incluidos</span>
-          </div>
-          <hr>
-          <div class="linea-resumen total">
-            <strong>Total a pagar</strong>
-            <strong class="precio-total">${{ planSeleccionado.precio }} {{ planSeleccionado.moneda }}</strong>
-          </div>
-        </div>
-
-        <ion-item class="terms-item">
-          <ion-checkbox formControlName="aceptarTerminos"></ion-checkbox>
-          <ion-label class="ion-text-wrap">
-            <p>
-              Acepto los 
-              <a href="#" class="terms-link">términos y condiciones</a> 
-              y la 
-              <a href="#" class="terms-link">política de privacidad</a>
-            </p>
-          </ion-label>
+        <ion-item>
+          <ion-label position="stacked">Email *</ion-label>
+          <ion-input 
+            type="email" 
+            placeholder="correo@ejemplo.com"
+            formControlName="email"
+            [class.ion-invalid]="pagoForm.get('email')?.invalid && pagoForm.get('email')?.touched">
+          </ion-input>
+          <ion-note slot="error" *ngIf="pagoForm.get('email')?.invalid && pagoForm.get('email')?.touched">
+            Email inválido
+          </ion-note>
         </ion-item>
 
       </ion-card-content>
     </ion-card>
 
+    <!-- Resumen del pago -->
+    <ion-card class="summary-card">
+      <ion-card-content>
+        <div class="payment-summary">
+          <div class="summary-line">
+            <span>{{ planNombre }}</span>
+            <span class="price">{{ monto }} {{ moneda }}</span>
+          </div>
+          <div class="summary-line taxes">
+            <span>Impuestos</span>
+            <span>Incluidos</span>
+          </div>
+          <hr>
+          <div class="summary-line total">
+            <strong>Total a pagar</strong>
+            <strong class="total-price">{{ monto }} {{ moneda }}</strong>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Términos y condiciones -->
+    <ion-item class="terms-item" lines="none">
+      <ion-checkbox slot="start" [(ngModel)]="aceptarTerminos" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+      <ion-label class="ion-text-wrap">
+        <p>
+          Acepto los 
+          <a href="#" class="terms-link">términos y condiciones</a> 
+          y la 
+          <a href="#" class="terms-link">política de privacidad</a>
+        </p>
+      </ion-label>
+    </ion-item>
+
     <!-- Botones de acción -->
-    <div class="action-buttons">
+    <div class="button-group">
       <ion-button 
         expand="block" 
         size="large" 
         type="submit"
-        [disabled]="!esFormularioValido || isProcessing"
-        class="subscribe-button">
+        [disabled]="!pagoForm.valid || !aceptarTerminos || isProcessing"
+        class="confirm-button">
         <ion-icon name="card" slot="start" *ngIf="!isProcessing"></ion-icon>
         <ion-spinner name="crescent" slot="start" *ngIf="isProcessing"></ion-spinner>
-        {{ isProcessing ? 'Procesando...' : 'Suscribirse Ahora' }}
+        {{ isProcessing ? 'Procesando...' : 'Confirmar Pago' }}
       </ion-button>
       
       <ion-button 
@@ -147,5 +164,4 @@
 
   </form>
 
- 
-
+</ion-content>
