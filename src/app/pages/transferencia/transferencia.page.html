@@ -9,12 +9,7 @@
 
 <ion-content class="ion-padding">
   
-  <!-- Información del plan -->
-  <div class="plan-info">
-    <h2>{{ planNombre }}</h2>
-    <div class="plan-price">{{ monto }} {{ moneda }}</div>
-    <p class="plan-description">Acceso completo por 30 días</p>
-  </div>
+ 
 
   <!-- Formulario de pago -->
   <form [formGroup]="pagoForm" (ngSubmit)="procesarPago()">

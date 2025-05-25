@@ -1,31 +1,31 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/principal"></ion-back-button>
+      <ion-back-button defaultHref="/metodo-pago"></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-center">Suscripcion</ion-title>
+    <ion-title class="title-center">Suscripción</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding">
-  <h2 class="ion-text-center">Suscripción Premium</h2>
-  <p class="ion-text-center">{{ monto }} {{ moneda }}/mes</p>
 
-  <div class="ion-text-center" *ngIf="qrCodeDataURL">
-    <img [src]="qrCodeDataURL" alt="Código QR" style="max-width: 250px; margin: 20px auto;" />
+  <div class="qr-section" *ngIf="qrCodeDataURL">
+    <img [src]="qrCodeDataURL" alt="Código QR" />
     <p>Escanea este código con tu app bancaria para ver los datos del pago.</p>
   </div>
 
   <ion-item lines="none">
     <ion-checkbox slot="start" [(ngModel)]="aceptarTerminos"></ion-checkbox>
     <ion-label>
-      Acepto los <a href="#">términos</a> y <a href="#">condiciones</a>.
+      Acepto los <a href="#">términos</a> y la <a href="#">política de privacidad</a>.
     </ion-label>
   </ion-item>
 
-  <ion-button expand="block" (click)="suscribirse()" [disabled]="isProcessing">
-    {{ isProcessing ? 'Procesando...' : 'Confirmar Suscripción' }}
+  <ion-button expand="block" class="confirmar" (click)="suscribirse()" [disabled]="isProcessing">
+    {{ isProcessing ? 'Procesando...' : 'CONFIRMAR PAGO' }}
   </ion-button>
 
-  <ion-button expand="block" fill="clear" color="medium" (click)="cancelar()">Cancelar</ion-button>
+  <ion-button expand="block" fill="clear" class="cancelar" (click)="cancelar()">
+    CANCELAR
+  </ion-button>
+
 </ion-content>
