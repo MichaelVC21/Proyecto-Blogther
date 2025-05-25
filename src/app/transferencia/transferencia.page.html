@@ -1,4 +1,12 @@
 
+  <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/metodo-pago"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-center">Suscripcion</ion-title>
+  </ion-toolbar>
+</ion-header>
   <!-- Formulario de pago -->
   <form [formGroup]="pagoForm" (ngSubmit)="procesarPago()">
     
