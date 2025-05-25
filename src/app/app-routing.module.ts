@@ -75,10 +75,6 @@ const routes: Routes = [
   },
   {
     path: 'articulos/:id',
-    loadChildren: () => import('./pages/extras/arti/arti.module').then( m => m.ArtiPageModule)
-  },
-  {
-    path: 'articulos/:id',
     loadComponent: () => import('./components/articulo-detalle/articulo-detalle.component').then(m => m.ArticuloDetalleComponent)
   },
   {
@@ -134,20 +130,20 @@ const routes: Routes = [
   {
     path: 'buscador-scanner',
     loadChildren: () => import('./pages/buscador-scanner/buscador-scanner.module').then( m => m.BuscadorScannerPageModule)
-  }
-,
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./pages/qr/qr.module').then( m => m.QrPageModule)
+  },
   {
     path: 'transferencia',
     loadChildren: () => import('./pages/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
-    },
+  },
   {
     path: 'favoritos',
     loadChildren: () => import('./pages/favoritos/favoritos.module').then( m => m.FavoritosPageModule)
   },
-  {
-  path: 'qr',
-  loadChildren: () => import('./pages/qr/qr.module').then(m => m.QrPageModule)
-  }
+  
 ];
 
 @NgModule({
