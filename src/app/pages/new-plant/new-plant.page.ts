@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
@@ -10,6 +10,7 @@ import {
   CameraSource,
   Photo
 } from '@capacitor/camera';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-new-plant',
@@ -30,7 +31,8 @@ export class NewPlantPage implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public db: DatabaseService,
   ) {}
 
   ngOnInit(): void {}
@@ -41,38 +43,33 @@ export class NewPlantPage implements OnInit {
 
   /** Toma los datos del formulario y crea un nuevo documento en Firestore */
   async handleSubmit() {
-    const user = await this.afAuth.currentUser;
-    if (!user) {
-      console.error('Usuario no autenticado');
-      return;
-    }
-
-    const plantData = {
-      name: this.name,
-      description: this.description,
-      location: this.location,
-      day: this.day,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      entries: this.imageSrc
-        ? [
-            {
-              image: this.imageSrc,
-              date: firebase.firestore.FieldValue.serverTimestamp()
-            }
-          ]
-        : []
-    };
-
-    try {
-      await this.afs
-        .collection(`users/${user.uid}/plants`)
-        .add(plantData);
-      // Una vez guardada, regresar al listado
-      this.router.navigate(['/plantas']);
-    } catch (error) {
-      console.error('Error al agregar la planta:', error);
-    }
+  const user = await this.afAuth.currentUser;
+  if (!user) {
+    console.error('Usuario no autenticado');
+    return;
   }
+
+  const plantaId = new Date().getTime().toString(); // o usa uuid
+  const data = {
+    name: this.name,
+    description: this.description,
+    location: this.location,
+    day: this.day,
+    clima: this.clima,
+    family: this.family,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    image: this.imageSrc || '', // guardá la imagen principal también aquí
+  };
+
+  try {
+    await this.db.addUserSubcollectionDocumentWithId(user.uid, 'mis-plantas', plantaId, data);
+    this.router.navigate(['/plantas']);
+  } catch (error) {
+    console.error('Error al agregar la planta:', error);
+  }
+}
+
+  
 
   /** Abre la cámara, toma la foto y la muestra en el template */
   async handleCameraClick() {

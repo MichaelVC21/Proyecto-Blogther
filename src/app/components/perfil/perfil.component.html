@@ -1,4 +1,6 @@
 
+<img src="{{auth.profile?.foto_perfil}}" alt="foto-perfil">
+
 <div>
   <img [src]="auth.profile?.photoURL" alt="Foto de perfil" class="user-avatar" />
   <h1> {{ auth.profile?.username }}</h1>
@@ -17,7 +19,8 @@
     <ion-icon name="albums-outline" slot="start"></ion-icon>
     Publicaciones
   </ion-button>
-  <ion-button expand="full" class="btn-favoritos">
+
+  <ion-button expand="full" class="btn-favoritos" href="/favoritos">
     <ion-icon name="star-outline" slot="start"></ion-icon>
     Favoritos
   </ion-button>
@@ -26,6 +29,10 @@
     <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
     Calendario
   </ion-button>
-  
+
+  <ion-button (click)="logout()" color="danger">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar sesión
+  </ion-button>
 </div>
 

@@ -83,6 +83,7 @@
         fill="outline"
         shape="round"
         class="btn-submit"
+        [disabled]="!name || !location || !day || !clima || !family"
       >
         Subir
       </ion-button>

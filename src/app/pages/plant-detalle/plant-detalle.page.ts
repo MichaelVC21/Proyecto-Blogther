@@ -41,6 +41,8 @@ export class PlantDetallePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    const profile = localStorage.getItem('profile');
+    this.userUid = profile ? JSON.parse(profile).id : '';
     this.entryId = this.route.snapshot.paramMap.get('id')!;
   
     // inicializar el formulario
@@ -50,19 +52,16 @@ export class PlantDetallePage implements OnInit {
     });
   
     // Suscríbete a la colección entera y filtra por el id
-    this.db.fetchFirestoreCollection('plantas')
-      .subscribe(list => {
-        const found = list.find(item => item.id === this.entryId);
-        if (found) {
-          this.entry = found;
-          // parchea el form usando substring(0,10) si date es string ISO
-          this.entryForm.patchValue({
-            description: found.description,
-            date: found.date ? found.date.substring(0,10) : ''
-          });
-          this.cdr.detectChanges();
-        }
-      });
+    this.db.getDocument(`users/${this.userUid}/mis-plantas`, this.entryId)
+    .subscribe(doc => {
+    this.entry = doc;
+    this.entryForm.patchValue({
+      description: doc.description || '',
+      date: doc.date ? doc.date.substring(0, 10) : ''
+    });
+    this.cdr.detectChanges();
+    });
+    console.log('perfil', this.userUid);
   }
 
   back() {
@@ -71,7 +70,9 @@ export class PlantDetallePage implements OnInit {
 
   /** Muestra el formulario de edición */
   editar() {
+    console.log('Editar activado');
     this.showForm = true;
+    this.cdr.detectChanges();
   }
 
   /** Cancela la edición */
@@ -89,22 +90,25 @@ export class PlantDetallePage implements OnInit {
       this.entryForm.markAllAsTouched();
       return;
     }
-
+  
     const datos = {
       description: this.entryForm.value.description,
       date: this.entryForm.value.date,
       userUid: this.userUid
     };
-
-    this.db.updateFireStoreDocument('plantas', this.entryId, datos)
+  
+    // Aquí llamamos al método de tu servicio para actualizar subcolección
+    this.db.updateUserSubcollectionDocument(this.userUid, 'mis-plantas', this.entryId, datos)
       .then(() => {
-        // refrescar local
+        // actualizar localmente para reflejar cambios
         if (this.entry) {
           this.entry.description = datos.description;
           this.entry.date = datos.date;
         }
         this.showForm = false;
+        this.cdr.detectChanges();
       })
       .catch(err => console.error('Error actualizando entrada:', err));
   }
+  
 }

@@ -10,9 +10,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button>
-    <img src="" alt="imagen-de-publicacion">
+  <ion-button (click)="triggerFileInput()" expand="full" style="margin-bottom: 12px;">
+    <img [src]="imagenBase64" alt="imagen-de-publicacion" style="max-height: 200px; max-width: 100%;">
   </ion-button>
+
+  <input type="file" accept="image/*" (change)="cargarImagen($event)" hidden #fileInput />
+
   <div style="display: flex; flex-direction: row; align-items: center;">
     <ion-icon name="people-outline"></ion-icon>
     <p>Etiquetar</p>

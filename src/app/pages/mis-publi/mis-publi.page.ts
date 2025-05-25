@@ -128,4 +128,26 @@ export class MisPubliPage implements OnInit {
       .catch(err => console.error('Error al eliminar de Publicaciones:', err));
   }
 
+  guardarEnFavoritos(publi: any) {
+    const uid = this.auth.profile?.id;
+  
+    if (!uid) {
+      console.error('Usuario no autenticado');
+      return;
+    }
+  
+    const datos = {
+      ...publi,
+      fechaGuardado: new Date()
+    };
+  
+    this.db.addUserSubcollectionDocumentWithId(uid, 'favoritos', publi.id, datos)
+      .then(() => {
+        console.log('Publicación guardada en favoritos');
+        // Opcional: feedback visual o mensaje
+      })
+      .catch(err => {
+        console.error('Error al guardar en favoritos:', err);
+      });
+  }
 }
