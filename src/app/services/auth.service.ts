@@ -1,10 +1,12 @@
-import { Injectable, Injector, runInInjectionContext } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
 import { ToastController } from '@ionic/angular';
-import { signOut, getAuth } from 'firebase/auth';
+import { firstValueFrom } from 'rxjs';
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getApp } from "firebase/app";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ import { signOut, getAuth } from 'firebase/auth';
 export class AuthService {
 
   profile: any;
+  private firestoreModular = getFirestore(getApp());
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -19,7 +22,6 @@ export class AuthService {
     public toastCtrl: ToastController,
     public db: DatabaseService,
     public router: Router,
-    private injector: Injector
   ) { 
     const user = localStorage.getItem('profile');
     if(user){
@@ -28,120 +30,110 @@ export class AuthService {
     }
   }
 
-  registerUser(email: string, password: string, extraData: any) {
-    return runInInjectionContext(this.injector, () => {
-      return this.afAuth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          const uid = userCredential.user?.uid;
-          if (uid) {
-            return runInInjectionContext(this.injector, () => {
-              return this.firestore.collection('users').doc(uid).set(extraData)
-                .then(async () => {
-                    console.log('Usuario creado en Firestore', extraData);
-                    const toast = await this.toastCtrl.create({
-                    message: 'Usuario creado exitosamente.',
-                    duration: 2000,
-                    color: 'success'
-                    });
-                    toast.present();
-                    this.router.navigate(['/login']);
-                    setTimeout(() => {
-                    location.reload();
-                    }, 200);
-                })
-                .catch(async error => {
-                  console.error('Error al guardar datos en Firestore:', error);
-                  const toast = await this.toastCtrl.create({
-                    message: 'Error al guardar datos en Firestore.',
-                    duration: 2000,
-                    color: 'danger'
-                  });
-                  toast.present();
-                  throw error;
-                });
-            });
-          }
-          throw new Error('Usuario no creado');
-        })
-        .catch(async error => {
-          console.error('Error al registrar usuario:', error);
-          const toast = await this.toastCtrl.create({
-            message: 'Error al registrar usuario.',
-            duration: 2000,
-            color: 'danger'
-          });
-          toast.present();
-          throw error;
-        });
-    });
+  async registerUser(email: string, password: string, extraData: any): Promise<string> {
+    try {
+      const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const uid = userCredential.user?.uid;
+      if (!uid) throw new Error('UID no disponible');
+  
+      const defaultProfile = {
+        name: extraData.username,
+        username: extraData.username,
+        usertype: 'freemium',
+        foto_perfil: '',
+        descripcion: '',
+        phone: '',
+        seguidores: 0,
+        seguidos: 0,
+        estadoPago: 'gratis',
+        metodoPago: '',
+        fechaSuscripcion: new Date().toISOString(),
+        fechaVencimiento: '',
+        planSuscripcion: 'freemium',
+        precioPageado: 0
+      };
+  
+      await this.db.addFirestoreDocumentWithId('users', uid, defaultProfile);
+  
+      this.profile = { id: uid, ...defaultProfile }; // Actualiza el perfil
+      localStorage.setItem('profile', JSON.stringify(this.profile));
+  
+      console.log('Usuario y perfil creados correctamente');
+      return uid;
+  
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      throw error;
+    }
   }
+  
+  
+  
+  
+  
+  
 
-  getProfile(uid: any) {
-    return runInInjectionContext(this.injector, () => {
-      this.db.getDocumentById('users', uid).subscribe(
-        (res: any) => {
-          console.log('perfil desde firebase', res);
-          localStorage.setItem('profile', JSON.stringify(res));
-          this.profile = res;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
-    });
+  async getProfile(uid: string): Promise<any> {
+    try {
+      const res: any = await firstValueFrom(this.db.getDocumentById('users', uid));
+      console.log('perfil desde firebase', res);
+      localStorage.setItem('profile', JSON.stringify(res));
+      this.profile = res;
+      return res;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-
 
   async loginUser(email: string, password: string) {
-    return runInInjectionContext(this.injector, async () => {
-      try {
-        const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
-        const user = userCredential.user;
+    try {
+      const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
 
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          console.log('Usuario autenticado:', user);
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('Usuario autenticado:', user);
 
-          this.getProfile(user.uid); // Mantiene la lógica actual de obtener y guardar perfil
-          this.router.navigateByUrl('/perfil');
-        } else {
-          throw new Error('No se pudo obtener el usuario');
-        }
-      } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        const toast = await this.toastCtrl.create({
-          message: 'Error al iniciar sesión.',
-          duration: 2000,
-          color: 'danger'
-        });
-        toast.present();
-        throw error;
+        await this.getProfile(user.uid);
+        this.router.navigateByUrl('/perfil');
+      } else {
+        throw new Error('No se pudo obtener el usuario');
       }
-    });
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      const toast = await this.toastCtrl.create({
+        message: 'Error al iniciar sesión.',
+        duration: 2000,
+        color: 'danger'
+      });
+      toast.present();
+      throw error;
+    }
   }
 
-
-  logout() {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      localStorage.removeItem('profile');
-      localStorage.removeItem('user');
-      localStorage.clear();
+  async logout() {
+    try {
+      await this.afAuth.signOut();
   
-      this.profile = null; // ← Esto estaba mal antes, ponías this.auth.profile
-      this.router.navigate(['/login']);
-      setTimeout(() => {
-        location.reload();
-      }, 200);
-    }).catch((error) => {
-      console.error('Error al cerrar sesión:', error);
-    });
+      // Espera hasta que authState devuelva null
+      await new Promise<void>((resolve) => {
+        const sub = this.afAuth.authState.subscribe((user) => {
+          if (!user) {
+            sub.unsubscribe(); // ahora sí es un Subscription válido
+            resolve();
+          }
+        });
+      });
+  
+      localStorage.clear();
+      this.profile = null;
+  
+      console.log('✅ Sesión cerrada completamente');
+      await this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('❌ Error al cerrar sesión:', error);
+    }
   }
-
-/*   verifyIsLogued() {
-    let user = localStorage.getItem('user');
-    this.isLogued = user ? true : false;
-    return user ? true : false;
-  }
- */
+    
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Router } from '@angular/router';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up.page.scss'],
   standalone: false,
 })
-export class SignUpPage implements OnInit {
+export class SignUpPage implements OnInit, AfterViewInit {
 
   loginForm:FormGroup;
 
@@ -51,6 +52,13 @@ export class SignUpPage implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
       console.log('Formulario inválido');
+    }
+  }
+  ngAfterViewInit() {
+    // Quita el foco de cualquier elemento activo (como botones del login/signup)
+    const activeEl = document.activeElement as HTMLElement;
+    if (activeEl && typeof activeEl.blur === 'function') {
+      activeEl.blur();
     }
   }
 }

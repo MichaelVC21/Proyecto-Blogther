@@ -1,0 +1,36 @@
+ion-content{
+    --background: var(--ion-color-fondo);
+}
+h1{
+    font-family: 'Concert One', sans-serif;
+    color: var(--ion-color-verdemedioscuro);
+    font-size: 40px;
+    padding-top: 20px;
+    margin: 20px;
+}
+p{
+    font-family: 'Quicksand', sans-serif;
+    color: var(--ion-color-verdeoscuro);
+    font-size: 17px;
+    margin: 20px;
+    margin-top: 30px;
+}
+img{
+    display: flex;
+    margin: auto;
+    width: 300px;
+    height: 334px;
+    padding: 30px;
+    margin-top: 50px;
+}
+ion-button{
+    --border-color: var(--ion-color-verdeoscuro);
+    padding-top: 50px;
+    display: flex;
+    margin: auto;
+    width: 118px;
+    height: 33px;
+    color: var(--ion-color-verdeoscuro);
+    font-family: 'Concert One', sans-serif;
+
+}

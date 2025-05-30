@@ -1,4 +1,4 @@
-<ion-card [routerLink]="['/publi', publicacion.id]" *ngFor="let publicacion of publicaciones">
+<ion-card (click)="onCardClick(publicacion.id)" *ngFor="let publicacion of publicaciones">
   <img alt="Imagen de publicación" src="{{publicacion.imagen}}" />
   <ion-card-header>
     <ion-card-title>{{publicacion.titulo}}</ion-card-title>
@@ -13,8 +13,8 @@
     <!-- ❤️ Corazón -->
     <ion-button fill="clear" size="small" class="interaction-btn" (click)="toggleIcon(publicacion.id, 'heart'); $event.stopPropagation()">
       <ion-icon
-        [name]="iconosActivos[publicacion.id]?.heart ? 'heart' : 'heart-outline'"
-        [color]="iconosActivos[publicacion.id]?.heart ? 'danger' : 'medium'"
+        [name]="iconosActivos[publicacion.id].heart ? 'heart' : 'heart-outline'"
+        [color]="iconosActivos[publicacion.id].heart ? 'danger' : 'medium'"
         slot="icon-only">
       </ion-icon>
     </ion-button>
@@ -22,8 +22,8 @@
     <!-- 🔗 Compartir -->
     <ion-button fill="clear" size="small" class="interaction-btn" (click)="toggleIcon(publicacion.id, 'share'); $event.stopPropagation()">
       <ion-icon
-        [name]="iconosActivos[publicacion.id]?.share ? 'share' : 'share-outline'"
-        [color]="iconosActivos[publicacion.id]?.share ? 'primary' : 'medium'"
+        [name]="iconosActivos[publicacion.id].share ? 'share' : 'share-outline'"
+        [color]="iconosActivos[publicacion.id].share ? 'primary' : 'medium'"
         slot="icon-only">
       </ion-icon>
     </ion-button>
@@ -32,8 +32,8 @@
     <ion-button fill="clear" size="small" class="interaction-btn"
                 (click)="toggleIcon(publicacion.id, 'star'); guardarEnFavoritos(publicacion); $event.stopPropagation()">
       <ion-icon
-        [name]="iconosActivos[publicacion.id]?.star ? 'star' : 'star-outline'"
-        [color]="iconosActivos[publicacion.id]?.star ? 'warning' : 'medium'"
+        [name]="iconosActivos[publicacion.id].star ? 'star' : 'star-outline'"
+        [color]="iconosActivos[publicacion.id].star ? 'warning' : 'medium'"
         slot="icon-only">
       </ion-icon>
     </ion-button>

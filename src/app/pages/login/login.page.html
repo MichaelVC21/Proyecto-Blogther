@@ -1,29 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Registrarse</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
 
-  <img src="../../../assets/img/logo blogther.svg" alt="logo" style="width: 300px; height: 300px;">
-
-  <div>
-    <br>
-    <ion-button expand="full">
-      <ion-icon name="logo-google" slot="start"></ion-icon>
-      Iniciar sesión con Google
-    </ion-button>
-    <br>
-    <ion-button expand="full">
-      <ion-icon name="logo-facebook" slot="start"></ion-icon>
-      Iniciar sesión con Facebook
-    </ion-button>
-  </div>
+  <img src="../../../assets/img/logo blogther.svg" alt="logo" style="width: 173px; height: 193px; display: flex; padding: 24px;">
 
   <form [formGroup] = "registerForm" (ngSubmit) = "register()">
     <ion-item>
-      <ion-input label="Email"
+      <ion-input
       labelPlacement="stacked"
       formControlName="email"
       [clearInput]="true"
@@ -33,33 +14,33 @@
     </ion-item>
     <br>
     <ion-item>
-      <ion-input label="Nombre de Usuario"
+      <ion-input
       labelPlacement="stacked"
       formControlName="username"
       [clearInput]="true"
-      placeholder="Nombre de Usuario"
+      placeholder="Usuario"
       type="text"
       mode="md"></ion-input>
     </ion-item>
     <br>
     <ion-item>
-      <ion-input label="Contraseña"
+      <ion-input
       labelPlacement="stacked"
       formControlName="password"
       [clearInput]="true"
-      placeholder="Ingrese Contraseña"
+      placeholder="Contraseña"
       type="password"
       mode="md">
         <ion-input-password-toggle slot="end" color="verdeoscuro"></ion-input-password-toggle>
       </ion-input>
     </ion-item>
-    <ion-button expand="full" type="submit" [disabled]="!registerForm.valid">
+    <ion-button type="submit" [disabled]="!registerForm.valid" shape="round" fill="outline">
       <ion-icon name="person-outline" slot="start"></ion-icon>
-      Iniciar sesión
+      Registrarse
     </ion-button>
   </form>
   <br>
-  <ion-button expand="full" href="/sign-up">
+  <a href="/sign-up">
     Inicia sesión si ya tienes cuenta
-  </ion-button>
+  </a>
 </ion-content>

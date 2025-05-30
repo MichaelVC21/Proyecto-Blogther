@@ -8,6 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFirestoreModule,
     LoginPageRoutingModule
   ],
   declarations: [LoginPage]

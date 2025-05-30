@@ -121,6 +121,48 @@ export class DatabaseService {
     });
   }
 
+  // Guardar o sobrescribir el estado de interacciones de una publicación para un usuario
+  setUserInteraction(userId: string, pubId: string, data: any): Promise<void> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/interacciones`).doc(pubId).set(data);
+    });
+  }
+
+  // Obtener todas las interacciones del usuario
+  getUserInteractions(userId: string): Observable<any[]> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/interacciones`).valueChanges({ idField: 'publicacionId' });
+    });
+  }
+
+  setUserSubcollectionDocument(userId: string, subcollection: string, docId: string, data: any): Promise<void> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore.collection(`users/${userId}/${subcollection}`).doc(docId).set(data);
+    });
+  }
+
+  fetchUserSubcollection(userId: string, subcollection: string): Observable<any[]> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore
+        .collection(`users/${userId}/${subcollection}`)
+        .valueChanges({ idField: 'id' });
+    });
+  }
+  
+  async eliminarFavoritoSiExiste(userId: string, docId: string): Promise<void> {
+    return runInInjectionContext(this.injector, async () => {
+      const docRef = this.firestore.collection(`users/${userId}/favoritos`).doc(docId);
+      const snapshot = await docRef.ref.get();
+  
+      if (!snapshot.exists) {
+        console.warn(`No se encontró favorito con ID: ${docId}`);
+        return;
+      }
+  
+      await docRef.delete();
+      console.log(`Favorito eliminado correctamente: ${docId}`);
+    });
+  }
 
 
   // Verifica si un documento existe en una colección

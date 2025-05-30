@@ -15,7 +15,7 @@
       <ion-label>Publicaciones</ion-label>
     </ion-list-header>
 
-    <ion-item *ngFor="let publicacion of publicaciones" [routerLink]="['/publi', publicacion.id]">
+    <ion-item *ngFor="let publicacion of publicaciones" (click)="onCardClick(publicacion.id)">
       <ion-label>
         <img [src]="publicacion.imagen || ''" alt="foto" style="width: 300px; height: 500px;">
         <h2>{{ publicacion.titulo }}</h2>

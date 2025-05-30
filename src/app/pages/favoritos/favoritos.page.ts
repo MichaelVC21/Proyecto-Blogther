@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChangeDetectorRef } from '@angular/core'; // opcional, pero útil
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favoritos',
@@ -20,6 +21,7 @@ export class FavoritosPage implements OnInit {
     public db: DatabaseService,
     public auth: AuthService,
     public cdr: ChangeDetectorRef,
+    public router: Router,
   ) { 
     const profile = JSON.parse(localStorage.getItem('profile')!);
     this.userUid = profile.id;
@@ -55,6 +57,14 @@ export class FavoritosPage implements OnInit {
       });
     });
   }
+
+  private safeBlurActiveElement(): void {
+    const activeEl = document.activeElement;
+    if (activeEl instanceof HTMLElement && typeof activeEl.blur === 'function') {
+      activeEl.blur();
+    }
+  }
+
   eliminarFavorito(favorito: any) {
     const uid = this.auth.profile.id;
     this.db.deleteDocument(`users/${uid}/favoritos`, favorito.id).then(() => {
@@ -67,5 +77,9 @@ export class FavoritosPage implements OnInit {
     }).catch(error => {
       console.error('Error al eliminar favorito:', error);
     });
+  }
+  onCardClick(publiId: string): void {
+    this.safeBlurActiveElement(); // 👈 desenfoca
+    this.router.navigate(['/publi', publiId]);
   }
 }

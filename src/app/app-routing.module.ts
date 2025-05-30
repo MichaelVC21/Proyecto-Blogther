@@ -30,7 +30,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'bienvenida',
     pathMatch: 'full'
   },
   {
@@ -142,6 +142,14 @@ const routes: Routes = [
   {
     path: 'favoritos',
     loadChildren: () => import('./pages/favoritos/favoritos.module').then( m => m.FavoritosPageModule)
+  },
+  {
+    path: 'bienvenida',
+    loadChildren: () => import('./pages/bienvenida/bienvenida.module').then( m => m.BienvenidaPageModule)
+  },
+  {
+    path: 'pre-regis',
+    loadChildren: () => import('./pages/pre-regis/pre-regis.module').then( m => m.PreRegisPageModule)
   },
   
 ];

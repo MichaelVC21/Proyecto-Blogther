@@ -10,8 +10,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-button (click)="triggerFileInput()" expand="full" style="margin-bottom: 12px;">
-    <img [src]="imagenBase64" alt="imagen-de-publicacion" style="max-height: 500px; max-width: 100%;">
+  <ion-button (click)="triggerFileInput()" expand="full" style="margin-bottom: 12px; width: auto; height: 340px;">
+    <ion-icon name="camera-outline" slot="start"></ion-icon>
+    <img [src]="imagenBase64" alt="" style="max-height: 500px; max-width: 100%;">
   </ion-button>
 
   <input type="file" accept="image/*" (change)="cargarImagen($event)" hidden #fileInput />

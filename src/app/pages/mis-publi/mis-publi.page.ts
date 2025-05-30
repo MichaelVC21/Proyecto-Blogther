@@ -4,6 +4,8 @@ import { DatabaseService } from '../../services/database.service';
 import { ChangeDetectorRef } from '@angular/core'; // opcional, pero útil
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-mis-publi',
@@ -28,13 +30,6 @@ export class MisPubliPage implements OnInit {
   ) { 
     const profile = JSON.parse(localStorage.getItem('profile')!);
     this.userUid = profile.id;
-    this.db.fetchFirestoreCollection('Publicaciones').subscribe((data) => {
-      console.log(data);
-      console.log('🧾 Publicaciones:', data); 
-      
-      this.publicaciones = data;
-      this.cdr.detectChanges(); // Detecta cambios para actualizar la vista
-    })
   }
 
   ngOnInit() {
@@ -42,35 +37,91 @@ export class MisPubliPage implements OnInit {
     if (uid) {
       this.db.getSubcollection(`users/${uid}`, 'mis-publicaciones').subscribe((data) => {
         console.log(data);
-        this.publicaciones = data;
-
-        // ✅ Inicializa los íconos al cargar publicaciones
+  
+        // Aquí inicializás iconos antes de asignar las publicaciones
         data.forEach(pub => {
           if (!this.iconosActivos[pub.id]) {
-            this.iconosActivos[pub.id] = {
-              heart: false,
-              star: false,
-              share: false
-            };
+            this.iconosActivos[pub.id] = { heart: false, star: false, share: false };
           }
         });
+  
+        this.publicaciones = data;
+  
+        this.cdr.detectChanges();
+      });
 
+      this.db.getSubcollection(`users/${uid}`, 'interacciones').subscribe((interacciones: any[]) => {
+        interacciones.forEach(interaccion => {
+          this.iconosActivos[interaccion.publicacionId] = {
+            heart: interaccion.heart || false,
+            star: interaccion.star || false,
+            share: interaccion.share || false
+          };
+        });
+  
         this.cdr.detectChanges();
       });
     }
-
+  
     this.publiForm = this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required]
     });
   }
+
+  private safeBlurActiveElement(): void {
+    const activeEl = document.activeElement;
+    if (activeEl instanceof HTMLElement && typeof activeEl.blur === 'function') {
+      activeEl.blur();
+    }
+  }
+  
   toggleIcon(pubId: string, icon: 'heart' | 'star' | 'share') {
     if (!this.iconosActivos[pubId]) {
       this.iconosActivos[pubId] = { heart: false, star: false, share: false };
     }
   
     this.iconosActivos[pubId][icon] = !this.iconosActivos[pubId][icon];
+  
+    const uid = this.auth.profile?.id;
+    if (!uid) return;
+  
+    const datosAGuardar = {
+      ...this.iconosActivos[pubId],
+      publicacionId: pubId
+    };
+    // Guardar interacción
+    this.db.addUserSubcollectionDocumentWithId(uid, 'interacciones', pubId, datosAGuardar)
+      .then(() => {
+        console.log(`Interacción guardada para ${pubId}`);
+      })
+      .catch(err => {
+        console.error('Error al guardar interacción:', err);
+      });
+  
+    // Manejar favoritos solo si es estrella
+    if (icon === 'star') {
+      if (this.iconosActivos[pubId].star) {
+        // guardar favorito
+        const publi = this.publicaciones.find((p: any) => p.id === pubId);
+        if (publi) {
+          const datosFavorito = {
+            ...publi,
+            publicacionId: publi.id,
+            fechaGuardado: new Date()
+          };
+          this.db.addUserSubcollectionDocumentWithId(uid, 'favoritos', pubId, datosFavorito)
+            .then(() => console.log('Favorito guardado'))
+            .catch(err => console.error('Error al guardar favorito:', err));
+        }
+      } else {
+        // ✅ nuevo método que verifica antes de borrar
+        this.db.eliminarFavoritoSiExiste(uid, pubId)
+          .catch(err => console.error('Error eliminando favorito:', err));
+      }
+    }
   }
+  
   editarPublicacion(publi: any) {
     this.publicacionSeleccionada = publi;
     this.publiForm.patchValue({
@@ -171,5 +222,9 @@ export class MisPubliPage implements OnInit {
       .catch(err => {
         console.error('Error al guardar en favoritos:', err);
       });
+  }
+  onCardClick(publiId: string): void {
+    this.safeBlurActiveElement(); // 👈 desenfoca
+    this.router.navigate(['/publi', publiId]);
   }
 }
