@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cámara</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-button expand="full" (click)="takePicture()">
+    Abrir Cámara
+  </ion-button>
+
+  <div *ngIf="capturedImage" class="image-preview">
+    <img [src]="capturedImage" />
+  </div>
+
+</ion-content>

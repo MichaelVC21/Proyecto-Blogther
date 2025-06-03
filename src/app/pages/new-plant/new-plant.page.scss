@@ -120,4 +120,7 @@
     /* si tu tab-bar sigue ahí, déjale espacio abajo también */
     --padding-bottom: 20px;
   }
-  
+ion-content > form > ion-item{
+  width: 330px;
+  height: auto;
+}

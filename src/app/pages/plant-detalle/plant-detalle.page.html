@@ -67,6 +67,13 @@
             <ion-label position="stacked">Descripción</ion-label>
             <ion-textarea formControlName="description" rows="4"></ion-textarea>
           </ion-item>
+
+          <!-- Fecha -->
+          <ion-item lines="full" class="form-item">
+            <ion-label position="stacked">Fecha</ion-label>
+            <ion-input type="date" formControlName="date"></ion-input>
+          </ion-item>
+
   
         <div class="form-buttons">
           <ion-button fill="outline" (click)="cancelar()" type="button">
@@ -75,6 +82,9 @@
           <ion-button type="submit" [disabled]="entryForm.invalid">
             Guardar
           </ion-button>
+          <p *ngIf="entryForm.invalid" style="color: red; font-size: 12px;">
+            Formulario inválido: completa todos los campos obligatorios.
+          </p>
         </div>
       </form>
     </ng-container>

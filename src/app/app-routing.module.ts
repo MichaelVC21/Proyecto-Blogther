@@ -151,6 +151,10 @@ const routes: Routes = [
     path: 'pre-regis',
     loadChildren: () => import('./pages/pre-regis/pre-regis.module').then( m => m.PreRegisPageModule)
   },
+  {
+    path: 'camera',
+    loadChildren: () => import('./pages/camera/camera.module').then( m => m.CameraPageModule)
+  },
   
 ];
 

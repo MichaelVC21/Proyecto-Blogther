@@ -111,6 +111,8 @@ export class PlantDetallePage implements OnInit {
       date: this.entryForm.value.date,
       userUid: this.userUid
     };
+    console.log('entryForm.value', this.entryForm.value);
+    console.log('entryForm.valid', this.entryForm.valid);
   
     // Aquí llamamos al método de tu servicio para actualizar subcolección
     this.db.updateUserSubcollectionDocument(this.userUid, 'mis-plantas', this.entryId, datos)
