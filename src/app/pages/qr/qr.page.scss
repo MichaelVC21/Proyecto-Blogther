@@ -35,6 +35,8 @@ ion-content {
   .qr-section {
     text-align: center;
     margin: 20px 0;
+        font-family: 'Quicksand', sans-serif;
+
 
     img {
       max-width: 250px;
@@ -46,6 +48,8 @@ ion-content {
       font-size: 14px;
       color: #555;
       margin-top: 10px;
+          font-family: 'Quicksand', sans-serif;
+
     }
   }
 
@@ -53,6 +57,8 @@ ion-content {
     --background: transparent;
     --inner-padding-end: 0;
     margin-bottom: 10px;
+        font-family: 'Quicksand', sans-serif;
+
 
     ion-label {
       font-size: 14px;
@@ -62,6 +68,8 @@ ion-content {
         color: #7A8463;
         font-weight: 600;
         text-decoration: none;
+            font-family: 'Quicksand', sans-serif;
+
       }
     }
 
@@ -69,6 +77,8 @@ ion-content {
       --size: 20px;
       --checkbox-background: #7A8463;
       --border-color-checked: #7A8463;
+          font-family: 'Quicksand', sans-serif;
+
     }
   }
 
@@ -84,6 +94,8 @@ ion-content {
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
       height: 30px;
+          font-family: 'Quicksand', sans-serif;
+
     }
 
     &.cancelar {
@@ -92,6 +104,8 @@ ion-content {
       font-weight: 600;
       font-size: 25px;
       margin-top: 10px;
+          font-family: 'Quicksand', sans-serif;
+
     }
   }
 }

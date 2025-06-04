@@ -1,91 +1,134 @@
-ion-header {
-    --background: #F5F5ED;
-    
-    ion-toolbar {
-      --background: #F5F5ED;
-      --color: #2c3e50;
-      
-      ion-title {
-        font-size: 23px;
-        font-weight: 600;
-        color: #8B9773;
-        font-family: 'Concert One', sans-serif;
+/* Header */
+ion-header ion-toolbar {
+  --background: #F5F5ED;
+  --color: #333;
+  font-family: 'Quicksand', sans-serif;
 
-      }
-      
-      // Botones del header (editar, configuración)
-      ion-button {
-        --color: #8B9773;
-        --background: #F5F5ED;
-        --box-shadow: none;
-        margin: 0;
-        height: auto;
-        
-        ion-icon {
-          font-size: 24px;
-          margin: 0;
-        }
-      }
-    }
-  }
+}
+
+.title-center {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+ion-back-button {
+  --color: #333;
+  --icon-font-size: 24px;
+}
+
+/* Contenedor principal */
 .contenedor-principal {
+  background-color: #f5f5f0;
+  min-height: calc(100vh - 56px);
+  padding: 40px 20px;
+}
+
+/* Título */
+.titulo {
+  font-size: 20px;
+  border: solid 2px #2E4A39;
+  border-radius: 20px;
+  padding: 15px;
+  font-weight: bold;
+  color: #2E4A39;
+  text-align: left;
+  width: 200px;
+  margin: 0 0 60px 0;
+  line-height: 1.2;
+  font-family: 'Concert One', sans-serif;
+
+}
+
+/* Contenedor de opciones */
+.opciones {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 40px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: 'Concert One', sans-serif;
+  color: #2E4A39;
+}
+
+/* Cada opción */
+.opcion {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f7f6ed;
-  height: 100vh;
-  padding: 1.5rem;
+  text-align: center;
+  flex: 1;
+}
 
-  .encabezado {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+.opcion a {
+  display: block;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
 
-    .icono-pago {
-      width: 24px;
-      height: 24px;
-    }
+.opcion a:hover {
+  transform: translateY(-5px);
+}
 
-    .subtitulo {
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      color: #3a3a3a;
-    }
+/* Iconos de opciones */
+.icono-opcion {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.icono-opcion:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Texto de opciones */
+.texto-opcion {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .contenedor-principal {
+    padding: 30px 15px;
   }
-
+  
   .titulo {
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 1.5rem;
+    font-size: 28px;
+    margin-bottom: 40px;
   }
-
+  
   .opciones {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .icono-opcion {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .texto-opcion {
+    font-size: 20px;
+  }
+}
 
-    .opcion {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .icono-opcion {
-        width: 100px;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 0.5rem;
-      }
-
-      .texto-opcion {
-        font-family: 'Poppins', sans-serif;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-      }
-    }
+@media (min-width: 481px) and (max-width: 768px) {
+  .opciones {
+    gap: 30px;
+  }
+  
+  .icono-opcion {
+    width: 130px;
+    height: 130px;
   }
 }
