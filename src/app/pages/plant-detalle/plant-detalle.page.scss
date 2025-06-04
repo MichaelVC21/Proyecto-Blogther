@@ -75,6 +75,7 @@ ion-content{
 }
 
 /* Botón Editar */
+
 .edit-btn {
   --background: transparent;
   --border-radius: 25px;
@@ -88,4 +89,145 @@ ion-content{
   align-self: center;
   margin-bottom: 16px;
   font-family: 'Quicksand', sans-serif;
+}
+
+.form-item {
+  --background: none;
+  --border-radius: 12px;
+  --padding: 16px;
+  border: solid 1px #666666;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --min-height: auto;
+  transition: all 0.3s ease;
+  font-family: 'Quicksand', sans-serif;
+
+}
+
+.form-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.form-item ion-label {
+  --color: #7a8471;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.form-item ion-input {
+  --color: #333;
+  --placeholder-color: #999;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 16px;
+  --border-color: transparent;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.form-item ion-input:focus-within {
+  --border-color: #7a8471;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.form-item ion-textarea {
+  --color: #333;
+  --placeholder-color: #999;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  font-size: 16px;
+  --border-color: transparent;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-item ion-textarea:focus-within {
+  --border-color: #7a8471;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+.form-buttons ion-button[fill="outline"] {
+  --border-color: #ccc;
+  --color: #666;
+  --background: transparent;
+  flex: 1;
+  height: 48px;
+  --border-radius: 24px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-buttons ion-button[fill="outline"]:hover {
+  --background: #f0f0f0;
+}
+
+.form-buttons ion-button[type="submit"] {
+  --background: #7a8471;
+  --color: white;
+  flex: 1;
+  height: 48px;
+  --border-radius: 24px;
+  font-weight: 500;
+  font-size: 16px;
+  --box-shadow: 0 2px 8px rgba(122, 132, 113, 0.3);
+  transition: all 0.3s ease;
+}
+
+.form-buttons ion-button[type="submit"]:hover:not([disabled]) {
+  --background: #6a7461;
+}
+
+.form-buttons ion-button[type="submit"][disabled] {
+  --background: #ccc;
+  --color: #999;
+  --box-shadow: none;
+}
+
+.form-buttons p {
+  background-color: none;
+  border: 1px solid #ffcdd2;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 16px;
+  color: #c62828;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+}
+
+/* Estilos específicos para inputs de fecha */
+ion-input[type="date"] {
+  --color: #333;
+}
+
+ion-input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .form-buttons {
+    flex-direction: column;
+  }
 }

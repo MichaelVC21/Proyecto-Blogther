@@ -1,19 +1,40 @@
 ion-toolbar{
     --background: var(--ion-color-fondo);
+    font-family: 'QuickSand', sans-serif;
+    text-align: center;
+    box-shadow: none;
+
+}
+.ion-icon{
+    box-shadow: none;
 }
 ion-header{
     --background: var(--ion-color-fondo);
+    font-family: 'QuickSand', sans-serif;
+
 }
 ion-content{
     --background: var(--ion-color-fondo);
+    box-shadow: none;
+    font-family: 'QuickSand', sans-serif;
+
 }
 ion-item{
     --background: var(--ion-color-fondo);
     color: var(--ion-color-verdeoscuro);
     font-family: 'QuickSand', sans-serif;
+    margin: 20px;
 }
 ion-button{
     --background: none;
     color: var(--ion-color-verdeoscuro);
-    --font-family: 'ConcertOne', sans-serif;
+    font-family: 'QuickSand', sans-serif;
+    margin: 20px;
 }
+p{
+    font-family: 'QuickSand', sans-serif;
+    color: var(--ion-color-verdeoscuro);
+    text-align: center;
+    margin: 20px;
+}
+

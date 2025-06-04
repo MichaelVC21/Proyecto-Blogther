@@ -1,8 +1,8 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar style="box-shadow: none;">
     <div style="display: flex; flex-direction: row; align-items: center;">
       <ion-button href="/perfil">
-        <ion-icon name="arrow-back-outline" slot="start" color="verdeoscuro"></ion-icon>
+        <ion-icon name="arrow-back-outline" slot="start" color="verdeoscuro" style="box-shadow: none;"></ion-icon>
       </ion-button>
       <ion-title>Agregar Publicacion</ion-title>
     </div>
@@ -17,7 +17,7 @@
 
   <input type="file" accept="image/*" (change)="cargarImagen($event)" hidden #fileInput />
 
-  <div style="display: flex; flex-direction: row; align-items: center;">
+  <div style="display: flex; flex-direction: row; align-items: center; margin-left: 20px;">
     <ion-icon name="people-outline"></ion-icon>
     <p>Etiquetar</p>
     <ion-icon name="add-outline"></ion-icon>
@@ -26,7 +26,7 @@
   
   <form [formGroup]="publiForm" (ngSubmit)="guardarPublicacion()">
     <ion-item>
-      <ion-input
+      <ion-input style="font-family: 'QuickSand', sans-serif;"
         label="Título"
         labelPlacement="stacked"
         placeholder="Título de la publicación"
@@ -36,7 +36,8 @@
     </ion-item>
   
     <ion-item>
-      <ion-input
+      <ion-input style="font-family: 'QuickSand', sans-serif;
+"
         label="Descripción"
         labelPlacement="stacked"
         placeholder="Descripción de la publicación"

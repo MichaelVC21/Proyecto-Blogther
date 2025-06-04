@@ -1,11 +1,11 @@
-<ion-header>
-    <ion-toolbar>
+<ion-header >
+    <ion-toolbar >
       <ion-buttons slot="start">
         <ion-button fill="clear" (click)="back()">
           <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title>Historial</ion-title>
+      <ion-title> Historial</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -31,7 +31,7 @@
       </div>
   
       <!-- Modo EDICIÓN -->
-      <form [formGroup]="entryForm" *ngIf="showForm" (ngSubmit)="guardar()">
+      <form [formGroup]="entryForm" *ngIf="showForm" (ngSubmit)="guardar()" >
         <ion-item lines="full" class="form-item">
             <ion-label position="stacked">Nombre</ion-label>
             <ion-input formControlName="name"></ion-input>

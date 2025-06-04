@@ -1,248 +1,391 @@
-ion-toolbar {
-    --background: var(--ion-color-fondo);
-    --color: var(--ion-color-verdeoscuro);
+// Variables de colores
+:root {
+  --color-primary: #3880ff;
+  --color-danger: #eb445a;
+  --color-warning: #ffc409;
+  --color-success: #2dd36f;
+  --color-medium: #92949c;
+  --color-light: #f4f5f8;
+  --color-dark: #222428;
+  --color-white: #F5F5ED;
+  --color-background: #F5F5ED;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --border-radius: 16px;
+  --border-radius-small: 8px;
 }
-// Estilos para las cards de publicaciones
+
+// Configuración general
 ion-content {
-    --background: var(--ion-color-fondo);
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-ion-button{
-    --background: var(--ion-color-fondo);
-    color: var(--ion-color-verdeoscuro);
+  --background: #F5F5ED;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 20px;
 }
-  
-// Estilos para las cards
+
+// Header personalizado
+ion-header {
+  ion-toolbar {
+    --background: var(--color-white);
+    --border-width: 0;
+    --min-height: 60px;
+       font-family: 'Quicksand', sans-serif;
+
+    
+    div {
+      padding: 0 8px;
+      
+      ion-button {
+        --background: transparent;
+        --color: var(--color-dark);
+        --box-shadow: none;
+        --border-radius: 50%;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        margin: 0;
+        
+        ion-icon {
+          font-size: 24px;
+          color: var(--color-dark);
+          font-family: 'Quicksand', sans-serif;
+
+        }
+      }
+      
+      ion-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-dark);
+        margin-left: 8px;
+        font-family: 'Quicksand', sans-serif;
+
+      }
+    }
+  }
+}
+
+// Contenedor principal de tarjetas
+ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+
+}
+
+// Estilos de tarjeta principal
 ion-card {
-    margin: 16px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: #F5F5ED;
-    box-shadow: none;
+  width: 340px !important;
+  max-width: 90vw;
+  height: auto !important;
+  margin: 12px auto;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow-card) !important;
+  overflow: hidden;
+  background: var(--color-white);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+
+
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover) !important;
+  }
+  
+  // Imagen de la publicación
+  img {
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+  
+  // Header de la tarjeta
+  ion-card-header {
+    padding: 16px 20px 8px;
+    
+    ion-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin: 0;
+      line-height: 1.3;
+      
+    }
+  }
+  
+  // Contenido de la tarjeta
+  ion-card-content {
+    padding: 0 20px 12px;
+    
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--color-medium);
+      margin: 0;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-family: 'Quicksand', sans-serif;
+
+    }
+  }
+}
+
+// Barra de interacción
+.interaction-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px 12px;
+  gap: 4px;
+  
+  .interaction-btn {
+    --background: transparent;
+    --color: var(--color-medium);
+    --box-shadow: none;
+    --border-radius: 50%;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    margin: 0;
+    transition: all 0.2s ease;
+    
+    ion-icon {
+      font-size: 22px;
+      transition: all 0.2s ease;
+    }
     
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      transform: scale(1.1);
     }
     
-    img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
+    // Estados activos de iconos
+    &:has(ion-icon[color="danger"]) {
+      ion-icon {
+        color: var(--color-danger) !important;
+      }
     }
+    
+    &:has(ion-icon[color="primary"]) {
+      ion-icon {
+        color: var(--color-primary) !important;
+      }
+    }
+    
+    &:has(ion-icon[color="warning"]) {
+      ion-icon {
+        color: var(--color-warning) !important;
+      }
+    }
+  }
+}
+
+// Botones de edición y eliminación
+ion-card ion-button:not(.interaction-btn):not([href]) {
+  --background: var(--color-light);
+  --color: var(--color-dark);
+  --border-radius: var(--border-radius-small);
+  --box-shadow: none;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  margin: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+  
+  &[color="danger"] {
+    --background: rgba(var(--ion-color-danger-rgb), 0.1);
+    --color: var(--color-danger);
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Botón de agregar publicación
+ion-button[href="/agregar-publi"] {
+  width: 340px !important;
+  max-width: 90vw;
+  height: 200px !important;
+  margin: 20px auto 40px;
+  --background: #D3DCBD;
+  --color: var(--color-primary);
+  --border: 2px dashed var(--color-primary);
+  --border-radius: var(--border-radius);
+  --box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-family: 'Quicksand', sans-serif;
+
+  
+  ion-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+  
+  &::after {
+    content: "Agregar Publicación";
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  &:hover {
+    --background: #D3DCBD;
+    transform: translateY(-2px);
+    --box-shadow: var(--shadow-card);
+  }
+}
+
+// Modal de edición
+ion-card:has(ion-card-title:contains("Editar")) {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 350px !important;
+  max-width: 95vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+  
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
   }
   
   ion-card-header {
-    padding: 16px 16px 8px 16px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    margin: 0;
     
     ion-card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #333;
-      margin: 0;
-      line-height: 1.3;
+      color: var(--color-white);
+      font-size: 18px;
     }
   }
   
-  ion-card-content {
-    padding: 0 16px 16px 16px;
-    color: #666;
-    line-height: 1.5;
-    font-size: 0.9rem;
-  }
-  
-  // Barra de iconos de interacción
-  .interaction-bar {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px 16px 16px;
-    gap: 4px;
+  ion-item {
+    --background: transparent;
+    --border-color: var(--color-light);
+    margin-bottom: 16px;
     
-    .interaction-btn {
-      --color: #666;
-      --color-hover: #333;
-      margin: 0;
-      
-      ion-icon {
-        font-size: 1.2rem;
-      }
-      
-      &:hover {
-        --color: #007bff;
-      }
+    ion-label {
+      color: var(--color-dark);
+    }
+    
+    ion-input,
+    ion-textarea {
+      --color: var(--color-dark);
+      --placeholder-color: var(--color-medium);
     }
   }
   
-  // Contenedor de botones
-  .button-container {
-    display: flex;
-    gap: 8px;
-    padding: 8px 16px 16px 16px;
+  ion-button {
+    margin: 8px 16px;
+    --border-radius: var(--border-radius-small);
+    font-weight: 600;
     
-    ion-button {
-      flex: 1;
-      margin: 0;
-      height: 36px;
-      font-size: 0.85rem;
-      
-      ion-icon {
-        font-size: 1rem;
-      }
-      
-      &[color="danger"] {
-        --color: #dc3545;
-        --border-color: #dc3545;
-        
-        &:hover {
-          --background: #dc3545;
-          --color: white;
-        }
-      }
-      
-      &:not([color="danger"]) {
-        --color: #007bff;
-        --border-color: #007bff;
-        
-        &:hover {
-          --background: #007bff;
-          --color: white;
-        }
-      }
+    &[color="medium"] {
+      --background: var(--color-light);
+      --color: var(--color-dark);
     }
   }
-  
-  // Estilos para el formulario de edición
-  ion-card.edit-form {
-    margin: 16px;
-    background: #f8f9fa;
-    border: 2px solid #007bff;
-    
-    ion-card-header {
-      background: linear-gradient(135deg, #007bff, #0056b3);
-      color: white;
-      margin: -1px -1px 16px -1px;
-      
-      ion-card-title {
-        color: white;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        
-        ion-icon {
-          font-size: 1.2rem;
-        }
-      }
-    }
-    
-    ion-item {
-      --background: transparent;
-      --border-color: #dee2e6;
-      margin-bottom: 12px;
+}
 
-      
-      ion-label {
-        font-weight: 500;
-        color: #495057;
-      }
-      
-      ion-input, ion-textarea {
-        --color: #495057;
-        --placeholder-color: #adb5bd;
-      }
-    }
-    
-    ion-button {
-      margin: 8px 0 4px 0;
-      height: 44px;
-      font-weight: 500;
-      
-      ion-icon {
-        font-size: 1.1rem;
-      }
-      
-      &[expand="full"] {
-        --border-radius: 8px;
-      }
-      
-      &[color="medium"] {
-        --background: #6c757d;
-        --background-hover: #5a6268;
-      }
-    }
-  }
-  
-  // Estilos responsivos
-  @media (max-width: 768px) {
-    ion-card {
-      margin: 12px 8px;
-      
-      img {
-        height: 180px;
-      }
-    }
-    
-    ion-card-header {
-      padding: 12px 12px 6px 12px;
-      
-      ion-card-title {
-        font-size: 1.1rem;
-      }
-    }
-    
-    ion-card-content {
-      padding: 0 12px 12px 12px;
-      font-size: 0.85rem;
-    }
-    
-    .button-container {
-      padding: 0 12px 12px 12px;
-      flex-direction: column;
-      
-      ion-button {
-        height: 40px;
-      }
-    }
-  }
-  
-  // Animación de entrada para las cards
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
+// Responsive design
+@media (max-width: 480px) {
   ion-card {
-    animation: fadeInUp 0.4s ease-out;
+    width: calc(100vw - 32px) !important;
+    margin: 8px auto;
   }
   
-  // Estilos para estados vacíos
-  .no-publicaciones {
-    text-align: center;
-    padding: 40px 20px;
-    color: #666;
+  ion-button[href="/agregar-publi"] {
+    width: calc(100vw - 32px) !important;
+    height: 150px !important;
     
-    
-    
-    h3 {
-      margin: 0 0 8px 0;
-      color: #999;
+    ion-icon {
+      font-size: 36px;
     }
     
-    p {
-      margin: 0;
-      font-size: 0.9rem;
+    &::after {
+      font-size: 14px;
     }
   }
+}
+
+// Animaciones
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ion-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-medium);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark);
+}
+
+// Estados de carga y vacío
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  
+  ion-icon {
+    font-size: 64px;
+    color: var(--color-medium);
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    color: var(--color-dark);
+    margin: 8px 0;
+  }
+  
+  p {
+    color: var(--color-medium);
+    margin: 0;
+  }
+}
