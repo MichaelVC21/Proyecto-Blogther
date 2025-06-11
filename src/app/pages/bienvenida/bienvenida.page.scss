@@ -32,5 +32,15 @@ ion-button{
     height: 33px;
     color: var(--ion-color-verdeoscuro);
     font-family: 'Concert One', sans-serif;
+}
 
+ion-content > div > p{
+    display: flex;
+    justify-content: center;
+}
+a{
+    color: var(--ion-color-verdeoscuro);
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    justify-content: center;
 }

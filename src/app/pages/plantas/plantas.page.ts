@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 interface PlantEntry {
   id?: string;
   name: string;
-  family: string;
+  familia: string;
   image?: string;
   userUid?: string;
 }
@@ -54,7 +54,7 @@ export class PlantasPage implements OnInit {
       // filtramos sólo las del usuario actual
       .filter(p => !p.userUid || p.userUid === this.userUid)
       .forEach(p => {
-        const fam = p.family || 'Sin familia';
+        const fam = p.familia || 'Sin familia';
         if (!mapFam[fam]) { mapFam[fam] = []; }
         mapFam[fam].push(p);
       });

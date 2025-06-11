@@ -11,7 +11,6 @@ interface PlantEntry {
   day?: string;
   image?: string;
   description?: string;
-  date?: any;
   userUid?: string;
 }
 
@@ -62,7 +61,7 @@ export class PlantDetallePage implements OnInit {
     this.entry = doc;
     this.entryForm.patchValue({
       name:      doc.name    || '',
-          familia:     doc.family    || '',
+          familia:     doc.familia    || '',
           day:         doc.day       || '',
           location:    doc.location  || '',
           clima:       doc.clima     || '',
@@ -82,15 +81,20 @@ export class PlantDetallePage implements OnInit {
   editar() {
     console.log('Editar activado');
     this.showForm = true;
+  
+    // Deshabilitar los campos que no deben ser editables
+    this.entryForm.get('name')?.disable();
+    this.entryForm.get('familia')?.disable();
+  
     this.cdr.detectChanges();
   }
+  
 
   /** Cancela la edición */
   cancelar() {
     this.showForm = false;
     this.entryForm.reset({
       description: this.entry?.description || '',
-      date: this.entry?.date ? this.entry.date.substring(0,10) : ''
     });
   }
 
@@ -101,15 +105,15 @@ export class PlantDetallePage implements OnInit {
       return;
     }
   
+    const rawValues = this.entryForm.getRawValue(); // ⬅️ para incluir los deshabilitados
+  
     const datos = {
-      name:        this.entryForm.value.name,
-      familia:     this.entryForm.value.familia,
-      day:         this.entryForm.value.day,
-      location:    this.entryForm.value.location,
-      clima:       this.entryForm.value.clima,
-      description: this.entryForm.value.description,
-      date: this.entryForm.value.date,
-      userUid: this.userUid
+      name:        rawValues.name,
+      familia:     rawValues.familia,
+      location:    rawValues.location,
+      clima:       rawValues.clima,
+      description: rawValues.description,
+      userUid:     this.userUid
     };
     console.log('entryForm.value', this.entryForm.value);
     console.log('entryForm.valid', this.entryForm.valid);
@@ -122,7 +126,6 @@ export class PlantDetallePage implements OnInit {
           this.entry.description = datos.description;
           this.entry.name = datos.name;
           this.entry.familia = datos.familia;
-          this.entry.day = datos.day;
 
         }
         this.showForm = false;

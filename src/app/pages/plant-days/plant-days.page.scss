@@ -46,7 +46,7 @@ ion-content{
     margin: 0 0 16px;
     padding-left: 12px;
     padding-top: 10px;
-  }
+ }
   
   
   .plant-card {
@@ -193,4 +193,10 @@ ion-content{
       text-transform: capitalize;
     }
   }
+  ion-chip.selected {
+    --background: #4caf50;
+    --color: white;
+    font-weight: bold;
+  }
+  
   

@@ -1,15 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-  import { NavController } from '@ionic/angular';
-  import { DatabaseService } from 'src/app/services/database.service';
-  import { AuthService } from 'src/app/services/auth.service';
-  import firebase from 'firebase/compat/app';
+import { NavController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/services/database.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { AfterViewInit } from '@angular/core';
   
   interface PlantEntry {
     id?: string;
     image?: string;
     date?: any;        // Timestamp o Date
-    family?: string;
+    familia?: string;
     userUid?: string;
     location?: string;
     // cualquier otro campo que uses
@@ -20,11 +20,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./plant-days.page.scss'],
   standalone: false
 })
-export class PlantDaysPage implements OnInit {
+export class PlantDaysPage implements OnInit, AfterViewInit {
 
   
-    family = '';
+    familia = '';
+    nombrePlanta = '';
     userUid = '';
+    filteredEntries: PlantEntry[] = [];
+    selectedLocation = '';
     entries: PlantEntry[] = [];
   
     constructor(
@@ -36,7 +39,7 @@ export class PlantDaysPage implements OnInit {
     ) { }
   
     ngOnInit() {
-      this.family = this.route.snapshot.paramMap.get('familia') || '';
+      this.familia = this.route.snapshot.paramMap.get('familia') || '';
 
       const profile = localStorage.getItem('profile');
       this.userUid = profile ? JSON.parse(profile).id : '';
@@ -44,7 +47,10 @@ export class PlantDaysPage implements OnInit {
       this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
       .subscribe(all => {
         // 1) filtrar y ordenar…
-        const filtered = all.filter(p => p.family === this.family);
+        const filtered = all.filter(p => p.familia === this.familia);
+        const plantaSeleccionada = filtered[0]; // o la que quieras según algún criterio
+        this.nombrePlanta = plantaSeleccionada?.name || '';
+
         // 2) normalizar date: puede ser Timestamp de Firestore o string ISO
         this.entries = filtered.map(e => {
           let d: Date;
@@ -67,9 +73,10 @@ export class PlantDaysPage implements OnInit {
           const tb = b.date.getTime();
           return tb - ta;
         });
-
+        
+        this.filteredEntries = this.entries;
         this.selectedLocation = this.uniqueLocations()[0] || '';
-        this.cdr.detectChanges();
+        this.cdr.detectChanges();        
       });
   }
     back() {
@@ -86,8 +93,18 @@ export class PlantDaysPage implements OnInit {
      * Navegar a crear una nueva entrada, pasando la familia por parámetro
      */
     goToNewEntry() {
-      this.navCtrl.navigateForward(['/new-plant']);
+      this.navCtrl.navigateForward(['/new-plant-historial'], {
+        state: {
+          planta: {
+            familia: this.familia,
+            name: this.nombrePlanta,
+            userUid: this.userUid,
+          }
+        }
+      });
     }
+    
+    
     detalle(entryId: string) {
       this.navCtrl.navigateForward(['/plant-detalle', entryId]);
     }
@@ -117,14 +134,23 @@ export class PlantDaysPage implements OnInit {
     }
     
     // opcional: manejar selección de ubicación
-    selectedLocation = '';
     selectLocation(loc: string) {
       this.selectedLocation = loc;
-      // aquí podrías filtrar entries según la ubicación
+      this.filteredEntries = this.entries.filter(e => e.location === loc);
+      this.cdr.detectChanges(); // fuerza actualización de la vista
     }
+    
+    
     getLocationImage(loc: string): string {
       // Ejemplo: archivo por nombre
       return `assets/images/location-${loc.toLowerCase()}.jpg`;
+    }
+    ngAfterViewInit() {
+      // Quita el foco de cualquier elemento activo (como botones del login/signup)
+      const activeEl = document.activeElement as HTMLElement;
+      if (activeEl && typeof activeEl.blur === 'function') {
+        activeEl.blur();
+      }
     }
   }
   

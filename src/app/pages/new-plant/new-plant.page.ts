@@ -24,7 +24,7 @@ export class NewPlantPage implements OnInit {
   imageSrc: string | null = null;
   location = '';      // <-- nuevo: lugar en la casa
   day = '';           // <-- nuevo: día (por ejemplo, "Lunes" o fecha)
-  family = '';
+  familia = '';
   clima = '';
 
   constructor(
@@ -56,7 +56,7 @@ export class NewPlantPage implements OnInit {
     location: this.location,
     day: this.day,
     clima: this.clima,
-    family: this.family,
+    familia: this.familia,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     image: this.imageSrc || '', // guardá la imagen principal también aquí
   };

@@ -26,10 +26,10 @@
 
     <!-- CAMPOS CON OUTLINE + FLOATING LABEL -->
    
-      <ion-item lines="none" class="custom-field">
-        <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="name" name = "name"></ion-input>
-      </ion-item>
+    <ion-item lines="none" class="custom-field">
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="name" name="name" readonly></ion-input>
+    </ion-item>    
       
       <ion-item lines="none" class="custom-field">
         <ion-label position="stacked">Descripción</ion-label>
@@ -48,15 +48,6 @@
           required>
         </ion-input>
       </ion-item>
-
-      <ion-item lines="none" class="custom-field">
-        <ion-label position="stacked">Día</ion-label>
-        <ion-input
-          [(ngModel)]="day"
-          name="day"
-          required>
-        </ion-input>
-      </ion-item>
    
       <ion-item lines="none" class="custom-field">
         <ion-label position="stacked">Clima</ion-label>
@@ -69,12 +60,9 @@
 
       <ion-item lines="none" class="custom-field">
         <ion-label position="stacked">Familia</ion-label>
-        <ion-input
-          [(ngModel)]="familia"
-          name="familia"
-          required>
-        </ion-input>
-      </ion-item>
+        <ion-input [(ngModel)]="familia" name="familia" readonly></ion-input>
+      </ion-item>      
+      
 
     <!-- BOTONES -->
     <div class="button-group">
@@ -83,7 +71,7 @@
         fill="outline"
         shape="round"
         class="btn-submit"
-        [disabled]="!name || !location || !day || !clima || !familia"
+        [disabled]="!name || !location || !clima || !familia"
       >
         Subir
       </ion-button>

@@ -164,6 +164,26 @@ export class DatabaseService {
     });
   }
 
+  // Agrega un registro de historial a una planta específica de un usuario
+  addPlantHistory(userId: string, plantId: string, data: any): Promise<any> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore
+        .collection(`users/${userId}/mis-plantas/${plantId}/historial`)
+        .add(data);
+    });
+  }
+  
+  // Obtiene todos los registros de historial de una planta específica de un usuario
+  getPlantHistory(userId: string, plantId: string): Observable<any[]> {
+    return runInInjectionContext(this.injector, () => {
+      return this.firestore
+        .collection(`users/${userId}/mis-plantas/${plantId}/historial`)
+        .valueChanges({ idField: 'id' });
+    });
+  }
+
+
+
 
   // Verifica si un documento existe en una colección
   async documentExists(collection: string, uid: string): Promise<boolean> {

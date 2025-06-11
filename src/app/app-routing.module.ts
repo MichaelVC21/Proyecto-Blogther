@@ -155,6 +155,10 @@ const routes: Routes = [
     path: 'camera',
     loadChildren: () => import('./pages/camera/camera.module').then( m => m.CameraPageModule)
   },
+  {
+    path: 'new-plant-historial',
+    loadChildren: () => import('./pages/new-plant-historial/new-plant-historial.module').then( m => m.NewPlantHistorialPageModule)
+  },
   
 ];
 
