@@ -29,6 +29,7 @@ export class PlantDaysPage implements OnInit, AfterViewInit {
     filteredEntries: PlantEntry[] = [];
     selectedLocation = '';
     entries: PlantEntry[] = [];
+    plantId = '';
   
     constructor(
       private route: ActivatedRoute,
@@ -39,46 +40,48 @@ export class PlantDaysPage implements OnInit, AfterViewInit {
     ) { }
   
     ngOnInit() {
-      this.familia = this.route.snapshot.paramMap.get('familia') || '';
-
+      this.plantId = this.route.snapshot.paramMap.get('id') || '';
+    
       const profile = localStorage.getItem('profile');
       this.userUid = profile ? JSON.parse(profile).id : '';
-
-      this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
-      .subscribe(all => {
-        // 1) filtrar y ordenar…
-        const filtered = all.filter(p => p.familia === this.familia);
-        const plantaSeleccionada = filtered[0]; // o la que quieras según algún criterio
-        this.nombrePlanta = plantaSeleccionada?.name || '';
-
-        // 2) normalizar date: puede ser Timestamp de Firestore o string ISO
-        this.entries = filtered.map(e => {
+    
+      // ✅ Paso 1: Obtener los datos base de la planta
+      this.db.getDocument(`users/${this.userUid}/mis-plantas`, this.plantId)
+        .subscribe(planta => {
+          if (planta) {
+            this.familia = planta.familia || '';
+            this.nombrePlanta = planta.name || '';
+          }
+        });
+    
+      // ✅ Paso 2: Obtener sólo el historial (no duplicado)
+      this.db.getPlantHistory(this.userUid, this.plantId).subscribe(historial => {
+        this.entries = historial.map(e => {
           let d: Date;
           if (e.date?.toDate) {
-            // Firebase Timestamp
             d = e.date.toDate();
           } else if (typeof e.date === 'string') {
             d = new Date(e.date);
           } else {
-            d = new Date();       // fallback hoy
+            d = new Date(); // fallback
           }
+      
           return {
             ...e,
-            date: d
+            date: d,
+            location: e.location || 'Sin ubicación', // Asegúrate de que siempre tenga un valor
           };
-        })
-        // 3) ordenar por createdAt o por date si lo prefieres
-        .sort((a, b) => {
-          const ta = a.date.getTime();
-          const tb = b.date.getTime();
-          return tb - ta;
-        });
-        
+        }).sort((a, b) => b.date.getTime() - a.date.getTime());
+      
         this.filteredEntries = this.entries;
         this.selectedLocation = this.uniqueLocations()[0] || '';
-        this.cdr.detectChanges();        
+        this.cdr.detectChanges();
       });
-  }
+      
+    }
+    
+    
+    
     back() {
       this.navCtrl.back();
     }
@@ -86,7 +89,7 @@ export class PlantDaysPage implements OnInit, AfterViewInit {
      * Navegar al detalle de una entrada concreta
      */
     goToEntry(entryId: string) {
-      this.navCtrl.navigateForward(['/plant-detalle', entryId]);
+      this.navCtrl.navigateForward(['/plant-detalle', this.plantId, entryId]);
     }
   
     /**
@@ -96,18 +99,19 @@ export class PlantDaysPage implements OnInit, AfterViewInit {
       this.navCtrl.navigateForward(['/new-plant-historial'], {
         state: {
           planta: {
+            id: this.route.snapshot.paramMap.get('id'),
             familia: this.familia,
             name: this.nombrePlanta,
             userUid: this.userUid,
           }
         }
       });
-    }
+    }    
     
     
     detalle(entryId: string) {
-      this.navCtrl.navigateForward(['/plant-detalle', entryId]);
-    }
+      this.navCtrl.navigateForward(['/plant-detalle', this.plantId, entryId]);
+    }    
     getImageUrl(image?: string): string {
       // Si la imagen es una URL válida, devuélvela. Si es falsy, usa placeholder.
       if (image && (image.startsWith('http://') || image.startsWith('https://'))) {

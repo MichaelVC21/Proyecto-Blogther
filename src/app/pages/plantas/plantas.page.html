@@ -14,23 +14,26 @@
         <img src="https://static.vecteezy.com/system/resources/thumbnails/041/714/449/small_2x/ai-generated-green-wall-of-tropical-plants-on-a-transparent-background-png.png" alt="Mis plantas" />
       </ion-card>
       <div class="grid">
-    <!-- Cada tarjeta de planta -->
-    <ion-card
-      *ngFor="let plant of plantCategories"
-      (click)="goToDetail(plant.name)"
+      <!-- Cada tarjeta de planta -->
+      <ion-card
+      *ngFor="let plant of allPlants"
+      (click)="goToDetail(plant.id!)"
       class="plant-card"
-    >
+      >
+
       <div class="card-image">
         <img
-          [src]="plant.entries[0].image"
+          [src]="plant.image"
           [alt]="plant.name"
         />
       </div>
       <ion-card-content>
         <ion-card-subtitle class="plant-name">
-          {{ plant.name }}
-          
+          {{ plant.familia || 'Sin familia' }}
         </ion-card-subtitle>
+        <ion-card-title>
+          {{ plant.name }}
+        </ion-card-title>
       </ion-card-content>
     </ion-card>
 

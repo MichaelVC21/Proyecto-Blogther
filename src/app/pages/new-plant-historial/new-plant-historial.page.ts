@@ -27,6 +27,7 @@ export class NewPlantHistorialPage implements OnInit {
   day = '';           // <-- nuevo: día (por ejemplo, "Lunes" o fecha)
   familia = '';
   clima = '';
+  plantId: string | null = null; // ID de la planta, recibido desde la página anterior
 
   constructor(
     private router: Router,
@@ -38,18 +39,20 @@ export class NewPlantHistorialPage implements OnInit {
 
   ngOnInit(): void {
     const planta = history.state.planta;
+    this.plantId = planta?.id; 
+
     if (planta) {
+      this.plantId = planta.id;
       this.familia = planta.familia;
       this.location = planta.location || '';
       this.clima = planta.clima || '';
       this.name = planta.name || '';
-      this.description = planta.description || '';
-      this.imageSrc = planta.image || '';
+      this.description = '';
+      this.imageSrc = '';
     } else {
-      console.warn('No se recibieron datos de la planta para editar.');
+      console.warn('No se recibieron datos de la planta.');
     }
-  }
-  
+  }  
   
 
   back() {
@@ -59,45 +62,30 @@ export class NewPlantHistorialPage implements OnInit {
   /** Toma los datos del formulario y crea un nuevo documento en Firestore */
   async handleSubmit() {
     const user = await this.afAuth.currentUser;
-    if (!user) {
-      console.error('Usuario no autenticado');
+    if (!user || !this.plantId) {
+      console.error('Falta el usuario o el ID de planta');
       return;
     }
   
-    const plantaId = new Date().getTime().toString(); // o usa uuid si preferís
-    const data = {
-      name: this.name,
-      description: this.description,
-      location: this.location,
-      clima: this.clima,
-      familia: this.familia,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    const historialInicial = {
+      date: new Date().toISOString(),
+      description: 'Registro inicial',
       image: this.imageSrc || '',
+      location: this.location || '',   // <-- Agregado
+      familia: this.familia || '',     // <-- Opcional
+      clima: this.clima || '',         // <-- Opcional
+      day: this.day || '',             // <-- Opcional
     };
+    
   
     try {
-      // 1. Guardar la planta en mis-plantas
-      await this.db.addUserSubcollectionDocumentWithId(user.uid, 'mis-plantas', plantaId, data);
-  
-      // 2. Crear primer historial automáticamente
-      const historialData = {
-        description: this.description,
-        date: new Date(),
-        image: this.imageSrc || '',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-      await this.db.addPlantHistory(user.uid, plantaId, historialData);
-  
-      // 3. Redirigir a plant-days/:id
-      if (this.familia) {
-        this.router.navigate(['/plant-days', this.familia]);
-      } else {
-        console.warn('No se puede redirigir porque falta la familia');
-      }
+      await this.db.addPlantHistory(user.uid, this.plantId, historialInicial);
+      this.router.navigate(['/plant-days', this.plantId]);
     } catch (error) {
-      console.error('Error al agregar la planta o historial:', error);
+      console.error('Error al agregar historial:', error);
     }
   }
+   
   
 
   
@@ -107,7 +95,7 @@ export class NewPlantHistorialPage implements OnInit {
     try {
       const photo: Photo = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl,
-        source: CameraSource.Camera,
+        source: CameraSource.Prompt,
         quality: 90,
       });
       this.imageSrc = photo.dataUrl!;

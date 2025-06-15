@@ -14,11 +14,12 @@
       <!-- Nombre y etiqueta Día -->
       <h2 class="plant-name">{{ entry.name }}</h2>
   
-      <div class="detail-image-container">
+      <!-- Muestra solo un registro del historial -->
+      <div class="detail-image-container" *ngIf="entry">
         <img [src]="entry.image || 'assets/placeholder.svg'" />
-        <span class="day-label">Día {{ entry.day }}</span>
+        <span class="day-label">{{ entry.date | date:'fullDate' }}</span>
       </div>
-  
+
       <!-- Modo LECTURA -->
       <div *ngIf="!showForm">
         <p class="description">

@@ -49,7 +49,7 @@ export class NewPlantPage implements OnInit {
     return;
   }
 
-  const plantaId = new Date().getTime().toString(); // o usa uuid
+  const plantaId = new Date().getTime().toString(); // o usa UUID si prefieres
   const data = {
     name: this.name,
     description: this.description,
@@ -58,14 +58,30 @@ export class NewPlantPage implements OnInit {
     clima: this.clima,
     familia: this.familia,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    image: this.imageSrc || '', // guardá la imagen principal también aquí
+    image: this.imageSrc || '', // Imagen principal
   };
 
   try {
+    // 1. Crear planta
     await this.db.addUserSubcollectionDocumentWithId(user.uid, 'mis-plantas', plantaId, data);
+
+    // 2. Crear registro inicial en historial
+    const historialInicial = {
+      date: new Date().toISOString(),
+      description: 'Registro inicial',
+      image: this.imageSrc || '', // Puedes usar la misma imagen si querés
+      familia: this.familia,
+      location: this.location,
+      clima: this.clima,
+      userUid: user.uid, // Agregar el UID del usuario
+    };
+
+    await this.db.addPlantHistory(user.uid, plantaId, historialInicial);
+
+    // 3. Redireccionar
     this.router.navigate(['/plantas']);
   } catch (error) {
-    console.error('Error al agregar la planta:', error);
+    console.error('Error al agregar la planta o el historial:', error);
   }
 }
 
@@ -76,7 +92,7 @@ export class NewPlantPage implements OnInit {
     try {
       const photo: Photo = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl,
-        source: CameraSource.Camera,
+        source: CameraSource.Prompt,
         quality: 90,
       });
       this.imageSrc = photo.dataUrl!;
