@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/database.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -26,27 +26,53 @@ export class PlantasPage implements OnInit {
   plantCategories: PlantCategory[] = [];
   userUid = '';
   allPlants: PlantEntry[] = [];
+  
+  // Restricciones para usuarios no premium
+  readonly MAX_PLANTAS_GRATUITAS = 2;
+  isPremium = false;
+  plantasDisponibles = 0;
 
   constructor(
     private db: DatabaseService,
     private auth: AuthService,
     private navCtrl: NavController,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
-    // Obtener el uid del usuario (igual que en tu CalendarioPage)
+    // Obtener el uid del usuario
     const profileString = localStorage.getItem('profile');
-    this.userUid = profileString ? JSON.parse(profileString).id : 'demo-user';
+    if (profileString) {
+      const profile = JSON.parse(profileString);
+      this.userUid = profile.id || 'demo-user';
+      this.isPremium = profile.usertype === 'premium';
+    } else {
+      this.userUid = 'demo-user';
+      this.isPremium = false;
+    }
 
-    // Suscribirnos a toda la colección “plantas”
+    // Suscribirnos a toda la colección "plantas"
     this.db.getSubcollection(`users/${this.userUid}`, 'mis-plantas')
       .subscribe(pls => {
         this.allPlants = pls;
+        this.calcularPlantasDisponibles();
         this.groupByFamily();
         this.cdr.detectChanges();
       });
   }
 
   ngOnInit() {}
+
+  private calcularPlantasDisponibles() {
+    const plantasActuales = this.allPlants
+      .filter(p => !p.userUid || p.userUid === this.userUid).length;
+    
+    if (this.isPremium) {
+      this.plantasDisponibles = -1; // Ilimitado
+    } else {
+      this.plantasDisponibles = this.MAX_PLANTAS_GRATUITAS - plantasActuales;
+    }
+  }
 
   private groupByFamily() {
     const mapFam: Record<string, PlantEntry[]> = {};
@@ -69,10 +95,70 @@ export class PlantasPage implements OnInit {
     this.navCtrl.navigateForward(['/plant-days', plantId]);
   }
 
-  goToNewPlant() {
+  async goToNewPlant() {
+    // Verificar si el usuario puede añadir más plantas
+    if (!this.isPremium && this.plantasDisponibles <= 0) {
+      await this.mostrarAlertaLimitePlantas();
+      return;
+    }
     this.navCtrl.navigateForward(['/new-plant']);
   }
+
+  // Mostrar alerta cuando se alcanza el límite de plantas
+  async mostrarAlertaLimitePlantas() {
+    const alert = await this.alertController.create({
+      header: '¡Límite Alcanzado!',
+      message: `Has alcanzado el límite de ${this.MAX_PLANTAS_GRATUITAS} plantas para usuarios gratuitos. ¡Hazte Premium para añadir plantas ilimitadas!`,
+      buttons: [
+        {
+          text: 'Tal vez luego',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: '¡Hacerme Premium!',
+          cssClass: 'premium-button',
+          handler: () => {
+            this.irAPremium();
+          }
+        }
+      ],
+      cssClass: 'limit-alert'
+    });
+
+    await alert.present();
+  }
+
+  // Navegar a la suscripción premium
+  irAPremium() {
+    this.navCtrl.navigateForward(['/metodo-pago']);
+  }
+
+  // Mostrar toast informativo
+  async mostrarToast(mensaje: string, color: string = 'primary') {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 3000,
+      color: color,
+      position: 'top'
+    });
+    await toast.present();
+  }
+
   back() {
     this.navCtrl.back();
+  }
+
+  // Getter para mostrar información del estado de la cuenta
+  get estadoCuenta(): string {
+    if (this.isPremium) {
+      return 'Premium';
+    }
+    return `Gratuito (${this.plantasDisponibles}/${this.MAX_PLANTAS_GRATUITAS} plantas disponibles)`;
+  }
+
+  // Getter para verificar si se puede añadir plantas
+  get puedeAñadirPlantas(): boolean {
+    return this.isPremium || this.plantasDisponibles > 0;
   }
 }
