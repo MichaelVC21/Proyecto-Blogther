@@ -69,7 +69,7 @@ export class NewPlantHistorialPage implements OnInit {
   
     const historialInicial = {
       date: new Date().toISOString(),
-      description: 'Registro inicial',
+      description: this.description || '',
       image: this.imageSrc || '',
       location: this.location || '',   // <-- Agregado
       familia: this.familia || '',     // <-- Opcional
