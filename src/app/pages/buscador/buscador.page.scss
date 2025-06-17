@@ -30,6 +30,7 @@
   ion-header {
     box-shadow: var(--shadow-soft);
     text-align: center;
+    line-height: 1.5;
   
     ion-toolbar {
       --background: var(--background-white);
@@ -54,9 +55,11 @@
     margin: 20px;
     border-radius: 50px;
     background: white;
-    color: #757575;    
+    color: #757575;  
+    line-height: 1.5;  
   
     .custom-searchbar {
+      line-height: 1.5;
       background: transparent;
       --border-radius: 50px;
       --box-shadow: none;
@@ -77,6 +80,7 @@
     background: var(--background-white);
     padding: 8px 12px 12px 12px;
     border-bottom: 1px solid #eee;
+    line-height: 1.5;
   
     .search-filters {
       --background: transparent;
@@ -93,6 +97,7 @@
         min-height: 32px;
         padding: 4px 8px;
         transition: color 0.2s ease;
+        line-height: 1.5;
   
         ion-label {
           margin: 0;

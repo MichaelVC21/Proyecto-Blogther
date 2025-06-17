@@ -58,10 +58,7 @@
         </ion-input>
       </ion-item>
 
-      <ion-item lines="none" class="custom-field">
-        <ion-label position="stacked">Familia</ion-label>
-        <ion-input [(ngModel)]="familia" name="familia" readonly></ion-input>
-      </ion-item>      
+         
       
 
     <!-- BOTONES -->
@@ -71,7 +68,7 @@
         fill="outline"
         shape="round"
         class="btn-submit"
-        [disabled]="!name || !location || !clima || !familia"
+        [disabled]="!name || !location || !clima"
       >
         Subir
       </ion-button>

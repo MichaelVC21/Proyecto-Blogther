@@ -1,15 +1,15 @@
-<ion-header>
-  <ion-toolbar color="light" class="custom-toolbar">
-    <ion-buttons slot="start">
+<ion-header >
+  <ion-toolbar    class="custom-toolbar" >
+    <ion-buttons  slot="start">
       <ion-button fill="clear" (click)="back()">
-        <ion-icon name="arrow-back-outline"></ion-icon>
+        <ion-icon  name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="custom-title">Historial</ion-title>
+    <ion-title  class="custom-title">Historial</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="plant-detail-content" fullscreen>
+<ion-content  class="plant-detail-content" fullscreen>
   <div class="scroll-wrapper">
 
     <!-- Nombre de la familia -->
@@ -83,7 +83,16 @@
         <h3>{{ entry.familia }}</h3>
         <p>{{ entry.location || 'Sin ubicación' }}</p>
         <p>{{ entry.date | date: 'shortDate' }}</p>
-        <ion-button *ngIf="entry.id" (click)="goToEntry(entry.id)">Ver detalle</ion-button>
+        <ion-button style="
+  --background: #8B9773;
+  --color: white;
+  --border-radius: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-family: 'Quicksand', sans-serif;
+" *ngIf="entry.id" (click)="goToEntry(entry.id)">Ver detalle</ion-button>
       </div>
     </div>
 

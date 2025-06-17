@@ -193,10 +193,53 @@ ion-content{
       text-transform: capitalize;
     }
   }
+
   ion-chip.selected {
     --background: #4caf50;
     --color: white;
     font-weight: bold;
   }
   
+  .entry-card {
+  display: flex;
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  gap: 16px;
   
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .entry-info {
+    flex: 1;
+    
+    h3 {
+      margin: 0 0 8px 0;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    p {
+      font-family: 'Quicksand', sans-serif;
+      margin: 4px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.ion-button {
+  --background: #8B9773;
+  --color: white;
+  --border-radius: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-family: 'Quicksand', sans-serif;
+}

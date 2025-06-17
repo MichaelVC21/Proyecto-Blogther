@@ -1,6 +1,7 @@
 
 :host {
     --ion-background-color: #F5F5ED;
+
   }
   
   /* FOTO CARD */
@@ -55,7 +56,9 @@
   }
   
   .custom-field ion-label {
-    font-size: 0.9rem;
+      font-family: 'Concert One', sans-serif;
+
+    font-size: 16px;
     color: #2E4A39;
     margin-bottom: 4px;
   }
@@ -64,6 +67,7 @@
   .custom-field ion-select,
   .custom-field ion-datetime {
     /* Quitar padding interno duplicado */
+    font-family: 'Quicksand', sans-serif;
     --padding-start: 0;
     --padding-end: 0;
     --padding-top: 0;
@@ -74,6 +78,8 @@
   
   /* BOTONES */
   .button-group {
+    font-family: 'Quicksand', sans-serif;
+
     display: flex;
     gap: 16px;
     margin: 0 auto 24px;               /* centrar y separación abajo */
@@ -83,6 +89,7 @@
   
   .btn-submit,
   .btn-cancel {
+    font-family: 'Quicksand', sans-serif;
     flex: 1;
     height: 44px;
     border-radius: 9999px;
@@ -116,11 +123,14 @@
   }
   .new-plant-content {
       /* opcional: deja espacio bajo el header */
+      font-family: 'Quicksand', sans-serif;
       --padding-top: 20px;
       /* si tu tab-bar sigue ahí, déjale espacio abajo también */
       --padding-bottom: 20px;
     }
   ion-content > form > ion-item{
+     font-family: 'Quicksand', sans-serif;
+
     width: 330px;
     height: auto;
   }
