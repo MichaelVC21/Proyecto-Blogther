@@ -77,41 +77,51 @@
   
   // Filtros optimizados para móvil
   .filters-container {
-    background: var(--background-white);
-    padding: 8px 12px 12px 12px;
-    border-bottom: 1px solid #eee;
-    line-height: 1.5;
-  
-    .search-filters {
+  background: var(--background-white);
+  padding: 8px 12px 12px 12px;
+  border-bottom: 1px solid #eee;
+  line-height: 1.5;
+  overflow-x: auto; /* Para permitir scroll si no caben */
+  white-space: nowrap;
+
+  .search-filters {
+    --background: transparent;
+    display: inline-flex; /* Asegura que no se colapsen */
+    min-width: max-content; /* Que ocupe el espacio mínimo necesario */
+
+    ion-segment-button {
+      --indicator-color: var(--primary-green);
+      --indicator-height: 2px;
+      --color: var(--text-muted);
+      --color-checked: var(--primary-green);
       --background: transparent;
-  
-      ion-segment-button {
-        --indicator-color: var(--primary-green);
-        --indicator-height: 2px;
-        --color: var(--text-muted);
-        --color-checked: var(--primary-green);
-        --background: transparent;
-        --background-checked: transparent;
-        font-size: 12px;
-        font-weight: 500;
-        min-height: 32px;
-        padding: 4px 8px;
-        transition: color 0.2s ease;
-        line-height: 1.5;
-  
-        ion-label {
-          margin: 0;
-  
-          .result-count {
-            font-size: 10px;
-            opacity: 0.8;
-            font-weight: 400;
-            margin-left: 2px;
-          }
-        }
+      --background-checked: transparent;
+      font-size: 12px;
+      font-weight: 500;
+      min-height: 32px;
+      padding: 4px 8px;
+      transition: color 0.2s ease;
+      line-height: 1.5;
+
+      flex: 0 0 auto; /* Evita que se achiquen */
+
+      ion-label {
+        margin: 0;
+        white-space: nowrap;     /* Que no haga salto de línea */
+        overflow: visible;       /* Que no esconda contenido */
+        text-overflow: unset;    /* Que no recorte con "..." */
+      }
+
+      .result-count {
+        font-size: 10px;
+        opacity: 0.8;
+        font-weight: 400;
+        margin-left: 2px;
       }
     }
   }
+}
+
   
   // Estados de carga y vacío
   .loading-container {
@@ -404,21 +414,8 @@
       padding: 16px 24px;
     }
   
-    .filters-container {
-      padding: 12px 24px 16px 24px;
-  
-      .search-filters {
-        ion-segment-button {
-          font-size: 13px;
-          min-height: 36px;
-          padding: 6px 12px;
-  
-          .result-count {
-            font-size: 11px;
-          }
-        }
-      }
-    }
+ 
+
   
     .results-container {
       padding: 16px 24px;
@@ -556,7 +553,7 @@
     }
   
     .filters-container {
-      padding: 16px 32px 20px 32px;
+      padding: 16px 16px 20px 16px;
     }
   
     .results-container {

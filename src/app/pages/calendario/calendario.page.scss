@@ -7,14 +7,24 @@
 
 
 
-.calendar-header {
-  --background: var(--beige-bg);
-  
-  ion-title {
+ion-header {
+  box-shadow: none !important;
+  --box-shadow: none !important;
+  border-bottom: none !important;
+  --background: #F5F5ED !important;
+  text-align: center;
+   ion-toolbar {
+      --background: #F5F5ED;
+   
+   ion-title {
     color: #363b29;
     font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+        font-size: 18px;
   }
 }
+}
+
 
 .calendar-wrapper {
   background: var(--beige-bg);
@@ -23,6 +33,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+}
+  .calendar-wrapper ion-datetime {
+   --background: var(--beige-bg) !important;       /* color principal */
+  --background-rgb: 245, 245, 237 !important;  
+  color: #363b29 !important;                  /* Cambia el texto seleccionado */
+  --wheel-highlight-background: var(--main-green); 
+   --ion-color-primary: var(--main-green) !important;
+  /* versión RGB para sombreado interno */
+  --ion-color-primary-rgb: 124, 134, 96      !important;  
+
+}
+
+calendar-wrapper ion-datetime::part(calendar-day Date-selected) {
+  background: var(--main-green) !important;  /* tu verde */
+  color: white         !important;           /* texto en blanco */
+}
+
+.calendar-wrapper ion-datetime::part(calendar-day today) {
+  border: 1px solid var(--main-green) !important;
+  color: var(--main-green) !important;
+}
+
+/* 2) Pinta de beige el botón de mes/año y el botón de hora */
+.calendar-wrapper ion-datetime::part(month-year-button),
+.calendar-wrapper ion-datetime::part(time-button) {
+  background: var(--beige-bg);
 }
 
 

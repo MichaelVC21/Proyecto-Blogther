@@ -1,3 +1,24 @@
+ion-content {
+    --background: #F5F5ED;
+  }
+  
+  .plantas-header {
+    --background: #F5F5ED;
+    text-align: center;
+    
+    ion-toolbar {
+      --background: #F5F5ED;
+      --color: #2c3e50;
+      text-align: center;
+      
+       ion-title {
+    color: #363b29;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+        font-size: 18px;
+  }
+    }
+  }
 .plant-list-content {
   --background: #faf8f0;
   padding: 1rem;
@@ -6,10 +27,10 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  padding-bottom: 5rem;
-  padding-left: 7px;
-  padding-right: 7px;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .plant-card {
@@ -279,6 +300,6 @@
   
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
+    gap: 0rem;
   }
 }
